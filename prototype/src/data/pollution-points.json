@@ -1,0 +1,409 @@
+{
+  "metadata": {
+    "description": "Pollution heatmap points around Dhaka riverine system",
+    "source": "Based on real industrial cluster locations in Hazaribagh, Lalbagh, Tongi, and Savar",
+    "ndti_range": "0.3 (low) to 0.95 (critical)",
+    "projection": "WGS84 (EPSG:4326)"
+  },
+  "points": [
+    {
+      "lat": 23.738,
+      "lng": 90.358,
+      "intensity": 0.95,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.7365,
+      "lng": 90.3595,
+      "intensity": 0.92,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.735,
+      "lng": 90.357,
+      "intensity": 0.88,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.7345,
+      "lng": 90.356,
+      "intensity": 0.9,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.737,
+      "lng": 90.355,
+      "intensity": 0.87,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.7355,
+      "lng": 90.3585,
+      "intensity": 0.91,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.734,
+      "lng": 90.3575,
+      "intensity": 0.86,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.7335,
+      "lng": 90.359,
+      "intensity": 0.84,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.7375,
+      "lng": 90.3565,
+      "intensity": 0.89,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.736,
+      "lng": 90.354,
+      "intensity": 0.83,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.7385,
+      "lng": 90.3575,
+      "intensity": 0.8,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.733,
+      "lng": 90.3555,
+      "intensity": 0.78,
+      "zone": "Hazaribagh",
+      "type": "Tannery"
+    },
+    {
+      "lat": 23.731,
+      "lng": 90.361,
+      "intensity": 0.72,
+      "zone": "Downstream",
+      "type": "Plume"
+    },
+    {
+      "lat": 23.729,
+      "lng": 90.3625,
+      "intensity": 0.68,
+      "zone": "Downstream",
+      "type": "Plume"
+    },
+    {
+      "lat": 23.727,
+      "lng": 90.364,
+      "intensity": 0.65,
+      "zone": "Downstream",
+      "type": "Plume"
+    },
+    {
+      "lat": 23.725,
+      "lng": 90.365,
+      "intensity": 0.6,
+      "zone": "Downstream",
+      "type": "Plume"
+    },
+    {
+      "lat": 23.723,
+      "lng": 90.366,
+      "intensity": 0.55,
+      "zone": "Downstream",
+      "type": "Plume"
+    },
+    {
+      "lat": 23.721,
+      "lng": 90.367,
+      "intensity": 0.5,
+      "zone": "Downstream",
+      "type": "Plume"
+    },
+    {
+      "lat": 23.73,
+      "lng": 90.3615,
+      "intensity": 0.7,
+      "zone": "Downstream",
+      "type": "Plume"
+    },
+    {
+      "lat": 23.728,
+      "lng": 90.363,
+      "intensity": 0.66,
+      "zone": "Downstream",
+      "type": "Plume"
+    },
+    {
+      "lat": 23.72,
+      "lng": 90.37,
+      "intensity": 0.58,
+      "zone": "Kamrangirchar",
+      "type": "Mixed"
+    },
+    {
+      "lat": 23.719,
+      "lng": 90.372,
+      "intensity": 0.55,
+      "zone": "Kamrangirchar",
+      "type": "Mixed"
+    },
+    {
+      "lat": 23.718,
+      "lng": 90.374,
+      "intensity": 0.52,
+      "zone": "Kamrangirchar",
+      "type": "Mixed"
+    },
+    {
+      "lat": 23.717,
+      "lng": 90.373,
+      "intensity": 0.5,
+      "zone": "Kamrangirchar",
+      "type": "Mixed"
+    },
+    {
+      "lat": 23.7195,
+      "lng": 90.371,
+      "intensity": 0.56,
+      "zone": "Kamrangirchar",
+      "type": "Mixed"
+    },
+    {
+      "lat": 23.724,
+      "lng": 90.389,
+      "intensity": 0.74,
+      "zone": "Lalbagh",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.725,
+      "lng": 90.39,
+      "intensity": 0.72,
+      "zone": "Lalbagh",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.7235,
+      "lng": 90.388,
+      "intensity": 0.7,
+      "zone": "Lalbagh",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.726,
+      "lng": 90.391,
+      "intensity": 0.68,
+      "zone": "Lalbagh",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.7245,
+      "lng": 90.387,
+      "intensity": 0.65,
+      "zone": "Lalbagh",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.723,
+      "lng": 90.3895,
+      "intensity": 0.63,
+      "zone": "Lalbagh",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.88,
+      "lng": 90.4,
+      "intensity": 0.76,
+      "zone": "Tongi",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.882,
+      "lng": 90.402,
+      "intensity": 0.74,
+      "zone": "Tongi",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.884,
+      "lng": 90.398,
+      "intensity": 0.72,
+      "zone": "Tongi",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.881,
+      "lng": 90.401,
+      "intensity": 0.73,
+      "zone": "Tongi",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.883,
+      "lng": 90.399,
+      "intensity": 0.71,
+      "zone": "Tongi",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.879,
+      "lng": 90.403,
+      "intensity": 0.69,
+      "zone": "Tongi",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.885,
+      "lng": 90.397,
+      "intensity": 0.67,
+      "zone": "Tongi",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.878,
+      "lng": 90.404,
+      "intensity": 0.65,
+      "zone": "Tongi",
+      "type": "Textile"
+    },
+    {
+      "lat": 23.86,
+      "lng": 90.33,
+      "intensity": 0.7,
+      "zone": "Savar DEPZ",
+      "type": "Garments"
+    },
+    {
+      "lat": 23.862,
+      "lng": 90.332,
+      "intensity": 0.68,
+      "zone": "Savar DEPZ",
+      "type": "Garments"
+    },
+    {
+      "lat": 23.858,
+      "lng": 90.328,
+      "intensity": 0.65,
+      "zone": "Savar DEPZ",
+      "type": "Garments"
+    },
+    {
+      "lat": 23.861,
+      "lng": 90.331,
+      "intensity": 0.67,
+      "zone": "Savar DEPZ",
+      "type": "Garments"
+    },
+    {
+      "lat": 23.859,
+      "lng": 90.329,
+      "intensity": 0.63,
+      "zone": "Savar DEPZ",
+      "type": "Garments"
+    },
+    {
+      "lat": 23.69,
+      "lng": 90.48,
+      "intensity": 0.6,
+      "zone": "Shitalakshya",
+      "type": "Mixed"
+    },
+    {
+      "lat": 23.692,
+      "lng": 90.482,
+      "intensity": 0.58,
+      "zone": "Shitalakshya",
+      "type": "Mixed"
+    },
+    {
+      "lat": 23.688,
+      "lng": 90.478,
+      "intensity": 0.55,
+      "zone": "Shitalakshya",
+      "type": "Mixed"
+    },
+    {
+      "lat": 23.691,
+      "lng": 90.481,
+      "intensity": 0.57,
+      "zone": "Shitalakshya",
+      "type": "Mixed"
+    },
+    {
+      "lat": 23.689,
+      "lng": 90.479,
+      "intensity": 0.53,
+      "zone": "Shitalakshya",
+      "type": "Mixed"
+    },
+    {
+      "lat": 23.75,
+      "lng": 90.38,
+      "intensity": 0.4,
+      "zone": "Scattered",
+      "type": "Low"
+    },
+    {
+      "lat": 23.76,
+      "lng": 90.39,
+      "intensity": 0.35,
+      "zone": "Scattered",
+      "type": "Low"
+    },
+    {
+      "lat": 23.77,
+      "lng": 90.4,
+      "intensity": 0.3,
+      "zone": "Scattered",
+      "type": "Low"
+    },
+    {
+      "lat": 23.74,
+      "lng": 90.41,
+      "intensity": 0.38,
+      "zone": "Scattered",
+      "type": "Low"
+    },
+    {
+      "lat": 23.73,
+      "lng": 90.42,
+      "intensity": 0.32,
+      "zone": "Scattered",
+      "type": "Low"
+    },
+    {
+      "lat": 23.8,
+      "lng": 90.36,
+      "intensity": 0.42,
+      "zone": "Scattered",
+      "type": "Low"
+    },
+    {
+      "lat": 23.81,
+      "lng": 90.37,
+      "intensity": 0.38,
+      "zone": "Scattered",
+      "type": "Low"
+    },
+    {
+      "lat": 23.82,
+      "lng": 90.38,
+      "intensity": 0.35,
+      "zone": "Scattered",
+      "type": "Low"
+    }
+  ]
+}

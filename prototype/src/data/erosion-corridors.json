@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "description": "Erosion risk corridors along Jamuna River near Sirajganj",
+    "source": "Based on Sentinel-1 SAR analysis methodology from Freihardt & Frey (2023)",
+    "doi": "10.5281/zenodo.7252970",
+    "gee_script": "https://code.earthengine.google.com/b1ba16d48320a3501e89135679d97492",
+    "methodology": "SAR backscatter thresholding with 12-day temporal analysis"
+  },
+  "corridors": [
+    {
+      "id": "E001",
+      "name": "Sirajganj East Bank — Critical",
+      "risk_level": "high",
+      "color": "#ef476f",
+      "retreat_rate_m_year": 45,
+      "affected_area_ha": 12.3,
+      "population_at_risk": 2400,
+      "coordinates": [
+        [24.46, 89.72],
+        [24.455, 89.728],
+        [24.445, 89.73],
+        [24.44, 89.726],
+        [24.435, 89.722],
+        [24.44, 89.714],
+        [24.45, 89.712],
+        [24.458, 89.716],
+        [24.46, 89.72]
+      ],
+      "analysis": {
+        "sar_coherence": 0.32,
+        "backscatter_trend": "decreasing",
+        "monsoon_impact": "severe"
+      }
+    },
+    {
+      "id": "E002",
+      "name": "Kazipur Char — Critical",
+      "risk_level": "high",
+      "color": "#ef476f",
+      "retreat_rate_m_year": 38,
+      "affected_area_ha": 8.7,
+      "population_at_risk": 1800,
+      "coordinates": [
+        [24.48, 89.7],
+        [24.475, 89.71],
+        [24.465, 89.712],
+        [24.46, 89.706],
+        [24.462, 89.696],
+        [24.47, 89.692],
+        [24.478, 89.696],
+        [24.48, 89.7]
+      ],
+      "analysis": {
+        "sar_coherence": 0.35,
+        "backscatter_trend": "decreasing",
+        "monsoon_impact": "severe"
+      }
+    },
+    {
+      "id": "E003",
+      "name": "Chowhali West Bank — Active",
+      "risk_level": "medium",
+      "color": "#ffa500",
+      "retreat_rate_m_year": 18,
+      "affected_area_ha": 5.2,
+      "population_at_risk": 950,
+      "coordinates": [
+        [24.42, 89.74],
+        [24.415, 89.748],
+        [24.408, 89.75],
+        [24.404, 89.744],
+        [24.406, 89.736],
+        [24.412, 89.733],
+        [24.418, 89.735],
+        [24.42, 89.74]
+      ],
+      "analysis": {
+        "sar_coherence": 0.48,
+        "backscatter_trend": "stable",
+        "monsoon_impact": "moderate"
+      }
+    },
+    {
+      "id": "E004",
+      "name": "Belkuchi Stable Zone",
+      "risk_level": "low",
+      "color": "#06d6a0",
+      "retreat_rate_m_year": 3,
+      "affected_area_ha": 1.1,
+      "population_at_risk": 120,
+      "coordinates": [
+        [24.5, 89.68],
+        [24.496, 89.688],
+        [24.49, 89.69],
+        [24.486, 89.684],
+        [24.488, 89.676],
+        [24.494, 89.674],
+        [24.498, 89.676],
+        [24.5, 89.68]
+      ],
+      "analysis": {
+        "sar_coherence": 0.72,
+        "backscatter_trend": "stable",
+        "monsoon_impact": "minimal"
+      }
+    }
+  ],
+  "statistics": {
+    "total_high_risk_area_ha": 21.0,
+    "total_medium_risk_area_ha": 5.2,
+    "total_low_risk_area_ha": 1.1,
+    "estimated_annual_loss_ha": 8.5,
+    "displaced_population_yearly": 5300
+  }
+}
