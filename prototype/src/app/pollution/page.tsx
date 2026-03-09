@@ -2,7 +2,15 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { Factory, AlertTriangle, Info, ExternalLink, Zap, Target, FlaskConical } from "lucide-react";
+import {
+  Factory,
+  AlertTriangle,
+  Info,
+  ExternalLink,
+  Zap,
+  Target,
+  FlaskConical,
+} from "lucide-react";
 import { useState } from "react";
 
 // Dynamic import for map (requires window)
@@ -20,10 +28,30 @@ const PollutionMap = dynamic(() => import("@/components/PollutionMap"), {
 
 // Spectral signatures for pollution classification
 const pollutionTypes = [
-  { type: "Textile Dye", signature: "High Red/Blue ratio", color: "bg-purple-500", pct: "45%" },
-  { type: "Tannery Effluent", signature: "High NDTI + organic load", color: "bg-amber-600", pct: "30%" },
-  { type: "Chemical Discharge", signature: "SWIR anomalies", color: "bg-red-500", pct: "15%" },
-  { type: "Thermal Pollution", signature: "Temperature spikes", color: "bg-orange-500", pct: "10%" },
+  {
+    type: "Textile Dye",
+    signature: "High Red/Blue ratio",
+    color: "bg-purple-500",
+    pct: "45%",
+  },
+  {
+    type: "Tannery Effluent",
+    signature: "High NDTI + organic load",
+    color: "bg-amber-600",
+    pct: "30%",
+  },
+  {
+    type: "Chemical Discharge",
+    signature: "SWIR anomalies",
+    color: "bg-red-500",
+    pct: "15%",
+  },
+  {
+    type: "Thermal Pollution",
+    signature: "Temperature spikes",
+    color: "bg-orange-500",
+    pct: "10%",
+  },
 ];
 
 export default function PollutionPage() {
@@ -52,9 +80,10 @@ export default function PollutionPage() {
               </h1>
             </div>
             <p className="text-[var(--muted)] max-w-2xl">
-              60% of Dhaka&apos;s river pollution is industrial, yet among 2,500+ factories, 
-              pinpointing the source is impossible without spectral evidence. NodiWatch profiles 
-              effluent type and assigns probability scores to nearby industries.
+              60% of Dhaka&apos;s river pollution is industrial, yet among
+              2,500+ factories, pinpointing the source is impossible without
+              spectral evidence. NodiWatch profiles effluent type and assigns
+              probability scores to nearby industries.
             </p>
           </div>
           <button
@@ -71,7 +100,9 @@ export default function PollutionPage() {
           <div className="glass-card p-4 border-red-500/20">
             <p className="text-sm text-[var(--muted)]">Industrial Pollution</p>
             <p className="text-2xl font-bold text-red-500">60%</p>
-            <p className="text-xs text-[var(--muted)]">of Dhaka river pollution (IWM)</p>
+            <p className="text-xs text-[var(--muted)]">
+              of Dhaka river pollution (IWM)
+            </p>
           </div>
           <div className="glass-card p-4">
             <p className="text-sm text-[var(--muted)]">Factories Tracked</p>
@@ -81,7 +112,9 @@ export default function PollutionPage() {
           <div className="glass-card p-4">
             <p className="text-sm text-[var(--muted)]">Attribution Accuracy</p>
             <p className="text-2xl font-bold text-teal-500">78%</p>
-            <p className="text-xs text-[var(--muted)]">Bayesian probability model</p>
+            <p className="text-xs text-[var(--muted)]">
+              Bayesian probability model
+            </p>
           </div>
           <div className="glass-card p-4">
             <p className="text-sm text-[var(--muted)]">Spectral Indices</p>
@@ -104,11 +137,13 @@ export default function PollutionPage() {
                 <Zap className="w-4 h-4 text-red-500" />
                 River Pollution: Satellite View
               </h3>
-              <p className="text-sm text-[var(--muted)]">Industrial effluent visible from space — 2016 vs 2026</p>
+              <p className="text-sm text-[var(--muted)]">
+                Industrial effluent visible from space — 2016 vs 2026
+              </p>
             </div>
             <div className="relative aspect-video">
-              <Image 
-                src="/pollution_comparison.png" 
+              <Image
+                src="/pollution_comparison.png"
                 alt="River Pollution Satellite Comparison"
                 fill
                 className="object-cover"
@@ -121,11 +156,13 @@ export default function PollutionPage() {
                 <Target className="w-4 h-4 text-purple-500" />
                 Polluted River Assessment
               </h3>
-              <p className="text-sm text-[var(--muted)]">Real satellite monitoring: Industrial discharge patterns</p>
+              <p className="text-sm text-[var(--muted)]">
+                Real satellite monitoring: Industrial discharge patterns
+              </p>
             </div>
             <div className="relative aspect-video">
-              <Image 
-                src="/polluted_river.png" 
+              <Image
+                src="/polluted_river.png"
                 alt="Polluted River Satellite Monitoring"
                 fill
                 className="object-cover"
@@ -141,12 +178,17 @@ export default function PollutionPage() {
             Spectral Fingerprinting Module
           </h3>
           <p className="text-sm text-[var(--muted)] mb-4">
-            Random Forest classifier learns unique spectral signatures to classify pollution types. Each polluted zone 
-            gets classified by effluent type, then a Bayesian proximity model ranks nearby factories.
+            Random Forest classifier learns unique spectral signatures to
+            classify pollution types. Each polluted zone gets classified by
+            effluent type, then a Bayesian proximity model ranks nearby
+            factories.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {pollutionTypes.map((p) => (
-              <div key={p.type} className="p-4 bg-white/5 rounded-lg border border-[var(--border)]">
+              <div
+                key={p.type}
+                className="p-4 bg-white/5 rounded-lg border border-[var(--border)]"
+              >
                 <div className="flex items-center gap-2 mb-2">
                   <div className={`w-3 h-3 rounded-full ${p.color}`} />
                   <span className="font-medium text-sm">{p.type}</span>
@@ -207,7 +249,9 @@ export default function PollutionPage() {
               >
                 <div>
                   <p className="text-sm font-medium">Sentinel-2 MSI SR</p>
-                  <p className="text-xs text-teal-500 font-mono">10m resolution • 5-day revisit</p>
+                  <p className="text-xs text-teal-500 font-mono">
+                    10m resolution • 5-day revisit
+                  </p>
                 </div>
                 <ExternalLink className="w-4 h-4 text-[var(--muted)]" />
               </a>
@@ -219,7 +263,9 @@ export default function PollutionPage() {
               >
                 <div>
                   <p className="text-sm font-medium">OpenStreetMap Factories</p>
-                  <p className="text-xs text-teal-500 font-mono">Industry geolocation data</p>
+                  <p className="text-xs text-teal-500 font-mono">
+                    Industry geolocation data
+                  </p>
                 </div>
                 <ExternalLink className="w-4 h-4 text-[var(--muted)]" />
               </a>

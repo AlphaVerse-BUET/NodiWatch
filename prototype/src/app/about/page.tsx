@@ -26,20 +26,29 @@ const stakeholders = [
     icon: Building2,
     color: "teal",
     orgs: [
-      { name: "DoE", desc: "Automated pollution tracking & industrial cluster profiling" },
+      {
+        name: "DoE",
+        desc: "Automated pollution tracking & industrial cluster profiling",
+      },
       { name: "NRCC", desc: "Monitor 1,400+ rivers for encroachment" },
       { name: "BWDB", desc: "Erosion early warning & embankment planning" },
       { name: "DDM", desc: "Evacuation & disaster response coordination" },
-    ]
+    ],
   },
   {
     category: "Financial & Legal",
     icon: Scale,
     color: "blue",
     orgs: [
-      { name: "Banks", desc: "Automated 'Green Banking' due diligence per Bangladesh Bank mandate" },
-      { name: "Environmental Courts", desc: "Time-series satellite intelligence for targeted prosecution" },
-    ]
+      {
+        name: "Banks",
+        desc: "Automated 'Green Banking' due diligence per Bangladesh Bank mandate",
+      },
+      {
+        name: "Environmental Courts",
+        desc: "Time-series satellite intelligence for targeted prosecution",
+      },
+    ],
   },
   {
     category: "International Partners",
@@ -47,18 +56,40 @@ const stakeholders = [
     color: "purple",
     orgs: [
       { name: "World Bank", desc: "ESG compliance data for funded projects" },
-      { name: "UNDP Bangladesh", desc: "Erosion risk maps for resettlement planning" },
+      {
+        name: "UNDP Bangladesh",
+        desc: "Erosion risk maps for resettlement planning",
+      },
       { name: "ADB", desc: "Environmental infrastructure monitoring" },
-      { name: "Global RMG Buyers", desc: "Supply chain environmental due diligence" },
-    ]
+      {
+        name: "Global RMG Buyers",
+        desc: "Supply chain environmental due diligence",
+      },
+    ],
   },
 ];
 
 const impacts = [
-  { icon: Shield, title: "Triple Enforcement", desc: "One platform addresses pollution, encroachment AND erosion — three crises, one intelligent system." },
-  { icon: Scale, title: "Legal Evidence", desc: "10-year comparison provides court-admissible proof of river narrowing and pollution sources." },
-  { icon: AlertCircle, title: "Early Warning", desc: "Erosion risk maps alert authorities before ~10,000 hectares are lost annually." },
-  { icon: Leaf, title: "Climate Resilience", desc: "Erosion projected to increase 13% by 2050 — NodiWatch provides real-time adaptation infrastructure." },
+  {
+    icon: Shield,
+    title: "Triple Enforcement",
+    desc: "One platform addresses pollution, encroachment AND erosion — three crises, one intelligent system.",
+  },
+  {
+    icon: Scale,
+    title: "Legal Evidence",
+    desc: "10-year comparison provides court-admissible proof of river narrowing and pollution sources.",
+  },
+  {
+    icon: AlertCircle,
+    title: "Early Warning",
+    desc: "Erosion risk maps alert authorities before ~10,000 hectares are lost annually.",
+  },
+  {
+    icon: Leaf,
+    title: "Climate Resilience",
+    desc: "Erosion projected to increase 13% by 2050 — NodiWatch provides real-time adaptation infrastructure.",
+  },
 ];
 
 export default function AboutPage() {
@@ -74,8 +105,9 @@ export default function AboutPage() {
             <span className="gradient-text">NodiWatch</span>
           </h1>
           <p className="text-xl text-[var(--muted)] mb-6 max-w-2xl mx-auto">
-            AI-Powered Satellite Surveillance for Bangladesh&apos;s River Ecosystems —
-            Monitoring <span className="text-red-400">Pollution (নদী দূষণ)</span>,{" "}
+            AI-Powered Satellite Surveillance for Bangladesh&apos;s River
+            Ecosystems — Monitoring{" "}
+            <span className="text-red-400">Pollution (নদী দূষণ)</span>,{" "}
             <span className="text-yellow-400">Encroachment (নদী দখল)</span>, and{" "}
             <span className="text-blue-400">Erosion (নদী ভাঙন)</span>
           </p>
@@ -91,27 +123,39 @@ export default function AboutPage() {
           <div className="flex flex-col md:flex-row items-start gap-6">
             <Target className="w-12 h-12 text-[var(--primary)] flex-shrink-0" />
             <div>
-              <h2 className="text-2xl font-bold mb-4">The Triple-Blind Crisis</h2>
+              <h2 className="text-2xl font-bold mb-4">
+                The Triple-Blind Crisis
+              </h2>
               <p className="text-[var(--muted)] leading-relaxed mb-4">
-                Bangladesh&apos;s rivers face three interconnected crises that current monitoring systems cannot address:
+                Bangladesh&apos;s rivers face three interconnected crises that
+                current monitoring systems cannot address:
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
-                  <h3 className="font-bold text-red-400 mb-2">The Accountability Gap</h3>
+                  <h3 className="font-bold text-red-400 mb-2">
+                    The Accountability Gap
+                  </h3>
                   <p className="text-sm text-[var(--muted)]">
-                    Among 2,500+ factories, pinpointing the exact pollution source is impossible without spectral evidence.
+                    Among 2,500+ factories, pinpointing the exact pollution
+                    source is impossible without spectral evidence.
                   </p>
                 </div>
                 <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-                  <h3 className="font-bold text-yellow-400 mb-2">Silent Encroachment</h3>
+                  <h3 className="font-bold text-yellow-400 mb-2">
+                    Silent Encroachment
+                  </h3>
                   <p className="text-sm text-[var(--muted)]">
-                    40% of Dhaka&apos;s riverbanks seized through slow, incremental land filling — undetected until permanent.
+                    40% of Dhaka&apos;s riverbanks seized through slow,
+                    incremental land filling — undetected until permanent.
                   </p>
                 </div>
                 <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                  <h3 className="font-bold text-blue-400 mb-2">Vanishing Banks</h3>
+                  <h3 className="font-bold text-blue-400 mb-2">
+                    Vanishing Banks
+                  </h3>
                   <p className="text-sm text-[var(--muted)]">
-                    ~10,000 hectares lost yearly, displacing 1M+ people, costing $500M annually — impossible to field-survey.
+                    ~10,000 hectares lost yearly, displacing 1M+ people, costing
+                    $500M annually — impossible to field-survey.
                   </p>
                 </div>
               </div>
@@ -137,7 +181,9 @@ export default function AboutPage() {
                   {group.orgs.map((org) => (
                     <div key={org.name} className="p-3 bg-white/5 rounded-lg">
                       <p className="font-medium text-sm">{org.name}</p>
-                      <p className="text-xs text-[var(--muted)] mt-1">{org.desc}</p>
+                      <p className="text-xs text-[var(--muted)] mt-1">
+                        {org.desc}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -171,8 +217,12 @@ export default function AboutPage() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           <div className="glass-card p-6 border-teal-500/20">
-            <span className="badge badge-teal mb-4">FREE TIER — Open Access</span>
-            <p className="text-sm text-[var(--muted)] mb-4">Available to all — no cost, no login:</p>
+            <span className="badge badge-teal mb-4">
+              FREE TIER — Open Access
+            </span>
+            <p className="text-sm text-[var(--muted)] mb-4">
+              Available to all — no cost, no login:
+            </p>
             <ul className="text-sm space-y-2">
               <li>• Basic river health heatmap (public dashboard)</li>
               <li>• Monthly pollution severity snapshots per river</li>
@@ -182,8 +232,12 @@ export default function AboutPage() {
             </ul>
           </div>
           <div className="glass-card p-6 border-purple-500/20">
-            <span className="badge badge-purple mb-4">PAID TIER — Premium Intelligence</span>
-            <p className="text-sm text-[var(--muted)] mb-4">For government, banks, international orgs:</p>
+            <span className="badge badge-purple mb-4">
+              PAID TIER — Premium Intelligence
+            </span>
+            <p className="text-sm text-[var(--muted)] mb-4">
+              For government, banks, international orgs:
+            </p>
             <ul className="text-sm space-y-2">
               <li>• Real-time tri-layer heatmaps with attribution</li>
               <li>• Unlimited intelligence report generation</li>
@@ -212,15 +266,15 @@ export default function AboutPage() {
             <Brain className="w-10 h-10 text-purple-400 mx-auto mb-4" />
             <h3 className="font-bold mb-2">AI/ML Models</h3>
             <p className="text-sm text-[var(--muted)]">
-              CNN for water segmentation (~86% IoU), Random Forest for pollution classification,
-              Bayesian attribution, SVM/ANN erosion prediction
+              CNN for water segmentation (~86% IoU), Random Forest for pollution
+              classification, Bayesian attribution, SVM/ANN erosion prediction
             </p>
           </div>
           <div className="glass-card p-6 text-center">
             <Globe className="w-10 h-10 text-green-400 mx-auto mb-4" />
             <h3 className="font-bold mb-2">Platform</h3>
             <p className="text-sm text-[var(--muted)]">
-              Google Earth Engine cloud processing, PostGIS database, 
+              Google Earth Engine cloud processing, PostGIS database,
               React/Next.js dashboard, REST API for integrations
             </p>
           </div>
@@ -230,8 +284,8 @@ export default function AboutPage() {
         <div className="glass-card p-6 mb-12">
           <h3 className="font-bold mb-4 text-center">System Architecture</h3>
           <div className="bg-[#0a0e1a] rounded-lg p-4">
-            <Image 
-              src="/architecture_diagram.svg" 
+            <Image
+              src="/architecture_diagram.svg"
               alt="NodiWatch System Architecture"
               width={1200}
               height={600}
@@ -248,11 +302,36 @@ export default function AboutPage() {
         <div className="glass-card p-6 mb-12">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
             {[
-              { initials: "AR", name: "Arifuzzaman Rakin", role: "Team Lead", skills: "GEE & Remote Sensing" },
-              { initials: "TM", name: "Team Member", role: "ML Engineer", skills: "Computer Vision" },
-              { initials: "TM", name: "Team Member", role: "Backend Dev", skills: "Python & APIs" },
-              { initials: "TM", name: "Team Member", role: "Frontend Dev", skills: "Next.js & UI" },
-              { initials: "TM", name: "Team Member", role: "Research", skills: "Environmental Science" },
+              {
+                initials: "AR",
+                name: "Arifuzzaman Rakin",
+                role: "Team Lead",
+                skills: "GEE & Remote Sensing",
+              },
+              {
+                initials: "TM",
+                name: "Team Member",
+                role: "ML Engineer",
+                skills: "Computer Vision",
+              },
+              {
+                initials: "TM",
+                name: "Team Member",
+                role: "Backend Dev",
+                skills: "Python & APIs",
+              },
+              {
+                initials: "TM",
+                name: "Team Member",
+                role: "Frontend Dev",
+                skills: "Next.js & UI",
+              },
+              {
+                initials: "TM",
+                name: "Team Member",
+                role: "Research",
+                skills: "Environmental Science",
+              },
             ].map((member, i) => (
               <div key={i} className="text-center">
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-500 to-blue-500 mx-auto mb-3 flex items-center justify-center text-xl font-bold">

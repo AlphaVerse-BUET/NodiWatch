@@ -2,7 +2,14 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { Waves, AlertTriangle, Users, Home, Satellite, TrendingUp } from "lucide-react";
+import {
+  Waves,
+  AlertTriangle,
+  Users,
+  Home,
+  Satellite,
+  TrendingUp,
+} from "lucide-react";
 
 const ErosionMap = dynamic(() => import("@/components/ErosionMap"), {
   ssr: false,
@@ -26,11 +33,14 @@ export default function ErosionPage() {
             <h1 className="text-3xl font-bold flex items-center gap-3">
               <Waves className="text-blue-500" />
               Erosion Risk Forecasting
-              <span className="text-[var(--muted)] font-normal text-xl">নদী ভাঙন</span>
+              <span className="text-[var(--muted)] font-normal text-xl">
+                নদী ভাঙন
+              </span>
             </h1>
             <p className="text-[var(--muted)] mt-2 max-w-xl">
-              ~10,000 hectares vanish yearly, displacing 1 million+ people across 94 upazilas.
-              Sentinel-1 SAR radar works through monsoon clouds for real-time erosion prediction.
+              ~10,000 hectares vanish yearly, displacing 1 million+ people
+              across 94 upazilas. Sentinel-1 SAR radar works through monsoon
+              clouds for real-time erosion prediction.
             </p>
           </div>
           <div className="flex items-center gap-4">
@@ -79,7 +89,7 @@ export default function ErosionPage() {
               Extreme Erosion Alert — Jamuna Corridor N3
             </p>
             <p className="text-sm text-[var(--muted)]">
-              12m/year retreat rate detected. BWDB embankment priority zone. 
+              12m/year retreat rate detected. BWDB embankment priority zone.
               Early warning issued to DDM for preemptive evacuation planning.
             </p>
           </div>
@@ -98,12 +108,13 @@ export default function ErosionPage() {
                 Riverbank Erosion: 2016 vs 2026
               </h3>
               <p className="text-sm text-[var(--muted)]">
-                ~500m of land lost to erosion over 10 years — visible from satellite
+                ~500m of land lost to erosion over 10 years — visible from
+                satellite
               </p>
             </div>
             <div className="relative aspect-video">
-              <Image 
-                src="/erosion_comparison.png" 
+              <Image
+                src="/erosion_comparison.png"
                 alt="Riverbank Erosion Satellite Comparison"
                 fill
                 className="object-cover"
@@ -116,9 +127,12 @@ export default function ErosionPage() {
               Why SAR for Erosion?
             </h3>
             <p className="text-sm text-[var(--muted)] mb-4">
-              Sentinel-1 SAR radar penetrates monsoon clouds (12-day revisit cycle) — 
-              <strong className="text-white">critical for Bangladesh&apos;s rainy season</strong>. 
-              When optical satellites are blind, SAR continues monitoring.
+              Sentinel-1 SAR radar penetrates monsoon clouds (12-day revisit
+              cycle) —
+              <strong className="text-white">
+                critical for Bangladesh&apos;s rainy season
+              </strong>
+              . When optical satellites are blind, SAR continues monitoring.
             </p>
             <div className="space-y-3">
               <div className="p-3 bg-white/5 rounded-lg">
@@ -126,21 +140,29 @@ export default function ErosionPage() {
                   <span className="text-sm">Cloud Penetration</span>
                   <span className="badge badge-teal">100%</span>
                 </div>
-                <p className="text-xs text-[var(--muted)] mt-1">Works through monsoon clouds</p>
+                <p className="text-xs text-[var(--muted)] mt-1">
+                  Works through monsoon clouds
+                </p>
               </div>
               <div className="p-3 bg-white/5 rounded-lg">
                 <div className="flex justify-between items-center">
                   <span className="text-sm">Night Operation</span>
                   <span className="badge badge-blue">24/7</span>
                 </div>
-                <p className="text-xs text-[var(--muted)] mt-1">Active radar, not dependent on sunlight</p>
+                <p className="text-xs text-[var(--muted)] mt-1">
+                  Active radar, not dependent on sunlight
+                </p>
               </div>
               <div className="p-3 bg-white/5 rounded-lg">
                 <div className="flex justify-between items-center">
                   <span className="text-sm">GEE Research Paper</span>
-                  <span className="badge badge-purple">DOI: 10.5281/zenodo.7252970</span>
+                  <span className="badge badge-purple">
+                    DOI: 10.5281/zenodo.7252970
+                  </span>
                 </div>
-                <p className="text-xs text-[var(--muted)] mt-1">Freihardt & Frey (2023) methodology</p>
+                <p className="text-xs text-[var(--muted)] mt-1">
+                  Freihardt & Frey (2023) methodology
+                </p>
               </div>
             </div>
           </div>

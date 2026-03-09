@@ -105,7 +105,6 @@ export default function Dashboard() {
   return (
     <div className="pt-20 pb-12 px-6">
       <div className="max-w-7xl mx-auto space-y-10">
-        
         {/* Hero Section with Dashboard Preview */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-8">
           <div className="space-y-6">
@@ -121,11 +120,16 @@ export default function Dashboard() {
               </p>
             </div>
             <p className="text-[var(--muted)] leading-relaxed">
-              One platform addresses <strong className="text-red-400">pollution (নদী দূষণ)</strong>,{" "}
-              <strong className="text-yellow-400">encroachment (নদী দখল)</strong>, and{" "}
-              <strong className="text-blue-400">erosion (নদী ভাঙন)</strong> — three crises 
-              threatening Bangladesh&apos;s 1,400+ rivers. Transform 10 years of free satellite 
-              imagery into actionable enforcement intelligence.
+              One platform addresses{" "}
+              <strong className="text-red-400">pollution (নদী দূষণ)</strong>,{" "}
+              <strong className="text-yellow-400">
+                encroachment (নদী দখল)
+              </strong>
+              , and{" "}
+              <strong className="text-blue-400">erosion (নদী ভাঙন)</strong> —
+              three crises threatening Bangladesh&apos;s 1,400+ rivers.
+              Transform 10 years of free satellite imagery into actionable
+              enforcement intelligence.
             </p>
             <div className="flex flex-wrap gap-3">
               <span className="badge badge-red">নদী দূষণ • Pollution</span>
@@ -133,7 +137,7 @@ export default function Dashboard() {
               <span className="badge badge-blue">নদী ভাঙন • Erosion</span>
             </div>
             <div className="pt-4">
-              <Link 
+              <Link
                 href="/pollution"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold rounded-lg hover:opacity-90 transition-opacity"
               >
@@ -143,9 +147,9 @@ export default function Dashboard() {
           </div>
           <div className="relative">
             <div className="glass-card p-2 overflow-hidden">
-              <Image 
-                src="/dashboard_mockup.png" 
-                alt="NodiWatch Tri-Layer Dashboard" 
+              <Image
+                src="/dashboard_mockup.png"
+                alt="NodiWatch Tri-Layer Dashboard"
                 width={700}
                 height={500}
                 className="rounded-lg w-full object-cover"
@@ -153,7 +157,10 @@ export default function Dashboard() {
               />
             </div>
             <div className="absolute -bottom-4 -right-4 glass-card px-4 py-2 text-sm">
-              <span className="text-teal-500 font-semibold">Team AlphaVerse</span> • Phase 2
+              <span className="text-teal-500 font-semibold">
+                Team AlphaVerse
+              </span>{" "}
+              • Phase 2
             </div>
           </div>
         </div>
@@ -161,7 +168,8 @@ export default function Dashboard() {
         {/* Problem Stats - Real Bangladesh Data */}
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-center">
-            Bangladesh&apos;s Rivers Face a <span className="text-red-500">Triple Threat</span>
+            Bangladesh&apos;s Rivers Face a{" "}
+            <span className="text-red-500">Triple Threat</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {stats.map((stat) => {
@@ -172,20 +180,28 @@ export default function Dashboard() {
                 yellow: "text-yellow-500 bg-yellow-500/10 border-yellow-500/30",
                 blue: "text-blue-500 bg-blue-500/10 border-blue-500/30",
               };
-              const colors = colorClasses[stat.color as keyof typeof colorClasses];
+              const colors =
+                colorClasses[stat.color as keyof typeof colorClasses];
 
               return (
-                <div key={stat.label} className={`glass-card p-6 border ${colors.split(' ')[2]}`}>
+                <div
+                  key={stat.label}
+                  className={`glass-card p-6 border ${colors.split(" ")[2]}`}
+                >
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="text-sm text-[var(--muted)]">{stat.label}</p>
+                      <p className="text-sm text-[var(--muted)]">
+                        {stat.label}
+                      </p>
                       <p className="text-3xl font-bold mt-1">{stat.value}</p>
                       <p className="text-xs text-[var(--muted)] mt-2 flex items-center gap-1">
                         <TrendingUp className="w-3 h-3" />
                         {stat.change}
                       </p>
                     </div>
-                    <div className={`p-3 rounded-lg ${colors.split(' ')[0]} ${colors.split(' ')[1]}`}>
+                    <div
+                      className={`p-3 rounded-lg ${colors.split(" ")[0]} ${colors.split(" ")[1]}`}
+                    >
                       <Icon className="w-6 h-6" />
                     </div>
                   </div>
@@ -201,10 +217,16 @@ export default function Dashboard() {
             <AlertTriangle className="w-6 h-6 text-red-500 animate-pulse" />
           </div>
           <div className="flex-1 min-w-[200px]">
-            <p className="font-semibold text-red-500">Critical Alert: Hazaribagh Zone A</p>
+            <p className="font-semibold text-red-500">
+              Critical Alert: Hazaribagh Zone A
+            </p>
             <p className="text-sm text-[var(--muted)]">
-              NDTI Index: 0.82 (threshold: 0.45) — Tannery effluent signature detected • 
-              <span className="text-red-400"> 78% probability: Textile cluster</span>
+              NDTI Index: 0.82 (threshold: 0.45) — Tannery effluent signature
+              detected •
+              <span className="text-red-400">
+                {" "}
+                78% probability: Textile cluster
+              </span>
             </p>
           </div>
           <Link
@@ -240,7 +262,8 @@ export default function Dashboard() {
                   btn: "bg-blue-500/10 text-blue-500 hover:bg-blue-500/20",
                 },
               };
-              const colors = colorClasses[feature.color as keyof typeof colorClasses];
+              const colors =
+                colorClasses[feature.color as keyof typeof colorClasses];
 
               return (
                 <Link
@@ -249,7 +272,7 @@ export default function Dashboard() {
                   className={`group glass-card overflow-hidden transition-all ${colors.border}`}
                 >
                   <div className="relative h-40 overflow-hidden">
-                    <Image 
+                    <Image
                       src={feature.image}
                       alt={feature.title}
                       fill
@@ -264,13 +287,17 @@ export default function Dashboard() {
                       </div>
                       <div className="flex-1">
                         <h3 className="font-bold text-lg">{feature.title}</h3>
-                        <p className="text-sm text-[var(--muted)]">{feature.bengali}</p>
+                        <p className="text-sm text-[var(--muted)]">
+                          {feature.bengali}
+                        </p>
                       </div>
                     </div>
                     <p className="text-sm text-[var(--muted)] mt-4 leading-relaxed">
                       {feature.description}
                     </p>
-                    <div className={`inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${colors.btn}`}>
+                    <div
+                      className={`inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${colors.btn}`}
+                    >
                       Explore <ArrowRight className="w-4 h-4" />
                     </div>
                   </div>
@@ -285,12 +312,13 @@ export default function Dashboard() {
           <div className="glass-card p-6 space-y-4">
             <h3 className="text-xl font-bold">📸 Citizen Ground-Truth</h3>
             <p className="text-[var(--muted)]">
-              Community members upload geotagged photos of pollution, encroachment, or erosion. 
-              GPS-validated against satellite data for enforcement-grade evidence.
+              Community members upload geotagged photos of pollution,
+              encroachment, or erosion. GPS-validated against satellite data for
+              enforcement-grade evidence.
             </p>
             <div className="relative h-48 rounded-lg overflow-hidden">
-              <Image 
-                src="/citizen_ground_truth.png" 
+              <Image
+                src="/citizen_ground_truth.png"
                 alt="Citizen Ground Truth Platform"
                 fill
                 className="object-cover"
@@ -300,12 +328,13 @@ export default function Dashboard() {
           <div className="glass-card p-6 space-y-4">
             <h3 className="text-xl font-bold">🛰️ Satellite Evidence</h3>
             <p className="text-[var(--muted)]">
-              10-year comparison reveals the truth: river width shrinks from 300m to 120m.
-              Auto-generates enforcement-grade intelligence reports for DoE, NRCC, and courts.
+              10-year comparison reveals the truth: river width shrinks from
+              300m to 120m. Auto-generates enforcement-grade intelligence
+              reports for DoE, NRCC, and courts.
             </p>
             <div className="relative h-48 rounded-lg overflow-hidden">
-              <Image 
-                src="/polluted_river.png" 
+              <Image
+                src="/polluted_river.png"
                 alt="River Pollution from Satellite"
                 fill
                 className="object-cover"
@@ -316,12 +345,17 @@ export default function Dashboard() {
 
         {/* Stakeholders */}
         <div className="glass-card p-6 space-y-6">
-          <h2 className="text-xl font-bold text-center">Who Needs This Solved?</h2>
+          <h2 className="text-xl font-bold text-center">
+            Who Needs This Solved?
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {stakeholders.map((s) => {
               const Icon = s.icon;
               return (
-                <div key={s.name} className="text-center p-4 bg-white/5 rounded-lg border border-[var(--border)]">
+                <div
+                  key={s.name}
+                  className="text-center p-4 bg-white/5 rounded-lg border border-[var(--border)]"
+                >
                   <div className="w-12 h-12 mx-auto bg-teal-500/10 rounded-full flex items-center justify-center mb-2">
                     <Icon className="w-6 h-6 text-teal-500" />
                   </div>
@@ -337,12 +371,13 @@ export default function Dashboard() {
         <div className="glass-card p-6 space-y-4">
           <h2 className="text-xl font-bold text-center">System Architecture</h2>
           <p className="text-center text-[var(--muted)] max-w-2xl mx-auto">
-            Production-grade microservice architecture processing 6 satellite datasets through 
-            Google Earth Engine, AI models, and PostGIS for real-time intelligence.
+            Production-grade microservice architecture processing 6 satellite
+            datasets through Google Earth Engine, AI models, and PostGIS for
+            real-time intelligence.
           </p>
           <div className="relative bg-[#0a0e1a] rounded-lg p-4 overflow-auto">
-            <Image 
-              src="/architecture_diagram.svg" 
+            <Image
+              src="/architecture_diagram.svg"
               alt="NodiWatch System Architecture"
               width={1200}
               height={600}
@@ -358,10 +393,15 @@ export default function Dashboard() {
             {techStack.map((tech) => {
               const Icon = tech.icon;
               return (
-                <div key={tech.name} className="p-3 bg-white/5 rounded-lg border border-[var(--border)] text-center">
+                <div
+                  key={tech.name}
+                  className="p-3 bg-white/5 rounded-lg border border-[var(--border)] text-center"
+                >
                   <Icon className="w-5 h-5 mx-auto text-teal-500 mb-2" />
                   <p className="font-medium text-sm">{tech.name}</p>
-                  <p className="text-xs text-[var(--muted)] mt-1">{tech.desc}</p>
+                  <p className="text-xs text-[var(--muted)] mt-1">
+                    {tech.desc}
+                  </p>
                 </div>
               );
             })}
@@ -370,16 +410,46 @@ export default function Dashboard() {
 
         {/* Data Sources */}
         <div className="glass-card p-6">
-          <h2 className="text-lg font-bold mb-4">Verified GEE Dataset Catalog</h2>
+          <h2 className="text-lg font-bold mb-4">
+            Verified GEE Dataset Catalog
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {[
-              { name: "Sentinel-2 MSI SR", id: "COPERNICUS/S2_SR_HARMONIZED", res: "10m", use: "NDTI, MNDWI" },
-              { name: "Sentinel-1 SAR GRD", id: "COPERNICUS/S1_GRD", res: "10m", use: "Erosion (cloud-free)" },
-              { name: "JRC Surface Water", id: "JRC/GSW1_4/GlobalSurfaceWater", res: "30m", use: "1984–2021 history" },
-              { name: "Landsat 9 SR", id: "LANDSAT/LC09/C02/T1_L2", res: "30m", use: "Long-term baseline" },
-              { name: "OpenStreetMap", id: "Overpass API", res: "Vector", use: "Factory geolocation" },
+              {
+                name: "Sentinel-2 MSI SR",
+                id: "COPERNICUS/S2_SR_HARMONIZED",
+                res: "10m",
+                use: "NDTI, MNDWI",
+              },
+              {
+                name: "Sentinel-1 SAR GRD",
+                id: "COPERNICUS/S1_GRD",
+                res: "10m",
+                use: "Erosion (cloud-free)",
+              },
+              {
+                name: "JRC Surface Water",
+                id: "JRC/GSW1_4/GlobalSurfaceWater",
+                res: "30m",
+                use: "1984–2021 history",
+              },
+              {
+                name: "Landsat 9 SR",
+                id: "LANDSAT/LC09/C02/T1_L2",
+                res: "30m",
+                use: "Long-term baseline",
+              },
+              {
+                name: "OpenStreetMap",
+                id: "Overpass API",
+                res: "Vector",
+                use: "Factory geolocation",
+              },
             ].map((ds) => (
-              <div key={ds.name} className="p-4 bg-white/5 rounded-lg border border-[var(--border)]">
+              <div
+                key={ds.name}
+                className="p-4 bg-white/5 rounded-lg border border-[var(--border)]"
+              >
                 <p className="font-medium text-sm">{ds.name}</p>
                 <p className="text-xs text-teal-500 font-mono mt-1">{ds.res}</p>
                 <p className="text-xs text-[var(--muted)] mt-2">{ds.use}</p>

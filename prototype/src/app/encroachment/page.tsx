@@ -40,11 +40,14 @@ export default function EncroachmentPage() {
             <h1 className="text-3xl font-bold flex items-center gap-3">
               <Building2 className="text-yellow-500" />
               River Encroachment Detection
-              <span className="text-[var(--muted)] font-normal text-xl">নদী দখল</span>
+              <span className="text-[var(--muted)] font-normal text-xl">
+                নদী দখল
+              </span>
             </h1>
             <p className="text-[var(--muted)] mt-2 max-w-xl">
-              40% of Dhaka&apos;s riverbanks have been illegally seized through slow, incremental land filling.
-              MNDWI-based water segmentation compares 2016 vs 2026 river boundaries.
+              40% of Dhaka&apos;s riverbanks have been illegally seized through
+              slow, incremental land filling. MNDWI-based water segmentation
+              compares 2016 vs 2026 river boundaries.
             </p>
           </div>
           <div className="flex items-center gap-4">
@@ -97,7 +100,9 @@ export default function EncroachmentPage() {
           <div className="glass-card p-4 border-red-500/20">
             <p className="text-sm text-[var(--muted)]">River Width (2026)</p>
             <p className="text-2xl font-bold text-red-400">~120m</p>
-            <p className="text-xs text-red-400 mt-1">↓ 60% reduction in places</p>
+            <p className="text-xs text-red-400 mt-1">
+              ↓ 60% reduction in places
+            </p>
           </div>
           <div className="glass-card p-4 border-yellow-500/20">
             <p className="text-sm text-[var(--muted)]">Dhaka Banks Seized</p>
@@ -123,8 +128,8 @@ export default function EncroachmentPage() {
               Critical Encroachment: Turag Zone C
             </p>
             <p className="text-sm text-[var(--muted)]">
-              22% area lost since 2019. Land filling detected via MNDWI change analysis. 
-              Enforcement-grade intelligence ready for NRCC.
+              22% area lost since 2019. Land filling detected via MNDWI change
+              analysis. Enforcement-grade intelligence ready for NRCC.
             </p>
           </div>
           <span className="badge badge-yellow">Verified: Mar 2026</span>
@@ -146,8 +151,8 @@ export default function EncroachmentPage() {
               </p>
             </div>
             <div className="relative aspect-video">
-              <Image 
-                src="/encroachment_comparison.png" 
+              <Image
+                src="/encroachment_comparison.png"
                 alt="Encroachment Satellite Comparison 2016 vs 2026"
                 fill
                 className="object-cover"
@@ -160,8 +165,10 @@ export default function EncroachmentPage() {
               Legal Evidence Generation
             </h3>
             <p className="text-sm text-[var(--muted)] mb-4">
-              Historical satellite evidence is <strong className="text-white">calibration-ready</strong> for Environmental Courts. 
-              Each zone tagged with exact area loss measurements and timestamps.
+              Historical satellite evidence is{" "}
+              <strong className="text-white">calibration-ready</strong> for
+              Environmental Courts. Each zone tagged with exact area loss
+              measurements and timestamps.
             </p>
             <div className="space-y-3">
               <div className="p-3 bg-white/5 rounded-lg">
@@ -169,21 +176,27 @@ export default function EncroachmentPage() {
                   <span className="text-sm">Time-Series Data</span>
                   <span className="badge badge-teal">10 Years</span>
                 </div>
-                <p className="text-xs text-[var(--muted)] mt-1">2016–2026 continuous monitoring</p>
+                <p className="text-xs text-[var(--muted)] mt-1">
+                  2016–2026 continuous monitoring
+                </p>
               </div>
               <div className="p-3 bg-white/5 rounded-lg">
                 <div className="flex justify-between items-center">
                   <span className="text-sm">Satellite Source</span>
                   <span className="badge badge-blue">Sentinel-2</span>
                 </div>
-                <p className="text-xs text-[var(--muted)] mt-1">10m resolution, 5-day revisit</p>
+                <p className="text-xs text-[var(--muted)] mt-1">
+                  10m resolution, 5-day revisit
+                </p>
               </div>
               <div className="p-3 bg-white/5 rounded-lg">
                 <div className="flex justify-between items-center">
                   <span className="text-sm">JRC Surface Water</span>
                   <span className="badge badge-purple">1984–2021</span>
                 </div>
-                <p className="text-xs text-[var(--muted)] mt-1">30m historical water archive</p>
+                <p className="text-xs text-[var(--muted)] mt-1">
+                  30m historical water archive
+                </p>
               </div>
             </div>
           </div>
