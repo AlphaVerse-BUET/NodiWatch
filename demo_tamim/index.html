@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NodiWatch — AI-Powered River Surveillance Dashboard</title>
+  <meta name="description"
+    content="NodiWatch: AI-powered satellite surveillance for Bangladesh's river ecosystems. Pollution fingerprinting and encroachment detection from space.">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ═══ TOP BAR ═══ -->
+  <header id="topbar">
+    <div class="tb-left">
+      <div class="logo">
+        <span class="logo-icon">🛰️</span>
+        <h1>Nodi<span class="gt">Watch</span></h1>
+      </div>
+      <span class="version-badge">PROTOTYPE v0.1</span>
+    </div>
+    <div class="tb-center">
+      <div class="layer-toggles" id="layerToggles">
+        <button class="lt active" data-layer="pollution" id="btn-pollution">
+          <span class="lt-dot" style="background:var(--red)"></span> Pollution
+        </button>
+        <button class="lt" data-layer="encroachment" id="btn-encroachment">
+          <span class="lt-dot" style="background:var(--yellow)"></span> Encroachment
+        </button>
+        <button class="lt" data-layer="factories" id="btn-factories">
+          <span class="lt-dot" style="background:var(--blue)"></span> Factories
+        </button>
+      </div>
+    </div>
+    <div class="tb-right">
+      <div class="live-indicator">
+        <span class="pulse-dot"></span> LIVE MONITORING
+      </div>
+      <button class="report-btn" id="btnGenerateReport">📋 Evidence Report</button>
+    </div>
+  </header>
+
+  <!-- ═══ MAIN LAYOUT ═══ -->
+  <main id="main">
+    <!-- ─── MAP ─── -->
+    <div id="map"></div>
+
+    <!-- ─── SIDEBAR ─── -->
+    <aside id="sidebar">
+      <!-- Overview Panel -->
+      <section class="panel" id="panel-overview">
+        <h3 class="panel-title">🌊 River System Overview</h3>
+        <div class="stat-grid">
+          <div class="stat-card sc-red">
+            <div class="stat-num" id="stat-hotspots">10</div>
+            <div class="stat-label">Active Hotspots</div>
+          </div>
+          <div class="stat-card sc-yellow">
+            <div class="stat-num" id="stat-encroach">5</div>
+            <div class="stat-label">Encroach. Zones</div>
+          </div>
+          <div class="stat-card sc-blue">
+            <div class="stat-num" id="stat-factories">13</div>
+            <div class="stat-label">Tracked Factories</div>
+          </div>
+          <div class="stat-card sc-purple">
+            <div class="stat-num" id="stat-alerts">3</div>
+            <div class="stat-label">Critical Alerts</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detail Panel (shows on hotspot click) -->
+      <section class="panel hidden" id="panel-detail">
+        <div class="panel-head">
+          <h3 class="panel-title" id="detail-title">Hotspot Details</h3>
+          <button class="close-btn" id="btnCloseDetail">✕</button>
+        </div>
+        <div id="detail-content"></div>
+      </section>
+
+      <!-- Alert Feed -->
+      <section class="panel" id="panel-alerts">
+        <h3 class="panel-title">🚨 Alert Feed</h3>
+        <div class="alert-feed" id="alertFeed"></div>
+      </section>
+
+      <!-- River Summary -->
+      <section class="panel" id="panel-rivers">
+        <h3 class="panel-title">📊 River Health Status</h3>
+        <div id="riverList"></div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- ═══ REPORT MODAL ═══ -->
+  <div class="modal-overlay hidden" id="reportModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h2>📋 NodiWatch Evidence Report</h2>
+        <button class="close-btn" id="btnCloseReport">✕</button>
+      </div>
+      <div class="modal-body" id="reportContent"></div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btnCloseReport2">Close</button>
+        <button class="btn-primary" id="btnPrintReport">🖨️ Print / Save PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ENCROACHMENT COMPARISON MODAL ═══ -->
+  <div class="modal-overlay hidden" id="encroachModal">
+    <div class="modal modal-wide">
+      <div class="modal-head">
+        <h2>📐 Encroachment Analysis</h2>
+        <button class="close-btn" id="btnCloseEncroach">✕</button>
+      </div>
+      <div class="modal-body" id="encroachContent"></div>
+    </div>
+  </div>
+
+  <!-- ═══ SCRIPTS ═══ -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
