@@ -1,0 +1,164 @@
+{
+  "hotspots": [
+    {
+      "id": "HS-001",
+      "lat": 23.7050,
+      "lng": 90.3760,
+      "river": "Buriganga",
+      "type": "textile",
+      "severity": 92,
+      "label": "Textile Dye Discharge",
+      "spectral": {
+        "ndti": 0.82,
+        "redBlueRatio": 3.4,
+        "thermal": 28.5
+      },
+      "detected": "2026-03-01",
+      "description": "High Red/Blue spectral ratio indicating textile dye effluent. Consistent pattern over 3 months."
+    },
+    {
+      "id": "HS-002",
+      "lat": 23.6990,
+      "lng": 90.3880,
+      "river": "Buriganga",
+      "type": "tannery",
+      "severity": 88,
+      "label": "Tannery Waste Plume",
+      "spectral": {
+        "ndti": 0.91,
+        "redBlueRatio": 1.8,
+        "thermal": 30.2
+      },
+      "detected": "2026-02-15",
+      "description": "Extremely high turbidity (NDTI=0.91) with organic signatures. Chromium-contaminated waste suspected."
+    },
+    {
+      "id": "HS-003",
+      "lat": 23.6940,
+      "lng": 90.4020,
+      "river": "Buriganga",
+      "type": "textile",
+      "severity": 76,
+      "label": "Mixed Industrial Runoff",
+      "spectral": {
+        "ndti": 0.65,
+        "redBlueRatio": 2.9,
+        "thermal": 27.8
+      },
+      "detected": "2026-03-05",
+      "description": "Moderate pollution with textile dye indicators. Multiple potential sources in cluster."
+    },
+    {
+      "id": "HS-004",
+      "lat": 23.8600,
+      "lng": 90.3530,
+      "river": "Turag",
+      "type": "thermal",
+      "severity": 71,
+      "label": "Thermal Discharge",
+      "spectral": {
+        "ndti": 0.45,
+        "redBlueRatio": 1.2,
+        "thermal": 38.6
+      },
+      "detected": "2026-02-28",
+      "description": "Significant thermal anomaly (+10°C above baseline). Power plant cooling water discharge suspected."
+    },
+    {
+      "id": "HS-005",
+      "lat": 23.8400,
+      "lng": 90.3570,
+      "river": "Turag",
+      "type": "textile",
+      "severity": 85,
+      "label": "Dyeing Unit Discharge",
+      "spectral": {
+        "ndti": 0.72,
+        "redBlueRatio": 3.8,
+        "thermal": 29.1
+      },
+      "detected": "2026-03-07",
+      "description": "Vivid spectral signature of synthetic dyes. Active discharge visible in latest imagery."
+    },
+    {
+      "id": "HS-006",
+      "lat": 23.7800,
+      "lng": 90.5220,
+      "river": "Shitalakshya",
+      "type": "tannery",
+      "severity": 67,
+      "label": "Industrial Waste Zone",
+      "spectral": {
+        "ndti": 0.78,
+        "redBlueRatio": 2.1,
+        "thermal": 31.5
+      },
+      "detected": "2026-02-20",
+      "description": "Tannery waste signatures detected. Located near Narayanganj industrial belt."
+    },
+    {
+      "id": "HS-007",
+      "lat": 23.7600,
+      "lng": 90.5270,
+      "river": "Shitalakshya",
+      "type": "textile",
+      "severity": 79,
+      "label": "Garment Factory Cluster",
+      "spectral": {
+        "ndti": 0.68,
+        "redBlueRatio": 3.1,
+        "thermal": 28.0
+      },
+      "detected": "2026-03-02",
+      "description": "Garment washing and dyeing units discharge detected via high R/B ratio."
+    },
+    {
+      "id": "HS-008",
+      "lat": 23.7700,
+      "lng": 90.4760,
+      "river": "Balu",
+      "type": "textile",
+      "severity": 94,
+      "label": "Critical Dye Pollution",
+      "spectral": {
+        "ndti": 0.88,
+        "redBlueRatio": 4.1,
+        "thermal": 29.8
+      },
+      "detected": "2026-03-08",
+      "description": "Highest severity hotspot. Extreme dye concentration turning river visibly colored."
+    },
+    {
+      "id": "HS-009",
+      "lat": 23.7500,
+      "lng": 90.4800,
+      "river": "Balu",
+      "type": "tannery",
+      "severity": 81,
+      "label": "Leather Processing Zone",
+      "spectral": {
+        "ndti": 0.85,
+        "redBlueRatio": 1.9,
+        "thermal": 32.0
+      },
+      "detected": "2026-02-25",
+      "description": "Post-relocation tannery waste still entering via drainage channels."
+    },
+    {
+      "id": "HS-010",
+      "lat": 23.7100,
+      "lng": 90.3200,
+      "river": "Dhaleshwari",
+      "type": "thermal",
+      "severity": 58,
+      "label": "Mild Thermal Anomaly",
+      "spectral": {
+        "ndti": 0.35,
+        "redBlueRatio": 1.1,
+        "thermal": 35.2
+      },
+      "detected": "2026-03-04",
+      "description": "Moderate thermal discharge. Possibly cooling water from industrial facility."
+    }
+  ]
+}

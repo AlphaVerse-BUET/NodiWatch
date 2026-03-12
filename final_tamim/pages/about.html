@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NodiWatch — About the Project</title>
+  <meta name="description" content="NodiWatch: AI-powered satellite surveillance for Bangladesh's rivers. Learn about our mission, technology, and team.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body class="page-scroll">
+
+  <header id="topbar">
+    <div class="tb-left">
+      <a href="../index.html" class="logo"><span class="logo-icon">🛰️</span><h1>Nodi<span class="gt">Watch</span></h1></a>
+      <span class="version-badge">PROTOTYPE v2.0</span>
+    </div>
+    <nav class="tb-center">
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link"><span class="nav-icon">📊</span> Dashboard</a>
+        <a href="analysis.html" class="nav-link"><span class="nav-icon">🔬</span> Analysis</a>
+        <a href="erosion.html" class="nav-link"><span class="nav-icon">🌊</span> Erosion</a>
+        <a href="reports.html" class="nav-link"><span class="nav-icon">📋</span> Reports</a>
+        <a href="about.html" class="nav-link active"><span class="nav-icon">ℹ️</span> About</a>
+      </div>
+    </nav>
+    <div class="tb-right">
+      <div class="live-indicator"><span class="pulse-dot"></span> LIVE</div>
+    </div>
+  </header>
+
+  <div class="page-container">
+
+    <!-- ═══ HERO ═══ -->
+    <div class="page-hero" style="text-align:center;padding:40px 0 30px">
+      <div style="font-size:3rem;margin-bottom:12px">🛰️</div>
+      <h1 style="font-size:2.5rem">Nodi<span class="gt">Watch</span></h1>
+      <p style="max-width:600px;margin:0 auto;font-size:1rem;line-height:1.7">AI-powered satellite surveillance to protect Bangladesh's rivers from pollution, encroachment, and erosion</p>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
+        <span class="badge badge-teal">Eco-Tech Hackathon 2026</span>
+        <span class="badge badge-purple">Team AlphaVerse</span>
+      </div>
+    </div>
+
+    <!-- ═══ THE PROBLEM ═══ -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-icon">🚨</span> The Triple-Blind Crisis</h2>
+      <div class="card" style="background:linear-gradient(135deg,rgba(239,71,111,0.05),rgba(255,209,102,0.05),rgba(249,115,22,0.05));border-color:rgba(239,71,111,0.2);padding:28px">
+        <p style="font-size:1.05rem;line-height:1.7;margin-bottom:16px">
+          Bangladesh's rivers face three simultaneous crises that are invisible to traditional monitoring:
+        </p>
+        <div class="grid-3">
+          <div style="text-align:center;padding:16px">
+            <div style="font-size:2rem;margin-bottom:8px">🏭</div>
+            <h3 style="font-weight:700;color:var(--red);margin-bottom:4px">60% Industrial Pollution — নদী দূষণ</h3>
+            <p class="text-sm text-muted">2,500+ factories discharge into rivers. Among them, identifying the exact polluter is impossible without spectral evidence.</p>
+          </div>
+          <div style="text-align:center;padding:16px">
+            <div style="font-size:2rem;margin-bottom:8px">🏗️</div>
+            <h3 style="font-weight:700;color:var(--yellow);margin-bottom:4px">40% Riverbanks Seized — নদী দখল</h3>
+            <p class="text-sm text-muted">Illegal land filling shrinks rivers by 3-5 meters/year. Slow and incremental — invisible without decade-long satellite comparison.</p>
+          </div>
+          <div style="text-align:center;padding:16px">
+            <div style="font-size:2rem;margin-bottom:8px">🌊</div>
+            <h3 style="font-weight:700;color:var(--orange);margin-bottom:4px">10K Hectares Lost/Year — নদী ভাঙন</h3>
+            <p class="text-sm text-muted">River erosion displaces 1M+ people annually. Monsoon clouds block optical satellites when erosion is worst.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ THE SOLUTION ═══ -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-icon">💡</span> Our Solution</h2>
+      <div class="card" style="background:linear-gradient(135deg,rgba(6,214,160,0.05),rgba(17,138,178,0.05),rgba(123,47,247,0.05));border-color:rgba(6,214,160,0.2);padding:28px">
+        <p style="font-size:1.05rem;line-height:1.7;margin-bottom:16px">
+          NodiWatch deploys AI-powered satellite surveillance (Sentinel-2, Sentinel-1 SAR, Landsat) through Google Earth Engine
+          to create the <strong style="color:var(--teal)">first unified monitoring platform</strong> for all three river threats simultaneously.
+        </p>
+        <div class="grid-3">
+          <div class="card" style="text-align:center">
+            <div style="font-size:1.6rem;margin-bottom:8px">🔬</div>
+            <h4 style="font-weight:700;color:var(--red)">Pollution Fingerprinting</h4>
+            <p class="text-xs text-muted mt-8">Spectral index classification (NDTI, Red/Blue) + Bayesian factory attribution</p>
+          </div>
+          <div class="card" style="text-align:center">
+            <div style="font-size:1.6rem;margin-bottom:8px">📐</div>
+            <h4 style="font-weight:700;color:var(--yellow)">Encroachment Detection</h4>
+            <p class="text-xs text-muted mt-8">CNN water segmentation comparing 10-year satellite boundaries</p>
+          </div>
+          <div class="card" style="text-align:center">
+            <div style="font-size:1.6rem;margin-bottom:8px">🌊</div>
+            <h4 style="font-weight:700;color:var(--blue)">Erosion Forecasting</h4>
+            <p class="text-xs text-muted mt-8">SAR coherence change detection works through monsoon clouds</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ AI ARCHITECTURE ═══ -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-icon">🧠</span> AI Architecture</h2>
+      <div class="grid-3">
+        <div class="card border-l-teal">
+          <h3 style="font-weight:700;margin-bottom:4px;color:var(--teal)">Layer 1: Satellite Processing</h3>
+          <ul style="font-size:.82rem;color:var(--muted);list-style:none;display:flex;flex-direction:column;gap:4px;margin-top:8px">
+            <li>• Sentinel-2 (10m, 5-day revisit)</li>
+            <li>• Sentinel-1 SAR (VV+VH, cloud-free)</li>
+            <li>• Landsat 9 OLI (thermal bands)</li>
+            <li>• Automated cloud masking & atmospheric correction</li>
+          </ul>
+        </div>
+        <div class="card border-l-blue">
+          <h3 style="font-weight:700;margin-bottom:4px;color:var(--blue)">Layer 2: AI Classification</h3>
+          <ul style="font-size:.82rem;color:var(--muted);list-style:none;display:flex;flex-direction:column;gap:4px;margin-top:8px">
+            <li>• Random Forest for pollution type classification</li>
+            <li>• CNN U-Net for water pixel segmentation</li>
+            <li>• SAR coherence for erosion detection</li>
+            <li>• Bayesian model for factory attribution</li>
+          </ul>
+        </div>
+        <div class="card border-l-purple">
+          <h3 style="font-weight:700;margin-bottom:4px;color:var(--purple)">Layer 3: Evidence & Alerts</h3>
+          <ul style="font-size:.82rem;color:var(--muted);list-style:none;display:flex;flex-direction:column;gap:4px;margin-top:8px">
+            <li>• Court-ready evidence package generation</li>
+            <li>• Real-time alert system with SMS integration</li>
+            <li>• Dashboard visualization & interactive maps</li>
+            <li>• Citizen ground-truth validation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TECH STACK ═══ -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-icon">⚙️</span> Technology Stack</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="font-weight:700;margin-bottom:12px">Satellite & Remote Sensing</h3>
+          <div class="info-row"><span class="info-key">Processing Platform</span><span class="info-val">Google Earth Engine</span></div>
+          <div class="info-row"><span class="info-key">Primary Data</span><span class="info-val">Sentinel-2 MSI SR</span></div>
+          <div class="info-row"><span class="info-key">SAR Data</span><span class="info-val">Sentinel-1 GRD</span></div>
+          <div class="info-row"><span class="info-key">Thermal</span><span class="info-val">Landsat 9 TIRS</span></div>
+          <div class="info-row"><span class="info-key">Historical</span><span class="info-val">JRC Surface Water</span></div>
+        </div>
+        <div class="card">
+          <h3 style="font-weight:700;margin-bottom:12px">AI & Machine Learning</h3>
+          <div class="info-row"><span class="info-key">Classification</span><span class="info-val">scikit-learn (RF)</span></div>
+          <div class="info-row"><span class="info-key">Segmentation</span><span class="info-val">TensorFlow (U-Net)</span></div>
+          <div class="info-row"><span class="info-key">Attribution</span><span class="info-val">Bayesian (Custom)</span></div>
+          <div class="info-row"><span class="info-key">Database</span><span class="info-val">PostGIS</span></div>
+          <div class="info-row"><span class="info-key">Factory Locations</span><span class="info-val">OpenStreetMap API</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ STAKEHOLDERS ═══ -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-icon">🤝</span> Stakeholders & Beneficiaries</h2>
+      <div class="grid-4">
+        <div class="card" style="text-align:center;padding:20px">
+          <div style="font-size:2rem;margin-bottom:8px">🏛️</div>
+          <h4 style="font-weight:700;margin-bottom:4px">DoE Bangladesh</h4>
+          <p class="text-xs text-muted">Pollution monitoring and enforcement data for factory inspection priorities</p>
+        </div>
+        <div class="card" style="text-align:center;padding:20px">
+          <div style="font-size:2rem;margin-bottom:8px">⚖️</div>
+          <h4 style="font-weight:700;margin-bottom:4px">Environmental Courts</h4>
+          <p class="text-xs text-muted">Court-ready evidence packages with satellite-verified proof of violations</p>
+        </div>
+        <div class="card" style="text-align:center;padding:20px">
+          <div style="font-size:2rem;margin-bottom:8px">🏗️</div>
+          <h4 style="font-weight:700;margin-bottom:4px">NRCC</h4>
+          <p class="text-xs text-muted">River encroachment intelligence for land recovery and enforcement actions</p>
+        </div>
+        <div class="card" style="text-align:center;padding:20px">
+          <div style="font-size:2rem;margin-bottom:8px">🏠</div>
+          <h4 style="font-weight:700;margin-bottom:4px">BWDB / DDM</h4>
+          <p class="text-xs text-muted">Erosion early warnings for disaster mitigation and evacuation planning</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ EXPECTED IMPACT ═══ -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-icon">📈</span> Expected Impact</h2>
+      <div class="grid-4">
+        <div class="card stat-big" style="border-color:rgba(6,214,160,0.2)">
+          <div class="stat-big-num text-teal">30%</div>
+          <div class="stat-big-label">Pollution Reduction</div>
+          <div class="stat-big-sub">Through targeted enforcement</div>
+        </div>
+        <div class="card stat-big" style="border-color:rgba(255,209,102,0.2)">
+          <div class="stat-big-num text-yellow">50%</div>
+          <div class="stat-big-label">Encroachment Recovery</div>
+          <div class="stat-big-sub">With court-ready evidence</div>
+        </div>
+        <div class="card stat-big" style="border-color:rgba(239,71,111,0.2)">
+          <div class="stat-big-num text-red">78%</div>
+          <div class="stat-big-label">Factory Attribution</div>
+          <div class="stat-big-sub">Bayesian accuracy</div>
+        </div>
+        <div class="card stat-big" style="border-color:rgba(123,47,247,0.2)">
+          <div class="stat-big-num text-purple">2-4 Weeks</div>
+          <div class="stat-big-label">Erosion Warning</div>
+          <div class="stat-big-sub">Pre-monsoon forecast lead time</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TEAM ═══ -->
+    <div class="section">
+      <h2 class="section-title"><span class="section-icon">👥</span> Team AlphaVerse</h2>
+      <div class="grid-3">
+        <div class="card" style="text-align:center;padding:20px">
+          <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--blue));display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:1.5rem">T</div>
+          <h4 style="font-weight:700">Tamim Saad</h4>
+          <p class="text-xs text-teal">Full-Stack Development & GIS</p>
+          <p class="text-xs text-muted mt-8">Interactive map interface, data processing pipeline, system architecture</p>
+        </div>
+        <div class="card" style="text-align:center;padding:20px">
+          <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:1.5rem">A</div>
+          <h4 style="font-weight:700">Amin</h4>
+          <p class="text-xs text-blue">AI/ML & Analysis</p>
+          <p class="text-xs text-muted mt-8">Pollution fingerprinting algorithms, temporal analysis, AI model design</p>
+        </div>
+        <div class="card" style="text-align:center;padding:20px">
+          <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--red));display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:1.5rem">S</div>
+          <h4 style="font-weight:700">Swapnil</h4>
+          <p class="text-xs text-purple">Remote Sensing & Data</p>
+          <p class="text-xs text-muted mt-8">Satellite data integration, erosion risk modeling, GEE processing</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ HACKATHON ═══ -->
+    <div class="section">
+      <div class="card" style="text-align:center;padding:32px;background:linear-gradient(135deg,rgba(6,214,160,0.05),rgba(123,47,247,0.05));border-color:rgba(6,214,160,0.2)">
+        <h2 style="font-family:Space Grotesk,sans-serif;font-size:1.5rem;font-weight:800;margin-bottom:8px">Eco-Tech Innovation Hackathon 2026</h2>
+        <p class="text-muted" style="margin-bottom:16px">Stage 2: Working Prototype Demonstration</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+          <span class="badge badge-teal">Google Earth Engine</span>
+          <span class="badge badge-blue">Sentinel-2 (10m)</span>
+          <span class="badge badge-purple">Sentinel-1 SAR</span>
+          <span class="badge badge-yellow">AI/ML Classification</span>
+          <span class="badge badge-red">Court-Ready Evidence</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <p>🛰️ NodiWatch — AI-Powered Satellite Surveillance for River Ecosystems • © 2026 Team AlphaVerse</p>
+    </div>
+  </div>
+</body>
+</html>

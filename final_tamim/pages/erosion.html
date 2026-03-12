@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NodiWatch — Erosion Risk Forecasting</title>
+  <meta name="description" content="Sentinel-1 SAR radar-based riverbank erosion risk forecasting for Bangladesh. নদী ভাঙন">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body class="page-scroll">
+
+  <!-- ═══ TOP BAR ═══ -->
+  <header id="topbar">
+    <div class="tb-left">
+      <a href="../index.html" class="logo"><span class="logo-icon">🛰️</span><h1>Nodi<span class="gt">Watch</span></h1></a>
+      <span class="version-badge">PROTOTYPE v2.0</span>
+    </div>
+    <nav class="tb-center">
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link"><span class="nav-icon">📊</span> Dashboard</a>
+        <a href="analysis.html" class="nav-link"><span class="nav-icon">🔬</span> Analysis</a>
+        <a href="erosion.html" class="nav-link active"><span class="nav-icon">🌊</span> Erosion</a>
+        <a href="reports.html" class="nav-link"><span class="nav-icon">📋</span> Reports</a>
+        <a href="about.html" class="nav-link"><span class="nav-icon">ℹ️</span> About</a>
+      </div>
+    </nav>
+    <div class="tb-right">
+      <div class="live-indicator"><span class="pulse-dot"></span> LIVE</div>
+    </div>
+  </header>
+
+  <div class="page-container">
+
+    <!-- ═══ HERO ═══ -->
+    <div class="page-hero">
+      <h1>🌊 Erosion Risk Forecasting — নদী ভাঙন</h1>
+      <p>~10,000 hectares vanish yearly, displacing 1 million+ people across 94 upazilas. Sentinel-1 SAR radar works through monsoon clouds for year-round erosion prediction.</p>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <span class="badge badge-blue">Sentinel-1 SAR</span>
+        <span class="badge badge-purple">Pre-Monsoon Forecast</span>
+      </div>
+    </div>
+
+    <!-- ═══ STATS ═══ -->
+    <div class="grid-4 section">
+      <div class="card stat-big" style="border-color:rgba(239,71,111,0.2)">
+        <div class="stat-big-num text-red">~10K ha</div>
+        <div class="stat-big-label">Annual Land Lost</div>
+        <div class="stat-big-sub">Every year in Bangladesh</div>
+      </div>
+      <div class="card stat-big" style="border-color:rgba(255,209,102,0.2)">
+        <div class="stat-big-num text-yellow">$500M</div>
+        <div class="stat-big-label">Economic Loss</div>
+        <div class="stat-big-sub">Annual damage from নদী ভাঙন</div>
+      </div>
+      <div class="card stat-big" style="border-color:rgba(249,115,22,0.2)">
+        <div class="stat-big-num text-orange">1M+</div>
+        <div class="stat-big-label">People Displaced</div>
+        <div class="stat-big-sub">Annually across 94 upazilas</div>
+      </div>
+      <div class="card stat-big" style="border-color:rgba(123,47,247,0.2)">
+        <div class="stat-big-num text-purple">+13%</div>
+        <div class="stat-big-label">Climate Projection</div>
+        <div class="stat-big-sub">Erosion increase by 2050</div>
+      </div>
+    </div>
+
+    <!-- ═══ ALERT BANNER ═══ -->
+    <div class="alert-banner">
+      <span class="alert-banner-icon">⚠️</span>
+      <div class="alert-banner-content">
+        <div class="alert-banner-title">Extreme Erosion Alert — Jamuna Corridor N3</div>
+        <div class="alert-banner-text">12m/year retreat rate detected. BWDB embankment priority zone. Early warning issued to DDM for preemptive evacuation planning.</div>
+      </div>
+      <span class="badge badge-red">High Risk</span>
+    </div>
+
+    <!-- ═══ MAP ═══ -->
+    <div class="section">
+      <div class="map-container" id="erosionMapContainer">
+        <div class="map-legend">
+          <div class="map-legend-title">Risk Level</div>
+          <div class="legend-item"><div class="legend-line" style="background:#ef4444"></div> Critical (>30m/year)</div>
+          <div class="legend-item"><div class="legend-line" style="background:#f97316"></div> High (20-30m/year)</div>
+          <div class="legend-item"><div class="legend-line" style="background:#eab308"></div> Moderate (10-20m/year)</div>
+          <div class="legend-item"><div class="legend-line" style="background:#22c55e"></div> Low (<10m/year)</div>
+        </div>
+        <div class="map-stats">
+          <div style="font-weight:700;margin-bottom:6px">Jamuna River Basin</div>
+          <div class="info-row" style="padding:4px 0"><span class="info-key">Monitored</span><span class="info-val">187 km</span></div>
+          <div class="info-row" style="padding:4px 0"><span class="info-key">Critical</span><span class="info-val text-red">23 km</span></div>
+          <div class="info-row" style="padding:4px 0"><span class="info-key">Historical</span><span class="info-val">1984–2024</span></div>
+        </div>
+        <div id="erosionMap" style="height:100%"></div>
+      </div>
+    </div>
+
+    <!-- ═══ SATELLITE COMPARISON & SAR ═══ -->
+    <div class="grid-2 section">
+      <div class="img-card">
+        <div style="padding:14px;border-bottom:1px solid var(--border)">
+          <h3 style="font-weight:700;display:flex;align-items:center;gap:8px">🛰️ Riverbank Erosion: 2016 vs 2026</h3>
+          <p class="text-xs text-muted">~500m of land lost to erosion over 10 years — visible from satellite</p>
+        </div>
+        <img src="../assets/erosion_comparison.png" alt="Riverbank Erosion Satellite Comparison">
+      </div>
+      <div class="card">
+        <h3 style="font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px">📡 Why SAR for Erosion?</h3>
+        <p class="text-sm text-muted" style="margin-bottom:12px">Sentinel-1 SAR radar penetrates monsoon clouds (12-day revisit cycle) — <strong style="color:var(--text)">critical for Bangladesh's rainy season</strong>. When optical satellites are blind, SAR continues monitoring.</p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="list-card" style="display:flex;justify-content:space-between;align-items:center">
+            <span class="text-sm">Cloud Penetration</span>
+            <span class="badge badge-teal">100%</span>
+          </div>
+          <div class="list-card" style="display:flex;justify-content:space-between;align-items:center">
+            <span class="text-sm">Night Operation</span>
+            <span class="badge badge-blue">24/7</span>
+          </div>
+          <div class="list-card" style="display:flex;justify-content:space-between;align-items:center">
+            <span class="text-sm">GEE Research Paper</span>
+            <span class="badge badge-purple">DOI: 10.5281/zenodo.7252970</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DETAILS ═══ -->
+    <div class="grid-3 section">
+      <!-- Detection -->
+      <div class="card">
+        <h3 style="font-weight:700;margin-bottom:12px">🛰️ Detection Method</h3>
+        <p class="text-sm text-muted" style="margin-bottom:12px">Multi-temporal SAR coherence change detection combined with optical NDWI analysis:</p>
+        <div class="info-row"><span class="info-key">SAR Data</span><span class="info-val">Sentinel-1 GRD</span></div>
+        <div class="info-row"><span class="info-key">Polarization</span><span class="info-val">VV + VH</span></div>
+        <div class="info-row"><span class="info-key">Change Threshold</span><span class="info-val">σ° Δ > 3 dB</span></div>
+        <p class="text-xs text-muted mt-8">Based on Freihardt & Frey (2022), DOI: 10.5281/zenodo.7252970</p>
+      </div>
+      <!-- Impact -->
+      <div class="card">
+        <h3 style="font-weight:700;margin-bottom:12px">👥 Impact Assessment</h3>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="list-card" style="border-left:3px solid var(--red)">
+            <div style="display:flex;justify-content:space-between"><span class="text-sm">Critical Zone</span><span class="text-red fw-700">847</span></div>
+            <p class="text-xs text-muted">Immediate relocation needed</p>
+          </div>
+          <div class="list-card" style="border-left:3px solid var(--orange)">
+            <div style="display:flex;justify-content:space-between"><span class="text-sm">High Risk Zone</span><span class="text-orange fw-700">1,124</span></div>
+            <p class="text-xs text-muted">6-month warning</p>
+          </div>
+          <div class="list-card" style="border-left:3px solid var(--yellow)">
+            <div style="display:flex;justify-content:space-between"><span class="text-sm">Watch Zone</span><span class="text-yellow fw-700">369</span></div>
+            <p class="text-xs text-muted">Monitor annually</p>
+          </div>
+        </div>
+      </div>
+      <!-- Early Warning -->
+      <div class="card">
+        <h3 style="font-weight:700;margin-bottom:12px">🏠 Early Warning System</h3>
+        <p class="text-sm text-muted" style="margin-bottom:12px">Monsoon-triggered predictions sent 2-4 weeks before expected erosion events:</p>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:.85rem">
+          <div style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0"></span> SMS alerts to village leaders</div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0"></span> District disaster management</div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:var(--yellow);flex-shrink:0"></span> NGO coordination network</div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:var(--teal);flex-shrink:0"></span> Government relocation programs</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <p>🛰️ NodiWatch — AI-Powered Satellite Surveillance for River Ecosystems • © 2026 Team AlphaVerse</p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // ═══ Erosion Map ═══
+    const riskColors = { critical: "#ef4444", high: "#f97316", moderate: "#eab308", low: "#22c55e" };
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const map = L.map("erosionMap", { center: [24.45, 89.75], zoom: 10, zoomControl: true });
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+        attribution: '&copy; <a href="https://carto.com/">CARTO</a> | NodiWatch',
+        subdomains: "abcd", maxZoom: 19,
+      }).addTo(map);
+
+      try {
+        const data = await fetch("../data/erosion-corridors.json").then(r => r.json());
+
+        data.corridors.forEach(corridor => {
+          const color = riskColors[corridor.risk_level] || "#ef4444";
+          L.polyline(corridor.coordinates, { color, weight: 6, opacity: 0.9 })
+            .bindPopup(`
+              <div style="min-width:200px">
+                <div class="popup-title" style="color:${color}">${corridor.name}</div>
+                <div style="margin-top:8px;font-size:.82rem">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Erosion Rate</span><span style="font-weight:700">${corridor.retreat_rate_m_year} m/yr</span></div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Population at Risk</span><span>${corridor.population_at_risk.toLocaleString()}</span></div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Area at Risk</span><span>${corridor.affected_area_ha} ha</span></div>
+                  <div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">SAR Coherence</span><span>${corridor.analysis.sar_coherence}</span></div>
+                </div>
+                <div style="font-size:.72rem;color:var(--muted);margin-top:8px">Risk Level: ${corridor.risk_level.toUpperCase()}</div>
+              </div>
+            `).addTo(map);
+
+          // Buffer zones for critical
+          if (corridor.risk_level === "critical") {
+            const bufferCoords = corridor.coordinates.flatMap(c => [
+              [c[0] + 0.008, c[1] - 0.005], [c[0] + 0.008, c[1] + 0.005]
+            ]);
+            const reverseCoords = [...corridor.coordinates].reverse().flatMap(c => [
+              [c[0] - 0.003, c[1] + 0.005], [c[0] - 0.003, c[1] - 0.005]
+            ]);
+            L.polygon([...bufferCoords, ...reverseCoords], {
+              color: "#ef4444", weight: 1, fillColor: "#ef4444", fillOpacity: 0.1, dashArray: "5, 5",
+            }).addTo(map);
+          }
+
+          // Village markers
+          corridor.coordinates.slice(0, 2).forEach((coord, i) => {
+            L.circleMarker([coord[0] + 0.01, coord[1]], {
+              radius: 5, color: "#fff", weight: 1,
+              fillColor: color, fillOpacity: 0.8,
+            }).bindPopup(`
+              <div><div class="popup-title">Settlement Area</div><p style="font-size:.82rem;color:var(--muted)">Near ${corridor.name}</p><p style="font-size:.72rem;margin-top:4px">Distance to bank: ~200m</p></div>
+            `).addTo(map);
+          });
+        });
+      } catch (e) { console.error("Erosion data load error:", e); }
+    });
+  </script>
+</body>
+</html>
