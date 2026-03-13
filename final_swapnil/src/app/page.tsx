@@ -211,13 +211,15 @@ export default function HomePage() {
                 <Camera size={20} />
                 Submit Evidence
               </Link>
-              <Link
-                href="/about"
+              <a
+                href="https://drive.google.com/file/d/1FekDyQo9CfUwBJZYpZ8ViK-2s9mdhuF-/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-colors flex items-center gap-2 border border-white/10"
               >
                 <Play size={20} />
                 Watch Demo
-              </Link>
+              </a>
             </div>
 
             {/* Crisis Stats */}
