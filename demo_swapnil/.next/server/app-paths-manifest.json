@@ -1,8 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/datasets/page": "app/datasets/page.js",
-  "/pollution/page": "app/pollution/page.js",
-  "/encroachment/page": "app/encroachment/page.js",
-  "/about/page": "app/about/page.js",
-  "/erosion/page": "app/erosion/page.js"
-}
