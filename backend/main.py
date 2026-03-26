@@ -10,6 +10,7 @@ import json
 import os
 from typing import Optional
 
+
 from osm_data import (
     fetch_real_factories,
     fetch_waterways,
