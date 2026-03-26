@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
 import {
   Mountain,
@@ -38,8 +38,38 @@ const CircleMarker = dynamic(
   { ssr: false },
 );
 
+// Map event listener rendered inside MapContainer — safe from SSR
+const MapEventListener = dynamic(
+  async () => {
+    const rl = await import("react-leaflet");
+    function MapEventListenerInner({
+      onBoundsChange,
+    }: {
+      onBoundsChange: (b: any) => void;
+    }) {
+      const map = rl.useMap();
+      useEffect(() => {
+        onBoundsChange(map.getBounds());
+        const handler = () => onBoundsChange(map.getBounds());
+        map.on("moveend", handler);
+        return () => { map.off("moveend", handler); };
+      }, [map]);
+      return null;
+    }
+    return MapEventListenerInner;
+  },
+  { ssr: false },
+);
+
 import erosionData from "@/data/erosion-corridors.json";
 import riversData from "@/data/rivers.json";
+
+interface LiveWaterway {
+  id: string;
+  name: string;
+  type: string;
+  coordinates: [number, number][];
+}
 
 interface ErosionMapProps {
   className?: string;
@@ -71,9 +101,35 @@ export default function ErosionMap({
   const [showRivers, setShowRivers] = useState(true);
   const [selectedData, setSelectedData] = useState<any>(null);
   const [basemap, setBasemap] = useState<"dark" | "satellite">("satellite");
+  const [liveWaterways, setLiveWaterways] = useState<LiveWaterway[] | null>(null);
+
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastKeyRef = useRef<string>("");
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  const handleBoundsChange = useCallback(async (bounds: any) => {
+    const S = bounds.getSouth().toFixed(3);
+    const W = bounds.getWest().toFixed(3);
+    const N = bounds.getNorth().toFixed(3);
+    const E = bounds.getEast().toFixed(3);
+    const key = `${S},${W},${N},${E}`;
+    if (key === lastKeyRef.current) return;
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      lastKeyRef.current = key;
+      try {
+        const res = await fetch(`/api/geo?south=${S}&west=${W}&north=${N}&east=${E}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.waterways?.length) setLiveWaterways(data.waterways);
+        }
+      } catch {
+        // Backend unavailable — keep static rivers
+      }
+    }, 600);
   }, []);
 
   if (!mounted) {
@@ -280,30 +336,47 @@ export default function ErosionMap({
           />
         )}
 
-        {/* Rivers */}
+        {/* Viewport event listener — triggers waterway fetch on pan/zoom */}
+        <MapEventListener onBoundsChange={handleBoundsChange} />
+
+        {/* Rivers — live OSM if available, else static fallback */}
         {showRivers &&
-          riversData.features.map((river: any) => (
-            <Polyline
-              key={river.properties.id}
-              positions={river.geometry.coordinates.map((c: number[]) => [
-                c[1],
-                c[0],
-              ])}
-              pathOptions={{
-                color: "#118ab2",
-                weight: 4,
-                opacity: 0.7,
-              }}
-            >
-              <Popup>
-                <div className="text-center">
-                  <strong>{river.properties.name}</strong>
-                  <br />
-                  <span className="text-xs">{river.properties.nameBn}</span>
-                </div>
-              </Popup>
-            </Polyline>
-          ))}
+          (liveWaterways
+            ? liveWaterways.map((w) => (
+                <Polyline
+                  key={`w-${w.id}`}
+                  positions={w.coordinates.map((c) => [c[1], c[0]] as [number, number])}
+                  pathOptions={{ color: "#118ab2", weight: 3, opacity: 0.7 }}
+                >
+                  <Popup>
+                    <strong>{w.name}</strong>
+                    <br />
+                    <span className="text-xs capitalize">{w.type} · OSM</span>
+                  </Popup>
+                </Polyline>
+              ))
+            : riversData.features.map((river: any) => (
+                <Polyline
+                  key={river.properties.id}
+                  positions={river.geometry.coordinates.map((c: number[]) => [
+                    c[1],
+                    c[0],
+                  ])}
+                  pathOptions={{
+                    color: "#118ab2",
+                    weight: 4,
+                    opacity: 0.7,
+                  }}
+                >
+                  <Popup>
+                    <div className="text-center">
+                      <strong>{river.properties.name}</strong>
+                      <br />
+                      <span className="text-xs">{river.properties.nameBn}</span>
+                    </div>
+                  </Popup>
+                </Polyline>
+              )))}
 
         {/* Erosion Corridors */}
         {showCorridors &&

@@ -6,3 +6,4 @@ out
 .next
 .env
 .env.local
+venv

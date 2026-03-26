@@ -183,7 +183,7 @@ export default function HomePage() {
               <span className="text-orange-400">Erosion</span>.
               <br />
               <span className="text-gray-400">
-                Near-Real-Time Intelligence for Bangladesh's Rivers.
+                Periodic Automated Monitoring for Bangladesh's Rivers.
               </span>
             </p>
 
@@ -260,7 +260,7 @@ export default function HomePage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/15 border border-red-500/30 mb-5">
                   <span className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
                   <span className="text-red-400 text-xs font-mono font-semibold tracking-widest">
-                    ACTIVE SATELLITE FEED
+                    SENTINEL-2 ANALYSIS
                   </span>
                 </div>
 
@@ -312,11 +312,11 @@ export default function HomePage() {
                     <div className="w-2 h-2 rounded-full bg-yellow-400 mt-1.5 flex-shrink-0" />
                     <div>
                       <span className="text-yellow-400 text-sm font-semibold">
-                        DoE Alerted in 4 min
+                        Enforcement Report Generated
                       </span>
                       <p className="text-xs text-gray-400 mt-0.5">
-                        Enforcement team notified automatically — geo-tagged
-                        violation report generated
+                        Geo-tagged violation report auto-generated for DoE/NRCC
+                        inspection team — coordinates, timestamps, spectral evidence
                       </p>
                     </div>
                   </div>
@@ -349,7 +349,7 @@ export default function HomePage() {
                     <div className="flex items-center gap-2">
                       <Satellite size={12} className="text-red-400" />
                       <span className="text-red-400 text-xs font-mono font-bold tracking-wider">
-                        SENTINEL-2 LIVE
+                        SENTINEL-2 · 10m/5-day
                       </span>
                     </div>
                     <div className="flex items-center gap-3">

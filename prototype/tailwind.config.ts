@@ -133,6 +133,19 @@ const config: Config = {
     },
   },
   plugins: [],
+  // Safelist for dynamically constructed class names (template literals prevent JIT detection)
+  safelist: [
+    // Monitoring module colors (red, yellow, orange)
+    "bg-red-500/5", "bg-red-500/10", "bg-red-500/20", "text-red-400", "from-red-500/5", "border-red-500/30",
+    "bg-yellow-500/5", "bg-yellow-500/10", "bg-yellow-500/20", "text-yellow-400", "from-yellow-500/5", "border-yellow-500/30",
+    "bg-orange-500/5", "bg-orange-500/10", "bg-orange-500/20", "text-orange-400", "from-orange-500/5", "border-orange-500/30",
+    // Analysis metric button colors
+    "bg-purple-500/20", "text-purple-400", "border-purple-500/30",
+    "bg-teal-500/20", "text-teal-400", "border-teal-500/30",
+    "bg-green-500/20", "text-green-400", "border-green-500/30",
+    // Group-hover variants for module cards
+    "group-hover:bg-red-500/20", "group-hover:bg-yellow-500/20", "group-hover:bg-orange-500/20",
+  ],
 };
 
 export default config;

@@ -89,19 +89,27 @@ export default function AnalysisPage() {
             <span className="text-sm">Select metric:</span>
           </div>
           <div className="flex flex-wrap gap-2">
-            {metrics.map((metric) => (
-              <button
-                key={metric.key}
-                onClick={() => setActiveMetric(metric.key)}
-                className={`px-4 py-2 rounded-lg text-sm transition-colors ${
-                  activeMetric === metric.key
-                    ? `bg-${metric.color}-500/20 text-${metric.color}-400 border border-${metric.color}-500/30`
-                    : "bg-slate-800/50 text-gray-400 hover:text-white"
-                }`}
-              >
-                {metric.label}
-              </button>
-            ))}
+            {metrics.map((metric) => {
+              const activeStyles: Record<string, string> = {
+                red: "bg-red-500/20 text-red-400 border border-red-500/30",
+                purple: "bg-purple-500/20 text-purple-400 border border-purple-500/30",
+                orange: "bg-orange-500/20 text-orange-400 border border-orange-500/30",
+                teal: "bg-teal-500/20 text-teal-400 border border-teal-500/30",
+              };
+              return (
+                <button
+                  key={metric.key}
+                  onClick={() => setActiveMetric(metric.key)}
+                  className={`px-4 py-2 rounded-lg text-sm transition-colors ${
+                    activeMetric === metric.key
+                      ? activeStyles[metric.color]
+                      : "bg-slate-800/50 text-gray-400 hover:text-white"
+                  }`}
+                >
+                  {metric.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -227,9 +235,10 @@ export default function AnalysisPage() {
               <h4 className="font-medium text-white">Critical Finding</h4>
             </div>
             <p className="text-sm text-gray-400">
-              Buriganga and Balu rivers show the highest NDTI pollution indices,
-              with published studies confirming dissolved oxygen below 0.5 mg/L
-              — critically below the 5 mg/L threshold for aquatic life.
+              Buriganga and Balu rivers show the highest NDTI turbidity indices,
+              exceeding 225 NTU — far above the 50 NTU threshold for aquatic
+              habitat viability. Spectral signatures confirm tannery and textile
+              effluent as dominant sources.
             </p>
           </div>
 
@@ -239,9 +248,9 @@ export default function AnalysisPage() {
               <h4 className="font-medium text-white">Encroachment Trend</h4>
             </div>
             <p className="text-sm text-gray-400">
-              River encroachment has accelerated 138% from 2016 to 2025. The
-              Turag and Balu rivers are most severely affected with 60% width
-              reduction in some segments.
+              River encroachment has accelerated significantly from 2016 to 2025. The
+              Turag (Aminbazar) shows the most severe width reduction at 58%,
+              while NRCC documented over 37,000 illegal structures on 48 rivers nationally.
             </p>
           </div>
 
@@ -251,9 +260,9 @@ export default function AnalysisPage() {
               <h4 className="font-medium text-white">Erosion Alert</h4>
             </div>
             <p className="text-sm text-gray-400">
-              Bank erosion rates have increased 140% over the decade. The
-              Shitalakshya Demra zone shows the highest retreat at 15.8m/year
-              with 1,800 people at risk.
+              Freihardt & Frey (2023) quantify ~8,700 ha/yr consumed by erosion
+              nationally. The Sirajganj Jamuna corridor shows 45.2 m/yr retreat —
+              within the published range of 11–84 m/yr for that zone.
             </p>
           </div>
         </div>

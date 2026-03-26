@@ -10,14 +10,38 @@
       "population_at_risk": 8500,
       "structures_at_risk": 320,
       "coordinates": [
-        [89.705, 24.46],
-        [89.706, 24.458],
-        [89.707, 24.455],
-        [89.708, 24.452],
-        [89.709, 24.449],
-        [89.71, 24.446],
-        [89.711, 24.443],
-        [89.712, 24.44]
+        [
+          89.705,
+          24.46
+        ],
+        [
+          89.706,
+          24.458
+        ],
+        [
+          89.707,
+          24.455
+        ],
+        [
+          89.708,
+          24.452
+        ],
+        [
+          89.709,
+          24.449
+        ],
+        [
+          89.71,
+          24.446
+        ],
+        [
+          89.711,
+          24.443
+        ],
+        [
+          89.712,
+          24.44
+        ]
       ],
       "buffer_zone": {
         "warning_m": 100,
@@ -43,14 +67,38 @@
       "population_at_risk": 2400,
       "structures_at_risk": 150,
       "coordinates": [
-        [90.4167, 23.7102],
-        [90.4175, 23.7098],
-        [90.4182, 23.7092],
-        [90.4188, 23.7088],
-        [90.4192, 23.7082],
-        [90.4195, 23.7075],
-        [90.4193, 23.7068],
-        [90.4188, 23.7062]
+        [
+          90.4167,
+          23.7102
+        ],
+        [
+          90.4175,
+          23.7098
+        ],
+        [
+          90.4182,
+          23.7092
+        ],
+        [
+          90.4188,
+          23.7088
+        ],
+        [
+          90.4192,
+          23.7082
+        ],
+        [
+          90.4195,
+          23.7075
+        ],
+        [
+          90.4193,
+          23.7068
+        ],
+        [
+          90.4188,
+          23.7062
+        ]
       ],
       "buffer_zone": {
         "warning_m": 50,
@@ -59,12 +107,12 @@
       "analysis": {
         "sar_coherence_pre_monsoon": 0.72,
         "sar_coherence_post_monsoon": 0.42,
-        "coherence_change": -0.30,
+        "coherence_change": -0.3,
         "interpretation": "Moderate erosion along southern bank — worsened by industrial runoff weakening bank soil"
       },
       "last_updated": "2025-12-15",
       "trend": "accelerating",
-      "notes": "Urban erosion exacerbated by boat wash and industrial effluent. Bank stabilization measures insufficient."
+      "notes": "Urban bank retreat estimated from MNDWI temporal differencing (Sentinel-2). No published SAR-based m/yr study for this segment; rate is a site-specific estimate. Boat wash and industrial effluent accelerate bank weakening."
     },
     {
       "id": "E003",
@@ -76,12 +124,30 @@
       "population_at_risk": 1800,
       "structures_at_risk": 92,
       "coordinates": [
-        [90.5088, 23.6998],
-        [90.5092, 23.6994],
-        [90.5098, 23.6988],
-        [90.5102, 23.6982],
-        [90.5105, 23.6975],
-        [90.5108, 23.6968]
+        [
+          90.5088,
+          23.6998
+        ],
+        [
+          90.5092,
+          23.6994
+        ],
+        [
+          90.5098,
+          23.6988
+        ],
+        [
+          90.5102,
+          23.6982
+        ],
+        [
+          90.5105,
+          23.6975
+        ],
+        [
+          90.5108,
+          23.6968
+        ]
       ],
       "buffer_zone": {
         "warning_m": 60,
@@ -95,7 +161,7 @@
       },
       "last_updated": "2025-12-15",
       "trend": "accelerating",
-      "notes": "Highest retreat rate in Dhaka metro. Brick fields along bank accelerate undercutting."
+      "notes": "Highest estimated retreat rate in Dhaka metro area. Rate derived from MNDWI channel-width comparison; brick fields along bank accelerate undercutting. Not yet confirmed by peer-reviewed SAR study for this segment."
     },
     {
       "id": "E004",
@@ -107,12 +173,30 @@
       "population_at_risk": 850,
       "structures_at_risk": 45,
       "coordinates": [
-        [90.3541, 23.7949],
-        [90.3545, 23.7945],
-        [90.355, 23.794],
-        [90.3556, 23.7935],
-        [90.356, 23.793],
-        [90.3563, 23.7925]
+        [
+          90.3541,
+          23.7949
+        ],
+        [
+          90.3545,
+          23.7945
+        ],
+        [
+          90.355,
+          23.794
+        ],
+        [
+          90.3556,
+          23.7935
+        ],
+        [
+          90.356,
+          23.793
+        ],
+        [
+          90.3563,
+          23.7925
+        ]
       ],
       "buffer_zone": {
         "warning_m": 40,
@@ -126,7 +210,7 @@
       },
       "last_updated": "2025-12-15",
       "trend": "stable",
-      "notes": "Existing BWDB embankment provides partial protection. Erosion concentrated at unprotected sections."
+      "notes": "Estimated from MNDWI temporal differencing. Existing BWDB embankment provides partial protection. Erosion concentrated at unprotected sections."
     },
     {
       "id": "E005",
@@ -138,10 +222,22 @@
       "population_at_risk": 120,
       "structures_at_risk": 8,
       "coordinates": [
-        [90.3988, 23.885],
-        [90.3992, 23.8845],
-        [90.3996, 23.884],
-        [90.3998, 23.8835]
+        [
+          90.3988,
+          23.885
+        ],
+        [
+          90.3992,
+          23.8845
+        ],
+        [
+          90.3996,
+          23.884
+        ],
+        [
+          90.3998,
+          23.8835
+        ]
       ],
       "buffer_zone": {
         "warning_m": 30,
@@ -150,7 +246,7 @@
       "analysis": {
         "sar_coherence_pre_monsoon": 0.82,
         "sar_coherence_post_monsoon": 0.72,
-        "coherence_change": -0.10,
+        "coherence_change": -0.1,
         "interpretation": "Minor erosion — bridge pilings provide bank stability"
       },
       "last_updated": "2025-12-15",
