@@ -3,6 +3,7 @@ NodiWatch Backend — FastAPI Server
 Serves real data from OpenStreetMap and satellite verification via Planetary Computer.
 """
 
+
 from fastapi import FastAPI, Query, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
