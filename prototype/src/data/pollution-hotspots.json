@@ -2,8 +2,8 @@
   "hotspots": [
     {
       "id": "HS-001",
-      "lat": 23.709446,
-      "lng": 90.365473,
+      "lat": 23.7093544,
+      "lng": 90.3634179,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 44,
@@ -58,8 +58,8 @@
     },
     {
       "id": "HS-002",
-      "lat": 23.707844,
-      "lng": 90.36906,
+      "lat": 23.7070459,
+      "lng": 90.3686857,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 51,
@@ -99,7 +99,7 @@
           "probability": 0.039
         },
         {
-          "factory_name": "\u0987\u09b8\u09cd\u09aa\u09be\u09a4 \u0995\u09be\u09b0\u0996\u09be\u09a8\u09be",
+          "factory_name": "ইস্পাত কারখানা",
           "osm_id": 3473792186,
           "industry_type": "unknown",
           "pollution_profile": "Unclassified Industrial",
@@ -114,8 +114,8 @@
     },
     {
       "id": "HS-003",
-      "lat": 23.704398,
-      "lng": 90.3763,
+      "lat": 23.7070459,
+      "lng": 90.3686857,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 40,
@@ -170,8 +170,8 @@
     },
     {
       "id": "HS-004",
-      "lat": 23.702619,
-      "lng": 90.381013,
+      "lat": 23.7083524,
+      "lng": 90.3880405,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 45,
@@ -184,7 +184,7 @@
       "detected": "2026-03-15",
       "description": "Moderate pollution detected via spectral analysis. 53 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 53,
-      "top_source": "\u0987\u09b8\u09cd\u09aa\u09be\u09a4 \u0995\u09be\u09b0\u0996\u09be\u09a8\u09be",
+      "top_source": "ইস্পাত কারখানা",
       "attributed_factories": [
         {
           "factory_name": "Hazi Ali Azgor Factory",
@@ -226,8 +226,8 @@
     },
     {
       "id": "HS-005",
-      "lat": 23.698311,
-      "lng": 90.388914,
+      "lat": 23.7083524,
+      "lng": 90.3880405,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 52,
@@ -282,8 +282,8 @@
     },
     {
       "id": "HS-006",
-      "lat": 23.696695,
-      "lng": 90.395207,
+      "lat": 23.7100027,
+      "lng": 90.393126,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 39,
@@ -338,8 +338,8 @@
     },
     {
       "id": "HS-007",
-      "lat": 23.694946,
-      "lng": 90.401757,
+      "lat": 23.7091923,
+      "lng": 90.4011404,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 53,
@@ -394,8 +394,8 @@
     },
     {
       "id": "HS-008",
-      "lat": 23.692723,
-      "lng": 90.410155,
+      "lat": 23.7091923,
+      "lng": 90.4011404,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 51,
@@ -450,8 +450,8 @@
     },
     {
       "id": "HS-009",
-      "lat": 23.689579,
-      "lng": 90.41716,
+      "lat": 23.7091923,
+      "lng": 90.4011404,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 46,
@@ -506,8 +506,8 @@
     },
     {
       "id": "HS-010",
-      "lat": 23.890271,
-      "lng": 90.33973,
+      "lat": 23.8946124,
+      "lng": 90.3487811,
       "river": "Turag",
       "type": "industrial",
       "severity": 38,
@@ -562,8 +562,8 @@
     },
     {
       "id": "HS-011",
-      "lat": 23.880873,
-      "lng": 90.345296,
+      "lat": 23.8946124,
+      "lng": 90.3487811,
       "river": "Turag",
       "type": "industrial",
       "severity": 41,
@@ -618,8 +618,8 @@
     },
     {
       "id": "HS-012",
-      "lat": 23.869327,
-      "lng": 90.349759,
+      "lat": 23.8946124,
+      "lng": 90.3487811,
       "river": "Turag",
       "type": "industrial",
       "severity": 46,
@@ -674,8 +674,8 @@
     },
     {
       "id": "HS-013",
-      "lat": 23.860369,
-      "lng": 90.353686,
+      "lat": 23.8936107,
+      "lng": 90.3620381,
       "river": "Turag",
       "type": "industrial",
       "severity": 55,
@@ -730,8 +730,8 @@
     },
     {
       "id": "HS-014",
-      "lat": 23.849631,
-      "lng": 90.354535,
+      "lat": 23.8936107,
+      "lng": 90.3620381,
       "river": "Turag",
       "type": "industrial",
       "severity": 47,
@@ -774,8 +774,8 @@
     },
     {
       "id": "HS-015",
-      "lat": 23.829629,
-      "lng": 90.360311,
+      "lat": 23.8821982,
+      "lng": 90.3933889,
       "river": "Turag",
       "type": "industrial",
       "severity": 46,
@@ -803,7 +803,7 @@
           "probability": 0.5225
         },
         {
-          "factory_name": "Raju Fitting Tailor\u2019s",
+          "factory_name": "Raju Fitting Tailor’s",
           "osm_id": 8219384273,
           "industry_type": "unknown",
           "pollution_profile": "Unclassified Industrial",
@@ -830,8 +830,8 @@
     },
     {
       "id": "HS-016",
-      "lat": 23.79953,
-      "lng": 90.517493,
+      "lat": 23.796292,
+      "lng": 90.5248749,
       "river": "Shitalakshya",
       "type": "industrial",
       "severity": 48,
@@ -886,8 +886,8 @@
     },
     {
       "id": "HS-017",
-      "lat": 23.790796,
-      "lng": 90.519799,
+      "lat": 23.7861226,
+      "lng": 90.5206775,
       "river": "Shitalakshya",
       "type": "industrial",
       "severity": 45,
@@ -942,8 +942,8 @@
     },
     {
       "id": "HS-018",
-      "lat": 23.779182,
-      "lng": 90.521094,
+      "lat": 23.7861226,
+      "lng": 90.5206775,
       "river": "Shitalakshya",
       "type": "industrial",
       "severity": 46,
@@ -998,8 +998,8 @@
     },
     {
       "id": "HS-019",
-      "lat": 23.809844,
-      "lng": 90.469127,
+      "lat": 23.8009238,
+      "lng": 90.4822009,
       "river": "Balu",
       "type": "industrial",
       "severity": 42,
