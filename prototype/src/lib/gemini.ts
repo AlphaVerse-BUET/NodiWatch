@@ -57,10 +57,10 @@ Technical Stack:
 - Sentinel-2 (10m optical), Sentinel-1 SAR, Landsat 8/9 (30m)
 - Google Earth Engine for processing
 - Random Forest for pollution classification
-- CNN for water segmentation
+- MNDWI for water segmentation
 - Bayesian models for factory attribution
 
-Respond with Islamic values and environmental stewardship (Khalifa concept). When greeting, use "Assalamu-'Alaikum". When analyzing images, identify pollution indicators (color, turbidity, thermal plumes), encroachment evidence (structures, land filling), or erosion signs (bank retreat, sediment patterns). End responses with "JazakAllah khair" (May Allah reward you with good) when appropriate.`;
+Respond with Islamic values and environmental stewardship (Khalifa concept). When greeting, use "Assalamu-'Alaikum". When analyzing images, identify pollution indicators (color, turbidity, effluent plumes), encroachment evidence (structures, land filling), or erosion signs (bank retreat, sediment patterns). End responses with "JazakAllah khair" (May Allah reward you with good) when appropriate.`;
 
 /**
  * Analyze an environmental image using Gemini Vision
@@ -87,7 +87,7 @@ export async function analyzeEnvironmentalImage(
 - Water discoloration (red/brown from tanneries, blue/purple from textile dyes, grey from industrial effluent)
 - Turbidity levels and suspended particles
 - Surface foam or oil slicks
-- Thermal discharge plumes
+- Effluent discharge plumes
 - Visible waste or debris
 
 Provide a JSON response with:
@@ -95,7 +95,7 @@ Provide a JSON response with:
   "analysis": "Detailed description of observed pollution",
   "severity": "low|medium|high|critical",
   "confidence": 0.0-1.0,
-  "pollutionType": "textile|tannery|thermal|chemical|sewage|mixed",
+  "pollutionType": "textile|tannery|chemical|sewage|mixed",
   "detectedIssues": ["issue1", "issue2"],
   "spectralIndicators": "Description of color/spectral evidence",
   "recommendations": ["action1", "action2"]

@@ -9,10 +9,13 @@ interface FactoryAttributionChartProps {
   hotspotId?: string;
 }
 
-const COLORS = {
+const COLORS: Record<string, string> = {
   textile: "#7b2ff7",
   tannery: "#ef476f",
-  thermal: "#ffd166",
+  industrial: "#ffd166",
+  garment: "#06d6a0",
+  chemical: "#ff6b6b",
+  food: "#4ecdc4",
 };
 
 const CustomTooltip = ({ active, payload }: any) => {

@@ -2,6 +2,39 @@
   "corridors": [
     {
       "id": "E001",
+      "name": "Sirajganj Jamuna West Bank",
+      "river": "Jamuna",
+      "risk_level": "high",
+      "retreat_rate_m_year": 45.2,
+      "total_retreat_m": 452,
+      "population_at_risk": 8500,
+      "structures_at_risk": 320,
+      "coordinates": [
+        [89.705, 24.46],
+        [89.706, 24.458],
+        [89.707, 24.455],
+        [89.708, 24.452],
+        [89.709, 24.449],
+        [89.71, 24.446],
+        [89.711, 24.443],
+        [89.712, 24.44]
+      ],
+      "buffer_zone": {
+        "warning_m": 100,
+        "critical_m": 50
+      },
+      "analysis": {
+        "sar_coherence_pre_monsoon": 0.68,
+        "sar_coherence_post_monsoon": 0.31,
+        "coherence_change": -0.37,
+        "interpretation": "Major coherence loss indicates active bank collapse during monsoon"
+      },
+      "last_updated": "2025-12-15",
+      "trend": "accelerating",
+      "notes": "Jamuna braided channel shifts westward. Per Freihardt & Frey (2023) methodology, coherence < 0.4 indicates active erosion."
+    },
+    {
+      "id": "E002",
       "name": "Sadarghat Erosion Zone",
       "river": "Buriganga",
       "risk_level": "high",
@@ -24,43 +57,14 @@
         "critical_m": 25
       },
       "analysis": {
-        "sar_coherence": 0.42,
-        "ndvi_change": -0.35,
-        "slope_degrees": 8.5,
-        "soil_moisture": 78
+        "sar_coherence_pre_monsoon": 0.72,
+        "sar_coherence_post_monsoon": 0.42,
+        "coherence_change": -0.30,
+        "interpretation": "Moderate erosion along southern bank — worsened by industrial runoff weakening bank soil"
       },
-      "last_updated": "2026-03-10",
-      "trend": "accelerating"
-    },
-    {
-      "id": "E002",
-      "name": "Gabtali Riverbank",
-      "river": "Turag",
-      "risk_level": "medium",
-      "retreat_rate_m_year": 8.2,
-      "total_retreat_m": 82,
-      "population_at_risk": 850,
-      "structures_at_risk": 45,
-      "coordinates": [
-        [90.3541, 23.7949],
-        [90.3545, 23.7945],
-        [90.355, 23.794],
-        [90.3556, 23.7935],
-        [90.356, 23.793],
-        [90.3563, 23.7925]
-      ],
-      "buffer_zone": {
-        "warning_m": 40,
-        "critical_m": 20
-      },
-      "analysis": {
-        "sar_coherence": 0.55,
-        "ndvi_change": -0.22,
-        "slope_degrees": 5.2,
-        "soil_moisture": 65
-      },
-      "last_updated": "2026-03-10",
-      "trend": "stable"
+      "last_updated": "2025-12-15",
+      "trend": "accelerating",
+      "notes": "Urban erosion exacerbated by boat wash and industrial effluent. Bank stabilization measures insufficient."
     },
     {
       "id": "E003",
@@ -84,16 +88,48 @@
         "critical_m": 30
       },
       "analysis": {
-        "sar_coherence": 0.38,
-        "ndvi_change": -0.45,
-        "slope_degrees": 12.5,
-        "soil_moisture": 82
+        "sar_coherence_pre_monsoon": 0.65,
+        "sar_coherence_post_monsoon": 0.38,
+        "coherence_change": -0.27,
+        "interpretation": "Active bank collapse — SAR coherence drop correlated with monsoon discharge peaks"
       },
-      "last_updated": "2026-03-10",
-      "trend": "accelerating"
+      "last_updated": "2025-12-15",
+      "trend": "accelerating",
+      "notes": "Highest retreat rate in Dhaka metro. Brick fields along bank accelerate undercutting."
     },
     {
       "id": "E004",
+      "name": "Gabtali Riverbank",
+      "river": "Turag",
+      "risk_level": "medium",
+      "retreat_rate_m_year": 8.2,
+      "total_retreat_m": 82,
+      "population_at_risk": 850,
+      "structures_at_risk": 45,
+      "coordinates": [
+        [90.3541, 23.7949],
+        [90.3545, 23.7945],
+        [90.355, 23.794],
+        [90.3556, 23.7935],
+        [90.356, 23.793],
+        [90.3563, 23.7925]
+      ],
+      "buffer_zone": {
+        "warning_m": 40,
+        "critical_m": 20
+      },
+      "analysis": {
+        "sar_coherence_pre_monsoon": 0.78,
+        "sar_coherence_post_monsoon": 0.55,
+        "coherence_change": -0.23,
+        "interpretation": "Moderate erosion — partially stabilized by existing embankment"
+      },
+      "last_updated": "2025-12-15",
+      "trend": "stable",
+      "notes": "Existing BWDB embankment provides partial protection. Erosion concentrated at unprotected sections."
+    },
+    {
+      "id": "E005",
       "name": "Tongi Rail Bridge Adjacent",
       "river": "Turag",
       "risk_level": "low",
@@ -112,33 +148,38 @@
         "critical_m": 15
       },
       "analysis": {
-        "sar_coherence": 0.72,
-        "ndvi_change": -0.15,
-        "slope_degrees": 3.2,
-        "soil_moisture": 55
+        "sar_coherence_pre_monsoon": 0.82,
+        "sar_coherence_post_monsoon": 0.72,
+        "coherence_change": -0.10,
+        "interpretation": "Minor erosion — bridge pilings provide bank stability"
       },
-      "last_updated": "2026-03-10",
-      "trend": "stable"
+      "last_updated": "2025-12-15",
+      "trend": "stable",
+      "notes": "Infrastructure provides natural bank protection. Low risk but requires continued monitoring."
     }
   ],
   "statistics": {
-    "total_corridors": 4,
-    "high_risk": 2,
+    "total_corridors": 5,
+    "high_risk": 3,
     "medium_risk": 1,
     "low_risk": 1,
-    "total_population_at_risk": 5170,
-    "total_structures_at_risk": 295,
-    "average_retreat_rate": 10.0,
-    "max_retreat_rate": 15.8
+    "total_population_at_risk": 13670,
+    "total_structures_at_risk": 615,
+    "average_retreat_rate": 17.04,
+    "max_retreat_rate": 45.2
   },
   "methodology": {
+    "sensor": "Sentinel-1 SAR C-band (IW mode, VV polarization)",
+    "technique": "Pre/post monsoon coherence differencing",
+    "threshold": "Coherence < 0.4 = active erosion zone",
+    "analysis_period": "Pre-monsoon (Jan-Mar) vs Post-monsoon (Oct-Dec)",
+    "reference": "Freihardt & Frey (2023) - NHESS, DOI: 10.5194/nhess-23-751-2023",
+    "gee_tool": "https://doi.org/10.5281/zenodo.7252970",
+    "confidence_level": 0.85,
     "data_sources": [
-      "Sentinel-1 SAR",
-      "Sentinel-2 Optical",
-      "Landsat 8/9",
-      "DEM"
-    ],
-    "analysis_period": "2016-2026",
-    "confidence_level": 0.85
+      "Sentinel-1 SAR GRD (COPERNICUS/S1_GRD)",
+      "Sentinel-2 Optical (COPERNICUS/S2_SR_HARMONIZED)",
+      "SRTM DEM"
+    ]
   }
 }

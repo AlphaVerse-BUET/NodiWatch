@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 /**
  * NodiWatch AI Chatbot
@@ -72,7 +72,7 @@ const PAGE_CONTEXT: Record<string, { name: string; description: string }> = {
   "/about": {
     name: "About NodiWatch",
     description:
-      "About page for NodiWatch - Eco-Tech Hackathon 2026 project by Team AlphaVerse. Team: Ahmmad Nur Swapnil (AI/ML Lead - CNN & Random Forest), Tamim Hasan Saad (Full-Stack Dev - Next.js/PostGIS), Ekramul Haque Amin (Backend + SAR signal processing), Habiba Rafique (AI/ML + database), Sonia Khatun (Full-Stack Dev, UI). Shows system architecture diagram, tech stack, and mission.",
+      "About page for NodiWatch - Eco-Tech Hackathon 2026 project by Team AlphaVerse. Team: Ahmmad Nur Swapnil (AI/ML Lead - Spectral Index & Random Forest), Tamim Hasan Saad (Full-Stack Dev - Next.js/PostGIS), Ekramul Haque Amin (Backend + SAR signal processing), Habiba Rafique (AI/ML + database), Sonia Khatun (Full-Stack Dev, UI). Shows system architecture diagram, tech stack, and mission.",
   },
 };
 

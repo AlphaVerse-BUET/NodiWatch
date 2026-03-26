@@ -17,6 +17,7 @@ import {
   X,
   Camera,
   Sparkles,
+  Shield,
 } from "lucide-react";
 
 const navItems = [
@@ -26,6 +27,7 @@ const navItems = [
   { href: "/erosion", label: "Erosion", icon: Mountain },
   { href: "/analysis", label: "Analysis", icon: BarChart3 },
   { href: "/evidence", label: "Evidence", icon: Camera },
+  { href: "/validation", label: "Validation", icon: Shield },
   { href: "/datasets", label: "Datasets", icon: Database },
   { href: "/about", label: "About", icon: Info },
 ];

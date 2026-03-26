@@ -10,6 +10,7 @@ import {
   EyeOff,
   Calendar,
   Layers,
+  Satellite,
 } from "lucide-react";
 
 const MapContainer = dynamic(
@@ -69,6 +70,7 @@ export default function EncroachmentMap({
   const [showRivers, setShowRivers] = useState(true);
   const [showSegments, setShowSegments] = useState(true);
   const [selectedData, setSelectedData] = useState<any>(null);
+  const [basemap, setBasemap] = useState<"dark" | "satellite">("satellite");
 
   useEffect(() => {
     setMounted(true);
@@ -158,6 +160,20 @@ export default function EncroachmentMap({
           {showSegments ? <Eye size={14} /> : <EyeOff size={14} />}
           Encroachment Sites
         </button>
+
+        <div className="border-t border-white/10 pt-2 mt-1">
+          <button
+            onClick={() => setBasemap(basemap === "dark" ? "satellite" : "dark")}
+            className={`flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm transition-colors ${
+              basemap === "satellite"
+                ? "bg-blue-500/20 text-blue-400"
+                : "bg-slate-700/50 text-gray-400"
+            }`}
+          >
+            <Satellite size={14} />
+            {basemap === "satellite" ? "Satellite" : "Dark Map"}
+          </button>
+        </div>
       </div>
 
       {/* Selected Segment Panel */}
@@ -255,10 +271,17 @@ export default function EncroachmentMap({
         className="w-full h-full rounded-xl"
         style={{ background: "#0a0f1a" }}
       >
-        <TileLayer
-          attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        />
+        {basemap === "satellite" ? (
+          <TileLayer
+            attribution='&copy; Esri, Maxar, Earthstar Geographics'
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          />
+        ) : (
+          <TileLayer
+            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          />
+        )}
 
         {/* Rivers */}
         {showRivers &&

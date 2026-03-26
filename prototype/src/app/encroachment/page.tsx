@@ -84,7 +84,7 @@ export default function EncroachmentPage() {
                 </div>
                 <div className="flex items-center gap-3 text-gray-300">
                   <CheckCircle2 size={18} className="text-green-400" />
-                  <span>CNN-based water segmentation with 86% accuracy</span>
+                  <span>MNDWI-based water classification at 10m resolution</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-300">
                   <CheckCircle2 size={18} className="text-green-400" />
@@ -376,11 +376,11 @@ export default function EncroachmentPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-white mb-1">
-                      CNN Segmentation
+                      Threshold Segmentation
                     </h4>
                     <p className="text-sm text-gray-400">
-                      Deep learning model trained on 10,000+ labeled river
-                      images for boundary refinement
+                      MNDWI threshold-based classification isolates water
+                      pixels for boundary refinement
                     </p>
                   </div>
                 </div>
@@ -449,7 +449,7 @@ export default function EncroachmentPage() {
                     <span className="text-sm text-gray-400">
                       Boundary Accuracy
                     </span>
-                    <span className="text-white font-semibold">±5m at 86%</span>
+                    <span className="text-white font-semibold">±10m (MNDWI)</span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-slate-900/50 rounded-lg">
                     <span className="text-sm text-gray-400">Archive Depth</span>

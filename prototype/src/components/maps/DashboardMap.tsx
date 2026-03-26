@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { Eye, Layers, Droplets, Factory } from "lucide-react";
+import { Eye, Layers, Droplets, Factory, Satellite } from "lucide-react";
 
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
@@ -38,6 +38,7 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
   const [activeLayer, setActiveLayer] = useState<
     "all" | "pollution" | "encroachment" | "erosion"
   >("all");
+  const [basemap, setBasemap] = useState<"dark" | "satellite">("satellite");
 
   useEffect(() => {
     setMounted(true);
@@ -99,16 +100,38 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
         )}
       </div>
 
+      {/* Basemap Toggle */}
+      <div className="absolute top-4 right-4 z-[1000]">
+        <button
+          onClick={() => setBasemap(basemap === "dark" ? "satellite" : "dark")}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+            basemap === "satellite"
+              ? "bg-blue-500/90 text-white shadow-lg shadow-blue-500/30"
+              : "glass-card text-gray-300 hover:text-white"
+          }`}
+        >
+          <Satellite size={14} />
+          {basemap === "satellite" ? "Satellite" : "Dark"}
+        </button>
+      </div>
+
       <MapContainer
         center={center}
         zoom={11}
         className="w-full h-full"
         style={{ background: "#0a0f1a" }}
       >
-        <TileLayer
-          attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        />
+        {basemap === "satellite" ? (
+          <TileLayer
+            attribution='&copy; Esri, Maxar, Earthstar Geographics'
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          />
+        ) : (
+          <TileLayer
+            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          />
+        )}
 
         {/* Rivers */}
         {riversData.features.map((river: any) => (

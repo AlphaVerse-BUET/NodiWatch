@@ -70,7 +70,7 @@ export default function HomePage() {
       features: [
         "NDTI Index Analysis",
         "Factory Attribution",
-        "Real-time Alerts",
+        "Automated Alerts",
       ],
     },
     {
@@ -114,27 +114,27 @@ export default function HomePage() {
   const aiFeatures = [
     {
       icon: Brain,
-      title: "CNN Water Segmentation",
+      title: "MNDWI Water Classification",
       description:
-        "Deep learning models track river boundaries with 86% accuracy using modified MNDWI index",
+        "Modified Normalized Difference Water Index tracks river boundaries — validated at 82-96% accuracy in Bangladesh rivers",
     },
     {
       icon: Target,
-      title: "Random Forest Classification",
+      title: "Spectral Fingerprinting",
       description:
-        "Spectral fingerprinting identifies pollution types: textile dye, tannery waste, thermal discharge",
+        "NDTI, CDOM, and Red/Blue ratio indices classify pollution cluster types: high-dye, high-organic, mixed industrial",
     },
     {
       icon: Layers,
       title: "Bayesian Attribution",
       description:
-        "Probabilistic factory attribution based on proximity, industrial type, and spectral match",
+        "Spatial probability ranking of nearby industrial clusters using OSM data, distance decay, and spectral match",
     },
     {
       icon: Zap,
-      title: "SAR Erosion Prediction",
+      title: "SAR Erosion Tracking",
       description:
-        "Cloud-penetrating radar analysis forecasts bank retreat rates through monsoon season",
+        "Cloud-penetrating Sentinel-1 radar detects historical bank retreat through monsoon season (per Freihardt & Frey, 2023)",
     },
   ];
 
@@ -183,7 +183,7 @@ export default function HomePage() {
               <span className="text-orange-400">Erosion</span>.
               <br />
               <span className="text-gray-400">
-                Real-Time Intelligence for Bangladesh's Rivers.
+                Near-Real-Time Intelligence for Bangladesh's Rivers.
               </span>
             </p>
 
@@ -274,7 +274,7 @@ export default function HomePage() {
                 <p className="text-gray-300 mb-6 leading-relaxed">
                   This Sentinel-2 capture shows red-brown effluent plumes —
                   visible from space — pouring from industrial zones into the
-                  Buriganga river. Tannery chromium, textile dyes, and thermal
+                  Buriganga river. Tannery chromium, textile dyes, and chemical
                   discharge threaten water supply for{" "}
                   <span className="text-white font-semibold">
                     12 million Dhaka residents
@@ -379,29 +379,29 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                {/* Floating DO Level Badge */}
+                {/* Floating NDTI Badge */}
                 <div className="absolute -bottom-4 -left-4 bg-slate-900/95 border border-red-500/40 rounded-xl px-4 py-3 shadow-xl backdrop-blur-sm">
                   <div className="text-xs text-gray-500 font-mono mb-0.5">
-                    DISSOLVED O₂
+                    NDTI INDEX
                   </div>
                   <div className="text-2xl font-bold text-red-400 font-mono">
-                    1.2 mg/L
+                    +0.47
                   </div>
                   <div className="text-xs text-red-400/60 font-mono">
-                    CRITICAL · Normal ≥ 6
+                    HIGH TURBIDITY
                   </div>
                 </div>
 
-                {/* Floating Threat Score */}
+                {/* Floating CDOM Badge */}
                 <div className="absolute -top-4 -right-4 bg-slate-900/95 border border-orange-500/40 rounded-xl px-4 py-3 shadow-xl backdrop-blur-sm">
                   <div className="text-xs text-gray-500 font-mono mb-0.5">
-                    THREAT SCORE
+                    CDOM INDEX
                   </div>
                   <div className="text-2xl font-bold text-orange-400 font-mono">
-                    9.1/10
+                    3.7
                   </div>
                   <div className="text-xs text-orange-400/60 font-mono">
-                    CLASS: CRITICAL
+                    HIGH ORGANIC LOAD
                   </div>
                 </div>
               </div>
@@ -774,7 +774,7 @@ export default function HomePage() {
             </span>
             <span className="flex items-center gap-2">
               <Shield size={16} className="text-green-400" />
-              Real-time Monitoring
+              Near-Real-Time Monitoring
             </span>
           </div>
         </div>

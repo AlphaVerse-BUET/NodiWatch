@@ -44,7 +44,7 @@ const FactoryAttributionChart = dynamic(
 export default function PollutionPage() {
   const [selectedHotspot, setSelectedHotspot] = useState<any>(null);
   const [filterType, setFilterType] = useState<
-    "all" | "textile" | "tannery" | "thermal"
+    "all" | "textile" | "tannery" | "industrial"
   >("all");
 
   const filteredHotspots =
@@ -93,17 +93,17 @@ export default function PollutionPage() {
       sources: "Leather processing plants, chemical treatment facilities",
     },
     {
-      type: "thermal",
+      type: "organic",
       icon: Thermometer,
-      title: "Thermal Discharge",
+      title: "High-CDOM (Organic Waste)",
       color: "orange",
-      description: "Hot water discharge detectable via Landsat thermal bands",
+      description: "Chromophoric dissolved organic matter detectable via Green/Blue band ratio",
       indicators: [
-        "Temperature delta >5°C",
-        "Thermal plume visible",
-        "Low dissolved oxygen",
+        "CDOM index > 2.5",
+        "High NDTI (> 0.3)",
+        "Brown/dark water plume",
       ],
-      sources: "Power plants, industrial cooling systems",
+      sources: "Tannery waste, sewage discharge, food processing",
     },
   ];
 
@@ -141,8 +141,7 @@ export default function PollutionPage() {
                 <div className="flex items-center gap-3 text-gray-300">
                   <CheckCircle2 size={18} className="text-green-400" />
                   <span>
-                    Spectral fingerprinting with 92% classification accuracy
-                  </span>
+                    Spectral fingerprinting using NDTI, CDOM, and R/B ratio indices</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-300">
                   <CheckCircle2 size={18} className="text-green-400" />
@@ -153,7 +152,7 @@ export default function PollutionPage() {
                 <div className="flex items-center gap-3 text-gray-300">
                   <CheckCircle2 size={18} className="text-green-400" />
                   <span>
-                    Real-time alerts within 24 hours of discharge event
+                    Near-real-time alerts with 5-day Sentinel-2 revisit cycle
                   </span>
                 </div>
               </div>
@@ -230,7 +229,7 @@ export default function PollutionPage() {
             <span className="text-sm">Filter by type:</span>
           </div>
           <div className="flex gap-2">
-            {(["all", "textile", "tannery", "thermal"] as const).map((type) => (
+            {(["all", "textile", "tannery", "industrial"] as const).map((type) => (
               <button
                 key={type}
                 onClick={() => setFilterType(type)}
@@ -309,9 +308,9 @@ export default function PollutionPage() {
                         </div>
                       </div>
                       <div className="bg-slate-800/50 rounded p-2 text-center">
-                        <div className="text-xs text-gray-400">Thermal</div>
+                        <div className="text-xs text-gray-400">CDOM</div>
                         <div className="text-white font-semibold">
-                          {selectedHotspot.spectral.thermal}°C
+                          {selectedHotspot.spectral.cdom || "—"}
                         </div>
                       </div>
                     </div>
@@ -472,9 +471,8 @@ export default function PollutionPage() {
               <p className="text-gray-300 mb-6 leading-relaxed">
                 NodiWatch uses the Normalized Difference Turbidity Index (NDTI)
                 derived from Sentinel-2 multispectral imagery to detect water
-                quality anomalies. Combined with Red/Blue band ratios and
-                thermal analysis from Landsat-8, we achieve 92% classification
-                accuracy.
+                quality anomalies. Combined with CDOM (Green/Blue ratio) and
+                Red/Blue band ratios, we classify pollution cluster types.
               </p>
 
               <div className="space-y-4">
@@ -514,11 +512,11 @@ export default function PollutionPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-white mb-1">
-                      Random Forest Classification
+                      Threshold-Based Classification
                     </h4>
                     <p className="text-sm text-gray-400">
-                      ML model trained on 5,000+ labeled samples classifies
-                      pollution type
+                      Index thresholds classify pollution cluster types:
+                      high-dye, high-organic, mixed industrial
                     </p>
                   </div>
                 </div>
@@ -612,28 +610,28 @@ export default function PollutionPage() {
                 <div className="bg-slate-900/50 rounded-lg p-4">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm text-gray-400">
-                      Thermal Anomaly
+                      CDOM Index (Organic)
                     </span>
-                    <span className="text-xs text-gray-500">Delta °C</span>
+                    <span className="text-xs text-gray-500">Green/Blue ratio</span>
                   </div>
                   <div className="flex gap-1 h-4 rounded overflow-hidden">
                     <div
                       className="flex-1 bg-cyan-400"
-                      title="Normal: <2°C"
+                      title="Normal: <1.5"
                     ></div>
                     <div
                       className="flex-1 bg-yellow-500"
-                      title="Elevated: 2-5°C"
+                      title="Elevated: 1.5-2.5"
                     ></div>
                     <div
                       className="flex-1 bg-orange-600"
-                      title="Hot: >5°C"
+                      title="High: >2.5"
                     ></div>
                   </div>
                   <div className="flex justify-between text-xs text-gray-500 mt-1">
-                    <span>Normal (&lt;2°C)</span>
-                    <span>Elevated (2-5°C)</span>
-                    <span>Hot (&gt;5°C)</span>
+                    <span>Normal (&lt;1.5)</span>
+                    <span>Elevated (1.5-2.5)</span>
+                    <span>High (&gt;2.5)</span>
                   </div>
                 </div>
               </div>

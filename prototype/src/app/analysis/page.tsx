@@ -227,9 +227,9 @@ export default function AnalysisPage() {
               <h4 className="font-medium text-white">Critical Finding</h4>
             </div>
             <p className="text-sm text-gray-400">
-              Buriganga and Balu rivers show the highest pollution levels, with
-              dissolved oxygen dropping below 0.5 mg/L - critically below the 5
-              mg/L threshold for aquatic life.
+              Buriganga and Balu rivers show the highest NDTI pollution indices,
+              with published studies confirming dissolved oxygen below 0.5 mg/L
+              — critically below the 5 mg/L threshold for aquatic life.
             </p>
           </div>
 

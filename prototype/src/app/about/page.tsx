@@ -27,7 +27,7 @@ const team = [
   {
     name: "Ahmmad Nur Swapnil",
     role: "AI/ML Lead",
-    bio: "Engineered CNN and Random Forest models for pollution and encroachment detection. Developed spectral analysis algorithms and TensorFlow training pipeline. Built erosion forecasting system using historical satellite data.",
+    bio: "Engineered spectral index classification and Random Forest models for pollution and encroachment detection. Developed MNDWI/NDTI analysis algorithms and GEE processing pipeline. Built erosion monitoring system using historical satellite data.",
     avatar: "/team/swapnil.jpg",
     github: "https://github.com/an-swapnil",
     linkedin: "https://www.linkedin.com/in/an-swapnil/",
@@ -35,7 +35,7 @@ const team = [
   {
     name: "Tamim Hasan Saad",
     role: "Full-Stack Developer",
-    bio: "Built React/Next.js dashboard with real-time monitoring. Integrated PostGIS for spatial queries. Developed Green Banking API for carbon credits. Implemented alert system with SMS/email notifications.",
+    bio: "Built React/Next.js dashboard with near-real-time monitoring. Integrated PostGIS for spatial queries. Developed Green Banking API for carbon credits. Implemented alert system with SMS/email notifications.",
     avatar: "/team/tamim.jpg",
     github: "https://github.com/tamim-hasan-saad",
     linkedin: "https://www.linkedin.com/in/tamim-hasan-saad/",
@@ -43,7 +43,7 @@ const team = [
   {
     name: "Ekramul Haque Amin",
     role: "Backend + Signal Processing Expert",
-    bio: "Architected Google Earth Engine workflows for satellite data processing. Developed SAR analysis tools for erosion monitoring. Built backend infrastructure and data pipelines for real-time geospatial analysis.",
+    bio: "Architected Google Earth Engine workflows for satellite data processing. Developed SAR analysis tools for erosion monitoring. Built backend infrastructure and data pipelines for automated geospatial analysis.",
     avatar: "/team/amin.jpg",
     github: "https://github.com/ekramul-haque-amin",
     linkedin: "https://www.linkedin.com/in/ekramul-haque-amin22/",
@@ -59,7 +59,7 @@ const team = [
   {
     name: "Sonia Khatun",
     role: "Full-Stack Developer",
-    bio: "Developed frontend components with React/Next.js for data visualization. Implemented UI/UX features for evidence submission system. Integrated API endpoints for real-time alerts and monitoring dashboard.",
+    bio: "Developed frontend components with React/Next.js for data visualization. Implemented UI/UX features for evidence submission system. Integrated API endpoints for automated alerts and monitoring dashboard.",
     avatar: "/team/sonia.jpg",
     github: "https://github.com/sonia-khatun",
     linkedin: "https://www.linkedin.com/in/most-sonia-khatun-b92717363/",
@@ -101,13 +101,13 @@ const capabilities = [
     title: "Spectral Fingerprinting",
     description:
       "Identify pollution types from spectral signatures at 10m resolution",
-    accuracy: "92%",
+    accuracy: "MNDWI-based",
   },
   {
     title: "Water Segmentation",
     description:
-      "CNN-based river boundary detection with temporal differencing",
-    accuracy: "86%",
+      "MNDWI-based river boundary detection with temporal differencing",
+    accuracy: "82-96%",
   },
   {
     title: "Factory Attribution",
@@ -176,7 +176,8 @@ export default function AboutPage() {
             </div>
             <p className="text-gray-300">
               A future where every river in Bangladesh is continuously
-              monitored, violations are detected in real-time, and environmental
+              monitored, violations are detected through automated satellite
+              surveillance, and environmental
               accountability is strengthened through satellite-based evidence.
             </p>
           </div>
@@ -194,8 +195,8 @@ export default function AboutPage() {
               </h3>
               <p className="text-sm text-gray-400">
                 Untreated industrial effluent from textile and tannery
-                industries turns rivers toxic. Dissolved oxygen drops below 0.5
-                mg/L - lethal for aquatic life.
+                industries turns rivers toxic. Published studies report dissolved
+                oxygen dropping below 0.5 mg/L — lethal for aquatic life.
               </p>
             </div>
             <div className="p-4 bg-purple-500/10 rounded-lg">
