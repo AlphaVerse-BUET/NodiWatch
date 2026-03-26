@@ -88,7 +88,7 @@ export default function EncroachmentPage() {
                 </div>
                 <div className="flex items-center gap-3 text-gray-300">
                   <CheckCircle2 size={18} className="text-green-400" />
-                  <span>Legal-grade evidence for court proceedings</span>
+                  <span>Enforcement triage intelligence for agency action</span>
                 </div>
               </div>
 
@@ -410,11 +410,11 @@ export default function EncroachmentPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-white mb-1">
-                      Legal Documentation
+                      Enforcement Reports
                     </h4>
                     <p className="text-sm text-gray-400">
-                      Georeferenced evidence packages with timestamp
-                      verification for court proceedings
+                      Georeferenced evidence packages with satellite
+                      timestamps for agency enforcement action
                     </p>
                   </div>
                 </div>
@@ -468,10 +468,11 @@ export default function EncroachmentPage() {
                       Legal Evidence Standard
                     </h4>
                     <p className="text-sm text-gray-400 leading-relaxed">
-                      Our encroachment reports meet the evidentiary requirements
-                      set by the Bangladesh High Court's 2019 directive on river
-                      boundary disputes. Satellite timestamps and georeferencing
-                      provide court-admissible documentation.
+                      Our encroachment reports provide georeferenced satellite
+                      evidence to support agency enforcement and referral to
+                      DoE and BWDB for field verification. At 10m resolution,
+                      reports serve as enforcement triage — not standalone
+                      legal proof.
                     </p>
                     <Link
                       href="/evidence"

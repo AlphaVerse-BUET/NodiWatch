@@ -42,7 +42,7 @@ const PAGE_CONTEXT: Record<string, { name: string; description: string }> = {
   "/pollution": {
     name: "Pollution Monitor",
     description:
-      "The river pollution monitoring page. Shows NDTI spectral index analysis, factory attribution with Bayesian models, live Buriganga/Dhaka river pollution map, and before/after comparison slider. Tracks tannery (chromium/sulfide), textile (dye), thermal, and chemical discharge. Users can see pollution hotspot locations, severity, and factory IDs.",
+      "The river pollution monitoring page. Shows NDTI spectral index analysis, factory attribution with Bayesian models, live Buriganga/Dhaka river pollution map, and before/after comparison slider. Tracks high organic load clusters (tannery), dye signature clusters (textile), and chemical discharge by spectral fingerprinting. Users can see pollution hotspot locations, severity, and factory IDs.",
   },
   "/encroachment": {
     name: "Encroachment Monitor",

@@ -131,7 +131,7 @@ export default function ReportsPage() {
                 Evidence Reports
               </h1>
               <p className="text-gray-400">
-                Generate court-ready documentation with satellite proof
+                Generate enforcement triage reports with satellite evidence
               </p>
             </div>
           </div>
