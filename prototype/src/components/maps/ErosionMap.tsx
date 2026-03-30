@@ -64,6 +64,39 @@ const MapEventListener = dynamic(
 import erosionData from "@/data/erosion-corridors.json";
 import riversData from "@/data/rivers.json";
 
+/**
+ * Compute a filled polygon representing the at-risk zone behind a river bank.
+ * Returns [lat, lng] pairs (Leaflet order) for a Polygon component.
+ * Uses perpendicular offset from corridor tangent to project inland.
+ */
+function computeZonePolygon(
+  coords: number[][],
+  bufferM: number
+): [number, number][] {
+  const n = coords.length;
+  const inland: [number, number][] = [];
+  for (let i = 0; i < n; i++) {
+    const prev = coords[Math.max(0, i - 1)];
+    const next = coords[Math.min(n - 1, i + 1)];
+    const dlng = next[0] - prev[0];
+    const dlat = next[1] - prev[1];
+    const mplng = 111_000 * Math.cos((coords[i][1] * Math.PI) / 180);
+    const dx = dlng * mplng;
+    const dy = dlat * 111_000;
+    const len = Math.sqrt(dx * dx + dy * dy) || 1;
+    // Right perpendicular of flow direction (inland for right/west bank of N→S rivers)
+    const px = dy / len;
+    const py = -dx / len;
+    inland.push([
+      coords[i][0] + (px * bufferM) / mplng,
+      coords[i][1] + (py * bufferM) / 111_000,
+    ]);
+  }
+  const bankLine: [number, number][] = coords.map((c) => [c[1], c[0]] as [number, number]);
+  const inlandLine: [number, number][] = inland.map((c) => [c[1], c[0]] as [number, number]).reverse();
+  return [...bankLine, ...inlandLine];
+}
+
 interface LiveWaterway {
   id: string;
   name: string;
@@ -339,138 +372,123 @@ export default function ErosionMap({
         {/* Viewport event listener — triggers waterway fetch on pan/zoom */}
         <MapEventListener onBoundsChange={handleBoundsChange} />
 
-        {/* Rivers — live OSM if available, else static fallback */}
-        {showRivers &&
-          (liveWaterways
-            ? liveWaterways.map((w) => (
+        {/* Rivers — static always + live OSM layer when available */}
+        {showRivers && riversData.features.map((river: any) => (
+          <Polyline
+            key={river.properties.id}
+            positions={river.geometry.coordinates.map((c: number[]) => [c[1], c[0]])}
+            pathOptions={{
+              color: river.properties.status === "critical" ? "#ef476f"
+                : river.properties.status === "severe" ? "#ff8c00"
+                : "#118ab2",
+              weight: 3,
+              opacity: 0.6,
+            }}
+          >
+            <Popup>
+              <div className="text-center">
+                <strong>{river.properties.name}</strong>
+                <br />
+                <span className="text-xs">{river.properties.nameBn}</span>
+              </div>
+            </Popup>
+          </Polyline>
+        ))}
+        {showRivers && liveWaterways && liveWaterways.map((w) => (
+          <Polyline
+            key={`w-${w.id}`}
+            positions={w.coordinates.map((c) => [c[1], c[0]] as [number, number])}
+            pathOptions={{ color: "#118ab2", weight: 4, opacity: 0.75 }}
+          >
+            <Popup>
+              <strong>{w.name}</strong>
+              <br />
+              <span className="text-xs capitalize">{w.type} · OSM live</span>
+            </Popup>
+          </Polyline>
+        ))}
+
+        {/* Erosion Corridors — bank line + at-risk zone polygon */}
+        {showCorridors &&
+          erosionData.corridors.map((corridor: any) => {
+            const color = getRiskColor(corridor.risk_level);
+            const isSelected = selectedCorridor === corridor.id;
+            const bankPositions = corridor.coordinates.map((c: number[]) => [c[1], c[0]] as [number, number]);
+            const handleClick = () => { setSelectedData(corridor); onCorridorSelect?.(corridor); };
+
+            return (
+              <div key={corridor.id}>
+                {/* Warning zone polygon (outer, wider, lighter) */}
+                {showBufferZones && corridor.coordinates.length >= 2 && (
+                  <Polygon
+                    positions={computeZonePolygon(corridor.coordinates, corridor.buffer_zone?.warning_m ?? 100)}
+                    pathOptions={{
+                      color,
+                      fillColor: color,
+                      fillOpacity: 0.12,
+                      weight: 0,
+                    }}
+                    eventHandlers={{ click: handleClick }}
+                  />
+                )}
+
+                {/* Critical zone polygon (inner, tighter, more opaque) */}
+                {showBufferZones && corridor.coordinates.length >= 2 && (
+                  <Polygon
+                    positions={computeZonePolygon(corridor.coordinates, corridor.buffer_zone?.critical_m ?? 50)}
+                    pathOptions={{
+                      color,
+                      fillColor: color,
+                      fillOpacity: 0.22,
+                      weight: 1,
+                      dashArray: "4, 4",
+                      opacity: 0.4,
+                    }}
+                    eventHandlers={{ click: handleClick }}
+                  />
+                )}
+
+                {/* Bank edge polyline */}
                 <Polyline
-                  key={`w-${w.id}`}
-                  positions={w.coordinates.map((c) => [c[1], c[0]] as [number, number])}
-                  pathOptions={{ color: "#118ab2", weight: 3, opacity: 0.7 }}
-                >
-                  <Popup>
-                    <strong>{w.name}</strong>
-                    <br />
-                    <span className="text-xs capitalize">{w.type} · OSM</span>
-                  </Popup>
-                </Polyline>
-              ))
-            : riversData.features.map((river: any) => (
-                <Polyline
-                  key={river.properties.id}
-                  positions={river.geometry.coordinates.map((c: number[]) => [
-                    c[1],
-                    c[0],
-                  ])}
+                  positions={bankPositions}
                   pathOptions={{
-                    color: "#118ab2",
-                    weight: 4,
-                    opacity: 0.7,
+                    color,
+                    weight: isSelected ? 6 : 4,
+                    opacity: isSelected ? 1 : 0.85,
+                    dashArray: corridor.trend === "stable" ? "8, 4" : undefined,
                   }}
+                  eventHandlers={{ click: handleClick }}
                 >
                   <Popup>
-                    <div className="text-center">
-                      <strong>{river.properties.name}</strong>
-                      <br />
-                      <span className="text-xs">{river.properties.nameBn}</span>
+                    <div className="min-w-[180px] text-sm">
+                      <div className="font-bold mb-1">{corridor.name}</div>
+                      <div className="text-xs text-gray-600 space-y-0.5">
+                        <p>River: <strong>{corridor.river}</strong></p>
+                        <p>Retreat: <strong className={corridor.risk_level === "high" ? "text-red-600" : "text-yellow-600"}>{corridor.retreat_rate_m_year} m/year</strong></p>
+                        <p>Population at risk: {corridor.population_at_risk.toLocaleString()}</p>
+                        <p>SAR coherence: {corridor.analysis?.sar_coherence_pre_monsoon} → <span className="text-red-600">{corridor.analysis?.sar_coherence_post_monsoon}</span></p>
+                        <p>Trend: <span className={corridor.trend === "accelerating" ? "text-red-600 font-semibold" : "text-green-600"}>{corridor.trend}</span></p>
+                      </div>
                     </div>
                   </Popup>
                 </Polyline>
-              )))}
 
-        {/* Erosion Corridors */}
-        {showCorridors &&
-          erosionData.corridors.map((corridor: any) => (
-            <div key={corridor.id}>
-              {/* Corridor Polyline */}
-              <Polyline
-                positions={corridor.coordinates.map((c: number[]) => [
-                  c[1],
-                  c[0],
-                ])}
-                pathOptions={{
-                  color: getRiskColor(corridor.risk_level),
-                  weight: 5,
-                  opacity: selectedCorridor === corridor.id ? 1 : 0.7,
-                }}
-                eventHandlers={{
-                  click: () => {
-                    setSelectedData(corridor);
-                    onCorridorSelect?.(corridor);
-                  },
-                }}
-              >
-                <Popup>
-                  <div className="text-center min-w-[150px]">
-                    <strong>{corridor.name}</strong>
-                    <br />
-                    <span className="text-xs">River: {corridor.river}</span>
-                    <br />
-                    <span
-                      className={`text-xs ${
-                        corridor.risk_level === "high"
-                          ? "text-red-600"
-                          : corridor.risk_level === "medium"
-                            ? "text-yellow-600"
-                            : "text-green-600"
-                      }`}
-                    >
-                      Retreat: {corridor.retreat_rate_m_year}m/year
-                    </span>
-                  </div>
-                </Popup>
-              </Polyline>
-
-              {/* Warning Buffer Zone */}
-              {showBufferZones && (
-                <>
-                  {/* Critical zone - inner */}
-                  <Polyline
-                    positions={corridor.coordinates.map((c: number[]) => [
-                      c[1] + 0.0003,
-                      c[0] + 0.0003,
-                    ])}
-                    pathOptions={{
-                      color: "#ef476f",
-                      weight: 8,
-                      opacity: 0.2,
-                      dashArray: "10, 5",
-                    }}
-                  />
-                  {/* Warning zone - outer */}
-                  <Polyline
-                    positions={corridor.coordinates.map((c: number[]) => [
-                      c[1] + 0.0006,
-                      c[0] + 0.0006,
-                    ])}
-                    pathOptions={{
-                      color: "#ffd166",
-                      weight: 12,
-                      opacity: 0.15,
-                      dashArray: "15, 10",
-                    }}
-                  />
-                </>
-              )}
-
-              {/* Point marker */}
-              <CircleMarker
-                center={[
-                  corridor.coordinates[0][1],
-                  corridor.coordinates[0][0],
-                ]}
-                radius={8}
-                pathOptions={{
-                  color: getRiskColor(corridor.risk_level),
-                  fillColor: getRiskColor(corridor.risk_level),
-                  fillOpacity: 0.8,
-                  weight: 2,
-                  className:
-                    corridor.trend === "accelerating" ? "pulse-marker" : "",
-                }}
-              />
-            </div>
-          ))}
+                {/* Pulsing start marker for accelerating corridors */}
+                <CircleMarker
+                  center={[corridor.coordinates[0][1], corridor.coordinates[0][0]]}
+                  radius={corridor.trend === "accelerating" ? 7 : 5}
+                  pathOptions={{
+                    color,
+                    fillColor: color,
+                    fillOpacity: 0.9,
+                    weight: 2,
+                    className: corridor.trend === "accelerating" ? "pulse-marker" : "",
+                  }}
+                  eventHandlers={{ click: handleClick }}
+                />
+              </div>
+            );
+          })}
       </MapContainer>
 
       {/* Legend */}
