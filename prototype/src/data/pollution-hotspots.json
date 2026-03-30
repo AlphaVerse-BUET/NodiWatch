@@ -99,7 +99,7 @@
           "probability": 0.039
         },
         {
-          "factory_name": "ইস্পাত কারখানা",
+          "factory_name": "\u0987\u09b8\u09cd\u09aa\u09be\u09a4 \u0995\u09be\u09b0\u0996\u09be\u09a8\u09be",
           "osm_id": 3473792186,
           "industry_type": "unknown",
           "pollution_profile": "Unclassified Industrial",
@@ -184,7 +184,7 @@
       "detected": "2025-11-27",
       "description": "Moderate pollution detected via spectral analysis. 53 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 53,
-      "top_source": "ইস্পাত কারখানা",
+      "top_source": "\u0987\u09b8\u09cd\u09aa\u09be\u09a4 \u0995\u09be\u09b0\u0996\u09be\u09a8\u09be",
       "attributed_factories": [
         {
           "factory_name": "Hazi Ali Azgor Factory",
@@ -803,7 +803,7 @@
           "probability": 0.35
         },
         {
-          "factory_name": "Raju Fitting Tailor’s",
+          "factory_name": "Raju Fitting Tailor\u2019s",
           "osm_id": 8219384273,
           "industry_type": "unknown",
           "pollution_profile": "Unclassified Industrial",
@@ -1025,6 +1025,240 @@
           "spectral_match": 0.5,
           "distance_score": 0.005,
           "probability": 0.35
+        }
+      ]
+    },
+    {
+      "id": "HS-020",
+      "lat": 23.613,
+      "lng": 90.502,
+      "label": "Narayanganj Textile-Tannery Discharge",
+      "river": "Shitalakshya",
+      "river_id": "shitalakshya",
+      "type": "textile",
+      "severity": 88,
+      "description": "Narayanganj hosts Bangladesh's densest textile and former tannery cluster. Hundreds of dyeing/washing units discharge directly into the Shitalakshya. Water turns visibly colored (red, blue, black) depending on dyeing schedules. DoE has documented dissolved oxygen below 1 mg/L in dry season.",
+      "detected": "2025-11-15",
+      "spectral": {
+        "ndti": 0.42,
+        "cdom": 12.8,
+        "red_blue_ratio": 2.85
+      },
+      "nearby_factories": 85,
+      "top_source": "Fatullah Textile Cluster",
+      "attributed_factories": [
+        {
+          "factory_name": "Fatullah Textile Cluster",
+          "industry_type": "textile",
+          "distance_m": 120,
+          "probability": 0.31
+        },
+        {
+          "factory_name": "Rupganj Dyeing Zone",
+          "industry_type": "textile",
+          "distance_m": 350,
+          "probability": 0.22
+        },
+        {
+          "factory_name": "Adamjee EPZ Industries",
+          "industry_type": "industrial",
+          "distance_m": 580,
+          "probability": 0.15
+        }
+      ]
+    },
+    {
+      "id": "HS-021",
+      "lat": 24.002,
+      "lng": 90.415,
+      "label": "Gazipur-Tongi Industrial Effluent",
+      "river": "Turag",
+      "river_id": "turag",
+      "type": "textile",
+      "severity": 78,
+      "description": "Gazipur district hosts 1,000+ garment and textile factories. Industrial wastewater from Tongi, Konabari, and Sreepur industrial estates flows into the Turag and its tributaries. One of South Asia's densest manufacturing clusters. Spectral signatures show chronic pollution year-round.",
+      "detected": "2025-10-28",
+      "spectral": {
+        "ndti": 0.38,
+        "cdom": 10.5,
+        "red_blue_ratio": 2.45
+      },
+      "nearby_factories": 120,
+      "top_source": "Tongi BSCIC Industrial Estate",
+      "attributed_factories": [
+        {
+          "factory_name": "Tongi BSCIC Industrial Estate",
+          "industry_type": "textile",
+          "distance_m": 200,
+          "probability": 0.28
+        },
+        {
+          "factory_name": "Konabari EPZ",
+          "industry_type": "industrial",
+          "distance_m": 450,
+          "probability": 0.21
+        },
+        {
+          "factory_name": "Pubail Dyeing Cluster",
+          "industry_type": "textile",
+          "distance_m": 600,
+          "probability": 0.16
+        }
+      ]
+    },
+    {
+      "id": "HS-022",
+      "lat": 22.348,
+      "lng": 91.782,
+      "label": "Chittagong Karnaphuli Industrial Zone",
+      "river": "Karnaphuli",
+      "river_id": "karnaphuli",
+      "type": "industrial",
+      "severity": 72,
+      "description": "The Karnaphuli River through Chittagong receives effluent from ship-breaking yards (Sitakunda), petrochemical facilities, steel re-rolling mills, and Chittagong EPZ. Heavy metals (Cr, Pb, Cd) documented in sediments. Oil sheen visible on satellite imagery near port areas.",
+      "detected": "2025-11-05",
+      "spectral": {
+        "ndti": 0.35,
+        "cdom": 8.2,
+        "red_blue_ratio": 2.1
+      },
+      "nearby_factories": 65,
+      "top_source": "Kalurghat Industrial Area",
+      "attributed_factories": [
+        {
+          "factory_name": "Kalurghat Industrial Area",
+          "industry_type": "industrial",
+          "distance_m": 300,
+          "probability": 0.25
+        },
+        {
+          "factory_name": "Chittagong EPZ",
+          "industry_type": "industrial",
+          "distance_m": 500,
+          "probability": 0.2
+        },
+        {
+          "factory_name": "Sitakunda Ship-Breaking Yard",
+          "industry_type": "industrial",
+          "distance_m": 4500,
+          "probability": 0.14
+        }
+      ]
+    },
+    {
+      "id": "HS-023",
+      "lat": 22.83,
+      "lng": 89.55,
+      "label": "Khulna-Mongla Industrial & Shrimp Runoff",
+      "river": "Rupsha",
+      "river_id": "rupsha",
+      "type": "industrial",
+      "severity": 62,
+      "description": "Khulna's Rupsha and Bhairab rivers receive effluent from jute mills, seafood processing plants, Khulna Shipyard, and extensive shrimp farm drainage. Nutrient overloading from shrimp aquaculture causes seasonal algal blooms. Proximity to the Sundarbans makes this an ecologically critical zone.",
+      "detected": "2025-11-20",
+      "spectral": {
+        "ndti": 0.28,
+        "cdom": 9.4,
+        "red_blue_ratio": 1.95
+      },
+      "nearby_factories": 40,
+      "top_source": "Khalishpur Industrial Area",
+      "attributed_factories": [
+        {
+          "factory_name": "Khalishpur Industrial Area",
+          "industry_type": "industrial",
+          "distance_m": 250,
+          "probability": 0.27
+        },
+        {
+          "factory_name": "Khulna Shipyard Ltd",
+          "industry_type": "industrial",
+          "distance_m": 400,
+          "probability": 0.18
+        },
+        {
+          "factory_name": "Daulatpur Jute Mill Zone",
+          "industry_type": "industrial",
+          "distance_m": 550,
+          "probability": 0.15
+        }
+      ]
+    },
+    {
+      "id": "HS-024",
+      "lat": 23.92,
+      "lng": 90.71,
+      "label": "Narsingdi Handloom Dyeing Discharge",
+      "river": "Meghna",
+      "river_id": "meghna",
+      "type": "textile",
+      "severity": 68,
+      "description": "Narsingdi is one of Bangladesh's oldest handloom and powerloom textile centers. Hundreds of informal dyeing and washing units operate along tributaries flowing into the Meghna system. Most units lack any effluent treatment. The Arialkha river and local khals carry concentrated dye waste year-round.",
+      "detected": "2025-11-10",
+      "spectral": {
+        "ndti": 0.34,
+        "cdom": 7.8,
+        "red_blue_ratio": 2.3
+      },
+      "nearby_factories": 55,
+      "top_source": "Babpur-Madhabdi Dyeing Cluster",
+      "attributed_factories": [
+        {
+          "factory_name": "Babpur-Madhabdi Dyeing Cluster",
+          "industry_type": "textile",
+          "distance_m": 180,
+          "probability": 0.32
+        },
+        {
+          "factory_name": "Narsingdi Sadar Handloom Zone",
+          "industry_type": "textile",
+          "distance_m": 400,
+          "probability": 0.22
+        },
+        {
+          "factory_name": "Shibpur Washing Plants",
+          "industry_type": "textile",
+          "distance_m": 650,
+          "probability": 0.14
+        }
+      ]
+    },
+    {
+      "id": "HS-025",
+      "lat": 23.688,
+      "lng": 90.392,
+      "label": "Savar-Hemayetpur Tannery Relocation Zone",
+      "river": "Buriganga",
+      "river_id": "buriganga",
+      "type": "tannery",
+      "severity": 92,
+      "description": "Since 2017, ~150 Hazaribagh tanneries were relocated to Savar Leather Industrial City. However, the Central Effluent Treatment Plant (CETP) remains non-functional. Tanneries discharge untreated chromium-laden effluent into the Dhaleshwari River tributary. DoE monitoring confirms Cr6+ levels far exceeding limits.",
+      "detected": "2025-12-01",
+      "spectral": {
+        "ndti": 0.45,
+        "cdom": 14.2,
+        "red_blue_ratio": 3.1
+      },
+      "nearby_factories": 150,
+      "top_source": "Savar Leather Industrial City CETP",
+      "attributed_factories": [
+        {
+          "factory_name": "Savar Leather Industrial City CETP",
+          "industry_type": "tannery",
+          "distance_m": 80,
+          "probability": 0.35
+        },
+        {
+          "factory_name": "Hemayetpur Chrome Tanneries",
+          "industry_type": "tannery",
+          "distance_m": 220,
+          "probability": 0.28
+        },
+        {
+          "factory_name": "Savar Industrial Zone",
+          "industry_type": "industrial",
+          "distance_m": 500,
+          "probability": 0.12
         }
       ]
     }

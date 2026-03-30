@@ -197,11 +197,11 @@ export default function PollutionMap({
         );
         if (res.ok) {
           const data = await res.json();
-          if (data.waterways?.length || data.hotspots?.length) {
-            setLiveWaterways(data.waterways || []);
-            setLiveHotspots(data.hotspots || []);
-            setLiveFactories(data.factories || []);
-          }
+          // Always update state — empty arrays are valid (no features in this area)
+          // geo/route.ts now returns bbox-filtered static hotspots even on Overpass fallback
+          setLiveWaterways(data.waterways || []);
+          setLiveHotspots(data.hotspots || []);
+          setLiveFactories(data.factories || []);
         }
       } catch {
         // Backend unavailable — show static fallback
@@ -251,9 +251,13 @@ export default function PollutionMap({
     );
   }
 
-  const hasLive = liveHotspots.length > 0 || liveWaterways.length > 0;
-  const displayHotspots = hasLive ? liveHotspots : (pollutionData.hotspots as any[]);
-  const displayFactories = hasLive ? liveFactories : (factoriesData.factories as any[]);
+  // hasLive = geo API has responded at least once for current viewport
+  const hasApiData = liveHotspots.length > 0 || liveWaterways.length > 0 || liveFactories.length > 0;
+  const hasLive = hasApiData; // used for "●live" badge display
+  // Hotspots: use API response (which includes bbox-filtered static hotspots); fallback to all static on initial load
+  const displayHotspots = liveHotspots.length > 0 ? liveHotspots : (pollutionData.hotspots as any[]);
+  // Factories: use live backend data when available; fallback to static
+  const displayFactories = liveFactories.length > 0 ? liveFactories : (factoriesData.factories as any[]);
 
   return (
     <div className={`relative ${className}`}>
@@ -404,10 +408,31 @@ export default function PollutionMap({
             />
           ))}
 
-        {/* Rivers */}
+        {/* Rivers — static (always) + Overpass live layer when available */}
+        {showRivers && riversData.features.map((river: any) => (
+          <Polyline
+            key={river.properties.id}
+            positions={river.geometry.coordinates.map((c: number[]) => [c[1], c[0]])}
+            pathOptions={{
+              color:
+                river.properties.status === "critical" ? "#ef476f"
+                : river.properties.status === "severe" ? "#ff8c00"
+                : "#118ab2",
+              weight: 3,
+              opacity: 0.65,
+            }}
+          >
+            <Popup>
+              <div className="text-center">
+                <strong>{river.properties.name}</strong>
+              </div>
+            </Popup>
+          </Polyline>
+        ))}
+
+        {/* Overpass live waterways (additional rivers from current viewport) */}
         {showRivers &&
-          (hasLive
-            ? liveWaterways.map((w) => (
+          liveWaterways.map((w) => (
                 <Polyline
                   key={`w-${w.id}`}
                   positions={w.coordinates.map((c) => [c[1], c[0]] as [number, number])}
@@ -421,39 +446,12 @@ export default function PollutionMap({
                     <div className="text-center">
                       <strong>{w.name}</strong>
                       <br />
-                      <span className="text-xs capitalize">{w.type} · OSM</span>
+                      <span className="text-xs capitalize">{w.type} · OSM live</span>
                     </div>
                   </Popup>
                 </Polyline>
-              ))
-            : riversData.features.map((river: any) => (
-                <Polyline
-                  key={river.properties.id}
-                  positions={river.geometry.coordinates.map((c: number[]) => [c[1], c[0]])}
-                  pathOptions={{
-                    color:
-                      river.properties.status === "critical" ? "#ef476f"
-                      : river.properties.status === "severe" ? "#ff8c00"
-                      : "#118ab2",
-                    weight: 4,
-                    opacity: 0.7,
-                  }}
-                >
-                  <Popup>
-                    <div className="text-center">
-                      <strong>{river.properties.name}</strong>
-                      <br />
-                      <span className={`text-xs ${
-                        river.properties.status === "critical" ? "text-red-600"
-                        : river.properties.status === "severe" ? "text-orange-600"
-                        : "text-blue-600"
-                      }`}>
-                        Status: {river.properties.status}
-                      </span>
-                    </div>
-                  </Popup>
-                </Polyline>
-              )))}
+              ))}
+
 
         {/* Pollution Hotspots */}
         {showHotspots &&
