@@ -488,7 +488,7 @@ export default function PollutionMap({
                     <div className="text-xs bg-gray-100 p-2 rounded mb-2">
                       <p className="font-semibold mb-0.5">Spectral Indices:</p>
                       <p>NDTI: {hotspot.spectral?.ndti ?? hotspot.spectral?.ndti ?? "—"}</p>
-                      <p>Red/Blue: {hotspot.spectral?.red_blue_ratio ?? hotspot.spectral?.redBlueRatio ?? "—"}</p>
+                      <p>Red/Blue: {hotspot.spectral?.red_blue_ratio ?? (hotspot.spectral as any)?.redBlueRatio ?? "—"}</p>
                       <p>CDOM: {hotspot.spectral?.cdom ?? "—"}</p>
                     </div>
 

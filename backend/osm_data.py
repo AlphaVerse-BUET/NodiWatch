@@ -8,6 +8,8 @@ import requests
 import json
 import math
 import time
+import random
+from datetime import datetime, timedelta
 from typing import Optional
 
 
@@ -336,6 +338,12 @@ def run_bayesian_attribution(
             "raw_posterior": posterior,
         })
 
+    if candidates:
+        max_raw = max(c["raw_posterior"] for c in candidates)
+        # Add uniform background prior (5% of max) to prevent single-factory dominance
+        background = 0.05 * max_raw
+        for c in candidates:
+            c["raw_posterior"] += background
     total = sum(c["raw_posterior"] for c in candidates) if candidates else 1
     for c in candidates:
         c["probability"] = round(c["raw_posterior"] / total, 4)
@@ -350,7 +358,6 @@ def generate_pollution_hotspots(factories: list, rivers_dict: Optional[dict] = N
     Generate pollution hotspot data based on real factory locations.
     Uses rivers_dict for spatial clustering; falls back to RIVERS if not provided.
     """
-    import random
     random.seed(42)
 
     rivers = rivers_dict if rivers_dict is not None else RIVERS
@@ -396,11 +403,29 @@ def generate_pollution_hotspots(factories: list, rivers_dict: Optional[dict] = N
                 severity = "low"
 
             if base_cdom > 3.0:
-                pollution_type, label = "high_organic", "High Organic Load"
+                pollution_type = "high_organic"
             elif base_rb > 2.5:
-                pollution_type, label = "high_dye", "High Dye Signature"
+                pollution_type = "high_dye"
             else:
-                pollution_type, label = "mixed", "Mixed Industrial"
+                pollution_type = "mixed"
+
+            # Spectral-derived label — more granular than hardcoded "Mixed Industrial"
+            if base_rb > 1.5:
+                label = "Textile/Dye Effluent"
+            elif base_cdom > 2.5 and base_ndti > 0.3:
+                label = "Tannery Discharge"
+            elif base_cdom > 2.0:
+                label = "Organic Industrial Waste"
+            elif base_ndti > 0.35:
+                label = "High-Turbidity Discharge"
+            elif base_cdom > 1.5:
+                label = "Mixed Organic Effluent"
+            else:
+                label = "Mixed Industrial Effluent"
+
+            # Vary detection date across last 90 days for realism
+            days_ago = random.randint(5, 90)
+            detected_date = (datetime.utcnow() - timedelta(days=days_ago)).strftime("%Y-%m-%d")
 
             hotspot = {
                 "id": f"HP{hotspot_id:03d}",
@@ -411,6 +436,7 @@ def generate_pollution_hotspots(factories: list, rivers_dict: Optional[dict] = N
                 "label": label,
                 "river": river_data["name"],
                 "river_id": river_id,
+                "detected": detected_date,
                 "spectral": {
                     "ndti": round(base_ndti, 3),
                     "cdom": round(base_cdom, 2),

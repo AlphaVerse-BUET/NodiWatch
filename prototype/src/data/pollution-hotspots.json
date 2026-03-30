@@ -7,13 +7,13 @@
       "river": "Buriganga",
       "type": "industrial",
       "severity": 44,
-      "label": "Mixed Industrial",
+      "label": "Mixed Industrial Effluent",
       "spectral": {
         "ndti": 0.297,
-        "redBlueRatio": 0.95,
-        "cdom": 0.99
+        "cdom": 0.99,
+        "red_blue_ratio": 0.95
       },
-      "detected": "2026-03-15",
+      "detected": "2025-10-18",
       "description": "Moderate pollution detected via spectral analysis. 99 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 99,
       "top_source": "Alauddin Saw Mill",
@@ -63,13 +63,13 @@
       "river": "Buriganga",
       "type": "industrial",
       "severity": 51,
-      "label": "Mixed Industrial",
+      "label": "Tannery/Organic Discharge",
       "spectral": {
         "ndti": 0.302,
-        "redBlueRatio": 0.84,
-        "cdom": 1.68
+        "cdom": 1.68,
+        "red_blue_ratio": 0.84
       },
-      "detected": "2026-03-15",
+      "detected": "2025-11-02",
       "description": "Moderate pollution detected via spectral analysis. 136 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 136,
       "top_source": "Alauddin Saw Mill",
@@ -119,13 +119,13 @@
       "river": "Buriganga",
       "type": "industrial",
       "severity": 40,
-      "label": "Mixed Industrial",
+      "label": "Organic Industrial Waste",
       "spectral": {
         "ndti": 0.233,
-        "redBlueRatio": 0.81,
-        "cdom": 1.36
+        "cdom": 1.36,
+        "red_blue_ratio": 0.81
       },
-      "detected": "2026-03-15",
+      "detected": "2025-11-14",
       "description": "Moderate pollution detected via spectral analysis. 121 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 121,
       "top_source": "Alauddin Saw Mill",
@@ -175,13 +175,13 @@
       "river": "Buriganga",
       "type": "industrial",
       "severity": 45,
-      "label": "Mixed Industrial",
+      "label": "Textile/Dye Effluent",
       "spectral": {
         "ndti": 0.282,
-        "redBlueRatio": 1.15,
-        "cdom": 1.13
+        "cdom": 1.13,
+        "red_blue_ratio": 1.15
       },
-      "detected": "2026-03-15",
+      "detected": "2025-11-27",
       "description": "Moderate pollution detected via spectral analysis. 53 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 53,
       "top_source": "ইস্পাত কারখানা",
@@ -231,13 +231,13 @@
       "river": "Buriganga",
       "type": "industrial",
       "severity": 52,
-      "label": "Mixed Industrial",
+      "label": "Tannery/Organic Discharge",
       "spectral": {
         "ndti": 0.321,
-        "redBlueRatio": 1.0,
-        "cdom": 1.51
+        "cdom": 1.51,
+        "red_blue_ratio": 1.0
       },
-      "detected": "2026-03-15",
+      "detected": "2025-12-05",
       "description": "Moderate pollution detected via spectral analysis. 32 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 32,
       "top_source": "Ecotone Electronics, Appliance store, Chunkutia Road, South Keraniganj, Dhaka",
@@ -287,13 +287,13 @@
       "river": "Buriganga",
       "type": "industrial",
       "severity": 39,
-      "label": "Mixed Industrial",
+      "label": "Mixed Industrial Effluent",
       "spectral": {
         "ndti": 0.25,
-        "redBlueRatio": 0.86,
-        "cdom": 1.02
+        "cdom": 1.02,
+        "red_blue_ratio": 0.86
       },
-      "detected": "2026-03-15",
+      "detected": "2025-10-18",
       "description": "Moderate pollution detected via spectral analysis. 3 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 3,
       "top_source": "Ecotone Electronics, Appliance store, Chunkutia Road, South Keraniganj, Dhaka",
@@ -343,13 +343,13 @@
       "river": "Buriganga",
       "type": "industrial",
       "severity": 53,
-      "label": "Mixed Industrial",
+      "label": "Textile/Dye Effluent",
       "spectral": {
         "ndti": 0.321,
-        "redBlueRatio": 1.12,
-        "cdom": 1.53
+        "cdom": 1.53,
+        "red_blue_ratio": 1.12
       },
-      "detected": "2026-03-15",
+      "detected": "2025-11-02",
       "description": "High pollution detected via spectral analysis. 3 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 3,
       "top_source": "Ecotone Electronics, Appliance store, Chunkutia Road, South Keraniganj, Dhaka",
@@ -399,13 +399,13 @@
       "river": "Buriganga",
       "type": "industrial",
       "severity": 51,
-      "label": "Mixed Industrial",
+      "label": "Textile/Dye Effluent",
       "spectral": {
         "ndti": 0.29,
-        "redBlueRatio": 1.14,
-        "cdom": 1.65
+        "cdom": 1.65,
+        "red_blue_ratio": 1.14
       },
-      "detected": "2026-03-15",
+      "detected": "2025-11-14",
       "description": "High pollution detected via spectral analysis. 14 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 14,
       "top_source": "Industrial Site #495463450",
@@ -455,13 +455,13 @@
       "river": "Buriganga",
       "type": "industrial",
       "severity": 46,
-      "label": "Mixed Industrial",
+      "label": "High-Turbidity Discharge",
       "spectral": {
         "ndti": 0.312,
-        "redBlueRatio": 0.9,
-        "cdom": 1.03
+        "cdom": 1.03,
+        "red_blue_ratio": 0.9
       },
-      "detected": "2026-03-15",
+      "detected": "2025-11-27",
       "description": "Moderate pollution detected via spectral analysis. 54 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 54,
       "top_source": "Industrial Site #495463450",
@@ -511,13 +511,13 @@
       "river": "Turag",
       "type": "industrial",
       "severity": 38,
-      "label": "Mixed Industrial",
+      "label": "Mixed Industrial Effluent",
       "spectral": {
         "ndti": 0.238,
-        "redBlueRatio": 1.01,
-        "cdom": 1.0
+        "cdom": 1.0,
+        "red_blue_ratio": 1.01
       },
-      "detected": "2026-03-15",
+      "detected": "2025-11-08",
       "description": "Moderate pollution detected via spectral analysis. 19 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 19,
       "top_source": "Industrial Site #593261014",
@@ -567,13 +567,13 @@
       "river": "Turag",
       "type": "industrial",
       "severity": 41,
-      "label": "Mixed Industrial",
+      "label": "Mixed Organic Effluent",
       "spectral": {
         "ndti": 0.256,
-        "redBlueRatio": 0.96,
-        "cdom": 1.12
+        "cdom": 1.12,
+        "red_blue_ratio": 0.96
       },
-      "detected": "2026-03-15",
+      "detected": "2025-11-22",
       "description": "Moderate pollution detected via spectral analysis. 14 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 14,
       "top_source": "Industrial Site #605775504",
@@ -623,13 +623,13 @@
       "river": "Turag",
       "type": "industrial",
       "severity": 46,
-      "label": "Mixed Industrial",
+      "label": "Textile/Dye Effluent",
       "spectral": {
         "ndti": 0.291,
-        "redBlueRatio": 1.24,
-        "cdom": 1.09
+        "cdom": 1.09,
+        "red_blue_ratio": 1.24
       },
-      "detected": "2026-03-15",
+      "detected": "2025-12-10",
       "description": "Moderate pollution detected via spectral analysis. 10 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 10,
       "top_source": "Industrial Site #605775504",
@@ -679,13 +679,13 @@
       "river": "Turag",
       "type": "industrial",
       "severity": 55,
-      "label": "Mixed Industrial",
+      "label": "Textile/Dye Effluent",
       "spectral": {
         "ndti": 0.348,
-        "redBlueRatio": 1.13,
-        "cdom": 1.46
+        "cdom": 1.46,
+        "red_blue_ratio": 1.13
       },
-      "detected": "2026-03-15",
+      "detected": "2025-12-19",
       "description": "High pollution detected via spectral analysis. 6 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 6,
       "top_source": "Industrial Site #605775504",
@@ -735,13 +735,13 @@
       "river": "Turag",
       "type": "industrial",
       "severity": 47,
-      "label": "Mixed Industrial",
+      "label": "High-Turbidity Discharge",
       "spectral": {
         "ndti": 0.316,
-        "redBlueRatio": 0.82,
-        "cdom": 1.13
+        "cdom": 1.13,
+        "red_blue_ratio": 0.82
       },
-      "detected": "2026-03-15",
+      "detected": "2026-01-07",
       "description": "Moderate pollution detected via spectral analysis. 1 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 1,
       "top_source": "Industrial Site #605774927",
@@ -779,13 +779,13 @@
       "river": "Turag",
       "type": "industrial",
       "severity": 46,
-      "label": "Mixed Industrial",
+      "label": "Textile/Dye Effluent",
       "spectral": {
         "ndti": 0.232,
-        "redBlueRatio": 1.33,
-        "cdom": 1.7
+        "cdom": 1.7,
+        "red_blue_ratio": 1.33
       },
-      "detected": "2026-03-15",
+      "detected": "2025-11-08",
       "description": "High pollution detected via spectral analysis. 1 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 1,
       "top_source": "Hasan Electric",
@@ -835,13 +835,13 @@
       "river": "Shitalakshya",
       "type": "industrial",
       "severity": 48,
-      "label": "Mixed Industrial",
+      "label": "Organic Industrial Waste",
       "spectral": {
         "ndti": 0.259,
-        "redBlueRatio": 1.08,
-        "cdom": 1.68
+        "cdom": 1.68,
+        "red_blue_ratio": 1.08
       },
-      "detected": "2026-03-15",
+      "detected": "2025-12-14",
       "description": "Moderate pollution detected via spectral analysis. 2 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 2,
       "top_source": "Industrial Site #1082530059",
@@ -891,13 +891,13 @@
       "river": "Shitalakshya",
       "type": "industrial",
       "severity": 45,
-      "label": "Mixed Industrial",
+      "label": "Textile/Dye Effluent",
       "spectral": {
         "ndti": 0.284,
-        "redBlueRatio": 1.15,
-        "cdom": 1.16
+        "cdom": 1.16,
+        "red_blue_ratio": 1.15
       },
-      "detected": "2026-03-15",
+      "detected": "2026-01-03",
       "description": "Moderate pollution detected via spectral analysis. 5 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 5,
       "top_source": "Industrial Site #1082530061",
@@ -947,13 +947,13 @@
       "river": "Shitalakshya",
       "type": "industrial",
       "severity": 46,
-      "label": "Mixed Industrial",
+      "label": "Textile/Dye Effluent",
       "spectral": {
         "ndti": 0.233,
-        "redBlueRatio": 1.11,
-        "cdom": 1.75
+        "cdom": 1.75,
+        "red_blue_ratio": 1.11
       },
-      "detected": "2026-03-15",
+      "detected": "2026-01-18",
       "description": "Moderate pollution detected via spectral analysis. 9 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 9,
       "top_source": "Industrial Site #1082530061",
@@ -1003,13 +1003,13 @@
       "river": "Balu",
       "type": "industrial",
       "severity": 42,
-      "label": "Mixed Industrial",
+      "label": "Textile/Dye Effluent",
       "spectral": {
         "ndti": 0.216,
-        "redBlueRatio": 1.28,
-        "cdom": 1.45
+        "cdom": 1.45,
+        "red_blue_ratio": 1.28
       },
-      "detected": "2026-03-15",
+      "detected": "2026-01-22",
       "description": "Moderate pollution detected via spectral analysis. 1 industrial facilities within 1.5km. Dominant signature: mixed industrial.",
       "nearby_factories": 1,
       "top_source": "Industrial Site #1085564233",

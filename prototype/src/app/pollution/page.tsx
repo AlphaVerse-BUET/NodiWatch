@@ -304,7 +304,7 @@ export default function PollutionPage() {
                       <div className="bg-slate-800/50 rounded p-2 text-center">
                         <div className="text-xs text-gray-400">R/B Ratio</div>
                         <div className="text-white font-semibold">
-                          {selectedHotspot.spectral.redBlueRatio}
+                          {(selectedHotspot.spectral as any).red_blue_ratio ?? (selectedHotspot.spectral as any).redBlueRatio ?? "—"}
                         </div>
                       </div>
                       <div className="bg-slate-800/50 rounded p-2 text-center">

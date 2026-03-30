@@ -262,7 +262,7 @@ export default function ReportsPage() {
                             <div>
                               R/B Ratio:{" "}
                               <span className="text-yellow-400">
-                                {hs.spectral.redBlueRatio}
+                                {(hs.spectral as any).red_blue_ratio ?? (hs.spectral as any).redBlueRatio ?? "—"}
                               </span>
                             </div>
                           </div>
