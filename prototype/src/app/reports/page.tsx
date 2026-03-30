@@ -238,7 +238,7 @@ export default function ReportsPage() {
                             <Calendar size={14} className="text-gray-400" />
                             <span className="text-gray-400">Detected:</span>
                             <span className="text-white">
-                              {new Date(hs.detected).toLocaleDateString()}
+                              {hs.detected ? (() => { const d = new Date(hs.detected); return isNaN(d.getTime()) ? hs.detected : d.toLocaleDateString("en-GB"); })() : "—"}
                             </span>
                           </div>
                         </div>

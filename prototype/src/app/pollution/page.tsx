@@ -286,7 +286,7 @@ export default function PollutionPage() {
                   <div className="flex justify-between">
                     <span className="text-gray-400">Detected:</span>
                     <span className="text-white">
-                      {new Date(selectedHotspot.detected).toLocaleDateString()}
+                      {selectedHotspot.detected ? (() => { const d = new Date(selectedHotspot.detected); return isNaN(d.getTime()) ? selectedHotspot.detected : d.toLocaleDateString("en-GB"); })() : "—"}
                     </span>
                   </div>
 
@@ -394,7 +394,7 @@ export default function PollutionPage() {
                       {hotspot.spectral.ndti}
                     </td>
                     <td className="py-3 px-4 text-gray-400">
-                      {new Date(hotspot.detected).toLocaleDateString()}
+                      {hotspot.detected ? (() => { const d = new Date(hotspot.detected); return isNaN(d.getTime()) ? hotspot.detected : d.toLocaleDateString("en-GB"); })() : "—"}
                     </td>
                   </tr>
                 ))}

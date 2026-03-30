@@ -114,8 +114,8 @@
     },
     {
       "id": "HS-003",
-      "lat": 23.7070459,
-      "lng": 90.3686857,
+      "lat": 23.7137355,
+      "lng": 90.360167,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 40,
@@ -226,8 +226,8 @@
     },
     {
       "id": "HS-005",
-      "lat": 23.7083524,
-      "lng": 90.3880405,
+      "lat": 23.7180182,
+      "lng": 90.3592765,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 52,
@@ -364,7 +364,7 @@
           "lng": 90.400065,
           "spectral_match": 0.5,
           "distance_score": 0.299,
-          "probability": 0.6721
+          "probability": 0.35
         },
         {
           "factory_name": "Mr. RL Engineering Workshop, Auto repair shop, Keraniganj",
@@ -376,7 +376,7 @@
           "lng": 90.40007,
           "spectral_match": 0.5,
           "distance_score": 0.093,
-          "probability": 0.2087
+          "probability": 0.1087
         },
         {
           "factory_name": "Bhai Bhai Iron & Still workshop, Near Army Camp, Chairman Bari Rd, Dhaka",
@@ -388,14 +388,14 @@
           "lng": 90.401166,
           "spectral_match": 0.5,
           "distance_score": 0.025,
-          "probability": 0.0559
+          "probability": 0.0291
         }
       ]
     },
     {
       "id": "HS-008",
-      "lat": 23.7091923,
-      "lng": 90.4011404,
+      "lat": 23.7236367,
+      "lng": 90.3583431,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 51,
@@ -450,8 +450,8 @@
     },
     {
       "id": "HS-009",
-      "lat": 23.7091923,
-      "lng": 90.4011404,
+      "lat": 23.7337954,
+      "lng": 90.3539153,
       "river": "Buriganga",
       "type": "industrial",
       "severity": 46,
@@ -532,7 +532,7 @@
           "lng": 90.340873,
           "spectral_match": 0.5,
           "distance_score": 0.724,
-          "probability": 0.4778
+          "probability": 0.35
         },
         {
           "factory_name": "Industrial Site #593250942",
@@ -544,7 +544,7 @@
           "lng": 90.340814,
           "spectral_match": 0.5,
           "distance_score": 0.253,
-          "probability": 0.1669
+          "probability": 0.1223
         },
         {
           "factory_name": "Industrial Site #593240028",
@@ -556,14 +556,14 @@
           "lng": 90.341579,
           "spectral_match": 0.5,
           "distance_score": 0.17,
-          "probability": 0.1125
+          "probability": 0.0824
         }
       ]
     },
     {
       "id": "HS-011",
-      "lat": 23.8946124,
-      "lng": 90.3487811,
+      "lat": 23.8924489,
+      "lng": 90.3893878,
       "river": "Turag",
       "type": "industrial",
       "severity": 41,
@@ -588,7 +588,7 @@
           "lng": 90.344485,
           "spectral_match": 0.5,
           "distance_score": 1.437,
-          "probability": 0.9113
+          "probability": 0.35
         },
         {
           "factory_name": "Industrial Site #593328723",
@@ -600,7 +600,7 @@
           "lng": 90.338151,
           "spectral_match": 0.5,
           "distance_score": 0.018,
-          "probability": 0.0114
+          "probability": 0.0044
         },
         {
           "factory_name": "Industrial Site #593250934",
@@ -612,14 +612,14 @@
           "lng": 90.341162,
           "spectral_match": 0.5,
           "distance_score": 0.016,
-          "probability": 0.0101
+          "probability": 0.0039
         }
       ]
     },
     {
       "id": "HS-012",
-      "lat": 23.8946124,
-      "lng": 90.3487811,
+      "lat": 23.885034,
+      "lng": 90.3928567,
       "river": "Turag",
       "type": "industrial",
       "severity": 46,
@@ -644,7 +644,7 @@
           "lng": 90.349556,
           "spectral_match": 0.5,
           "distance_score": 1.448,
-          "probability": 0.7206
+          "probability": 0.35
         },
         {
           "factory_name": "Industrial Site #593598002",
@@ -656,7 +656,7 @@
           "lng": 90.351792,
           "spectral_match": 0.5,
           "distance_score": 0.211,
-          "probability": 0.1049
+          "probability": 0.051
         },
         {
           "factory_name": "Industrial Site #605774928",
@@ -668,7 +668,7 @@
           "lng": 90.349371,
           "spectral_match": 0.5,
           "distance_score": 0.147,
-          "probability": 0.0733
+          "probability": 0.0356
         }
       ]
     },
@@ -700,7 +700,7 @@
           "lng": 90.348678,
           "spectral_match": 0.5,
           "distance_score": 0.036,
-          "probability": 0.4383
+          "probability": 0.35
         },
         {
           "factory_name": "Industrial Site #605774928",
@@ -712,7 +712,7 @@
           "lng": 90.349371,
           "spectral_match": 0.5,
           "distance_score": 0.014,
-          "probability": 0.1659
+          "probability": 0.1325
         },
         {
           "factory_name": "Industrial Site #593598002",
@@ -724,14 +724,14 @@
           "lng": 90.351792,
           "spectral_match": 0.5,
           "distance_score": 0.009,
-          "probability": 0.1046
+          "probability": 0.0835
         }
       ]
     },
     {
       "id": "HS-014",
-      "lat": 23.8936107,
-      "lng": 90.3620381,
+      "lat": 23.8980922,
+      "lng": 90.3854603,
       "river": "Turag",
       "type": "industrial",
       "severity": 47,
@@ -756,7 +756,7 @@
           "lng": 90.348678,
           "spectral_match": 0.5,
           "distance_score": 0.005,
-          "probability": 0.5764
+          "probability": 0.35
         },
         {
           "factory_name": "Landes Bangladesh Ltd., Manufacturer",
@@ -768,7 +768,7 @@
           "lng": 90.337975,
           "spectral_match": 0.5,
           "distance_score": 0.003,
-          "probability": 0.4236
+          "probability": 0.2572
         }
       ]
     },
@@ -800,7 +800,7 @@
           "lng": 90.364444,
           "spectral_match": 0.5,
           "distance_score": 0.016,
-          "probability": 0.5225
+          "probability": 0.35
         },
         {
           "factory_name": "Raju Fitting Tailor’s",
@@ -812,7 +812,7 @@
           "lng": 90.366732,
           "spectral_match": 0.5,
           "distance_score": 0.005,
-          "probability": 0.1495
+          "probability": 0.1001
         },
         {
           "factory_name": "bata",
@@ -824,7 +824,7 @@
           "lng": 90.366029,
           "spectral_match": 0.5,
           "distance_score": 0.004,
-          "probability": 0.1182
+          "probability": 0.0792
         }
       ]
     },
@@ -942,8 +942,8 @@
     },
     {
       "id": "HS-018",
-      "lat": 23.7861226,
-      "lng": 90.5206775,
+      "lat": 23.7770187,
+      "lng": 90.5121259,
       "river": "Shitalakshya",
       "type": "industrial",
       "severity": 46,
@@ -968,7 +968,7 @@
           "lng": 90.523016,
           "spectral_match": 0.5,
           "distance_score": 0.072,
-          "probability": 0.3722
+          "probability": 0.35
         },
         {
           "factory_name": "Industrial Site #937031068",
@@ -980,7 +980,7 @@
           "lng": 90.520921,
           "spectral_match": 0.5,
           "distance_score": 0.026,
-          "probability": 0.133
+          "probability": 0.1251
         },
         {
           "factory_name": "Industrial Site #1082530060",
@@ -992,7 +992,7 @@
           "lng": 90.522217,
           "spectral_match": 0.5,
           "distance_score": 0.014,
-          "probability": 0.0732
+          "probability": 0.0688
         }
       ]
     },
@@ -1024,7 +1024,7 @@
           "lng": 90.469499,
           "spectral_match": 0.5,
           "distance_score": 0.005,
-          "probability": 1.0
+          "probability": 0.35
         }
       ]
     }
