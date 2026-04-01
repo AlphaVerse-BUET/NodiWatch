@@ -67,7 +67,7 @@ interface LiveData {
     id: string;
     lat: number;
     lng: number;
-    severity: string;
+    severity: string | number;
     label: string;
     river: string;
     type: string;
@@ -92,6 +92,16 @@ interface DashboardMapProps {
 const severityToNum = (s: string | number): number => {
   if (typeof s === "number") return s;
   return s === "critical" ? 88 : s === "high" ? 72 : s === "moderate" ? 52 : 30;
+};
+
+const formatSeverityLabel = (s: string | number): string => {
+  if (typeof s === "number") {
+    if (s >= 85) return "CRITICAL";
+    if (s >= 70) return "HIGH";
+    if (s >= 45) return "MODERATE";
+    return "LOW";
+  }
+  return s.toUpperCase();
 };
 
 export default function DashboardMap({ className = "" }: DashboardMapProps) {
@@ -319,7 +329,7 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
                       <strong>{spot.label}</strong>
                       <br />
                       <span className="text-xs">
-                        {spot.river} · {spot.severity.toUpperCase()}
+                        {spot.river} · {formatSeverityLabel(spot.severity)}
                       </span>
                       <br />
                       <span className="text-xs text-gray-500">

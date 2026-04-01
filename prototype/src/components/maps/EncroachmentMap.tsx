@@ -11,6 +11,7 @@ import {
   Calendar,
   Layers,
   Satellite,
+  Loader,
 } from "lucide-react";
 
 const MapContainer = dynamic(
@@ -63,6 +64,9 @@ const MapEventListener = dynamic(
 import encroachmentData from "@/data/encroachment.json";
 import riversData from "@/data/rivers.json";
 
+// GEE Tile Service
+import { getWaterTiles, type WaterTiles } from "@/lib/gee-tiles";
+
 interface LiveWaterway {
   id: string;
   name: string;
@@ -99,12 +103,24 @@ export default function EncroachmentMap({
   const [showComparison, setShowComparison] = useState(true);
   const [showRivers, setShowRivers] = useState(true);
   const [showSegments, setShowSegments] = useState(true);
+  const [showGEEWater, setShowGEEWater] = useState(false);
   const [selectedData, setSelectedData] = useState<any>(null);
   const [basemap, setBasemap] = useState<"dark" | "satellite">("satellite");
   const [liveWaterways, setLiveWaterways] = useState<LiveWaterway[] | null>(null);
+  const [geeTiles, setGeeTiles] = useState<WaterTiles | null>(null);
+  const [geeLoading, setGeeLoading] = useState(false);
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastKeyRef = useRef<string>("");
+
+  // Load GEE water tiles on mount
+  useEffect(() => {
+    setGeeLoading(true);
+    getWaterTiles().then((tiles) => {
+      setGeeTiles(tiles);
+      setGeeLoading(false);
+    });
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -215,6 +231,23 @@ export default function EncroachmentMap({
         >
           {showSegments ? <Eye size={14} /> : <EyeOff size={14} />}
           Encroachment Sites
+        </button>
+
+        {/* GEE Water Segmentation Toggle */}
+        <button
+          onClick={() => setShowGEEWater(!showGEEWater)}
+          disabled={!geeTiles}
+          className={`flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm transition-colors ${
+            showGEEWater && geeTiles
+              ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400"
+              : "bg-slate-700/50 text-gray-400"
+          } disabled:opacity-50 disabled:cursor-not-allowed`}
+          title={!geeTiles ? "GEE not available" : "Live satellite water segmentation (MNDWI)"}
+        >
+          {showGEEWater && geeTiles ? <Eye size={14} /> : <EyeOff size={14} />}
+          <span>GEE Water Mask</span>
+          {geeLoading && <Loader size={12} className="animate-spin ml-auto" />}
+          {geeTiles && !geeLoading && <span className="ml-auto text-xs text-cyan-400">●live</span>}
         </button>
 
         <div className="border-t border-white/10 pt-2 mt-1">
@@ -336,6 +369,37 @@ export default function EncroachmentMap({
           <TileLayer
             attribution='&copy; <a href="https://carto.com/">CARTO</a>'
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          />
+        )}
+
+        {/* GEE Water Segmentation Layer */}
+        {showGEEWater && geeTiles && showComparison && (
+          <>
+            <TileLayer
+              url={geeTiles.baseline_2016.url}
+              attribution="Google Earth Engine | MNDWI Water Mask (2016)"
+              opacity={0.55}
+              zIndex={500}
+            />
+            <TileLayer
+              url={geeTiles.current_2026.url}
+              attribution="Google Earth Engine | MNDWI Water Mask (2026)"
+              opacity={0.55}
+              zIndex={510}
+            />
+          </>
+        )}
+
+        {showGEEWater && geeTiles && !showComparison && (
+          <TileLayer
+            url={
+              activeYear === "2016"
+                ? geeTiles.baseline_2016.url
+                : geeTiles.current_2026.url
+            }
+            attribution="Google Earth Engine | MNDWI Water Mask"
+            opacity={0.6}
+            zIndex={500}
           />
         )}
 

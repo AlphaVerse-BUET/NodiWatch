@@ -62,6 +62,9 @@ import factoriesData from "@/data/factories.json";
 import pollutionData from "@/data/pollution-hotspots.json";
 import riversData from "@/data/rivers.json";
 
+// GEE Tile Service
+import { getPollutionTiles, type PollutionTiles } from "@/lib/gee-tiles";
+
 interface LiveHotspot {
   id: string;
   lat: number;
@@ -162,6 +165,7 @@ export default function PollutionMap({
   const [showFactories, setShowFactories] = useState(true);
   const [showHotspots, setShowHotspots] = useState(true);
   const [showRivers, setShowRivers] = useState(true);
+  const [showGEEPollution, setShowGEEPollution] = useState(false);
   const [selectedFactory, setSelectedFactory] = useState<any>(null);
   const [basemap, setBasemap] = useState<"dark" | "satellite">("satellite");
   const [loading, setLoading] = useState(false);
@@ -170,9 +174,20 @@ export default function PollutionMap({
   const [liveFactories, setLiveFactories] = useState<LiveFactory[]>([]);
   const [verifying, setVerifying] = useState<string | null>(null); // hotspot id being verified
   const [satResult, setSatResult] = useState<Record<string, SatelliteVerification>>({}); // cache by hotspot id
+  const [geeTiles, setGeeTiles] = useState<PollutionTiles | null>(null);
+  const [geeLoading, setGeeLoading] = useState(false);
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastKeyRef = useRef<string>("");
+
+  // Load GEE tiles on mount
+  useEffect(() => {
+    setGeeLoading(true);
+    getPollutionTiles().then((tiles) => {
+      setGeeTiles(tiles);
+      setGeeLoading(false);
+    });
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -309,6 +324,23 @@ export default function PollutionMap({
           Rivers {hasLive && <span className="ml-auto text-xs text-green-400">●live</span>}
         </button>
 
+        {/* GEE Pollution Indices Toggle */}
+        <button
+          onClick={() => setShowGEEPollution(!showGEEPollution)}
+          disabled={!geeTiles}
+          className={`flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm transition-colors ${
+            showGEEPollution && geeTiles
+              ? "bg-gradient-to-r from-red-500/20 to-purple-500/20 text-red-400"
+              : "bg-slate-700/50 text-gray-400"
+          } disabled:opacity-50 disabled:cursor-not-allowed`}
+          title={!geeTiles ? "GEE not available" : "Live satellite spectral indices"}
+        >
+          {showGEEPollution && geeTiles ? <Eye size={14} /> : <EyeOff size={14} />}
+          <span>GEE Spectral</span>
+          {geeLoading && <Loader size={12} className="animate-spin ml-auto" />}
+          {geeTiles && !geeLoading && <span className="ml-auto text-xs text-amber-400">●live</span>}
+        </button>
+
         <div className="border-t border-white/10 pt-2 mt-1">
           <button
             onClick={() => setBasemap(basemap === "dark" ? "satellite" : "dark")}
@@ -389,6 +421,18 @@ export default function PollutionMap({
             attribution='&copy; <a href="https://carto.com/">CARTO</a>'
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
           />
+        )}
+
+        {/* GEE Pollution Spectral Indices Layers */}
+        {showGEEPollution && geeTiles && (
+          <>
+            <TileLayer
+              url={geeTiles.redBlueRatio.url}
+              attribution="Google Earth Engine | Red/Blue Ratio (Dye Detection)"
+              opacity={0.5}
+              zIndex={500}
+            />
+          </>
         )}
 
         <MapEventListener onBoundsChange={handleBoundsChange} />

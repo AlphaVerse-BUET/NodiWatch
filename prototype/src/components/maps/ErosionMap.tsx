@@ -12,6 +12,7 @@ import {
   Users,
   Home,
   Satellite,
+  Loader,
 } from "lucide-react";
 
 const MapContainer = dynamic(
@@ -63,6 +64,9 @@ const MapEventListener = dynamic(
 
 import erosionData from "@/data/erosion-corridors.json";
 import riversData from "@/data/rivers.json";
+
+// GEE Tile Service
+import { getErosionTile, type ErosionTile } from "@/lib/gee-tiles";
 
 /**
  * Compute a filled polygon representing the at-risk zone behind a river bank.
@@ -132,12 +136,24 @@ export default function ErosionMap({
   const [showCorridors, setShowCorridors] = useState(true);
   const [showBufferZones, setShowBufferZones] = useState(true);
   const [showRivers, setShowRivers] = useState(true);
+  const [showGEEErosion, setShowGEEErosion] = useState(false);
   const [selectedData, setSelectedData] = useState<any>(null);
   const [basemap, setBasemap] = useState<"dark" | "satellite">("satellite");
   const [liveWaterways, setLiveWaterways] = useState<LiveWaterway[] | null>(null);
+  const [geeTile, setGeeTile] = useState<ErosionTile | null>(null);
+  const [geeLoading, setGeeLoading] = useState(false);
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastKeyRef = useRef<string>("");
+
+  // Load GEE erosion tile on mount
+  useEffect(() => {
+    setGeeLoading(true);
+    getErosionTile().then((tile) => {
+      setGeeTile(tile);
+      setGeeLoading(false);
+    });
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -223,6 +239,23 @@ export default function ErosionMap({
         >
           {showRivers ? <Eye size={14} /> : <EyeOff size={14} />}
           Rivers
+        </button>
+
+        {/* GEE SAR Erosion Toggle */}
+        <button
+          onClick={() => setShowGEEErosion(!showGEEErosion)}
+          disabled={!geeTile}
+          className={`flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm transition-colors ${
+            showGEEErosion && geeTile
+              ? "bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-400"
+              : "bg-slate-700/50 text-gray-400"
+          } disabled:opacity-50 disabled:cursor-not-allowed`}
+          title={!geeTile ? "GEE not available" : "Live satellite SAR erosion detection (Sentinel-1)"}
+        >
+          {showGEEErosion && geeTile ? <Eye size={14} /> : <EyeOff size={14} />}
+          <span>GEE SAR Erosion</span>
+          {geeLoading && <Loader size={12} className="animate-spin ml-auto" />}
+          {geeTile && !geeLoading && <span className="ml-auto text-xs text-orange-400">●live</span>}
         </button>
 
         <div className="border-t border-white/10 pt-2 mt-1">
@@ -366,6 +399,16 @@ export default function ErosionMap({
           <TileLayer
             attribution='&copy; <a href="https://carto.com/">CARTO</a>'
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          />
+        )}
+
+        {/* GEE SAR Erosion Detection Layer */}
+        {showGEEErosion && geeTile && (
+          <TileLayer
+            url={geeTile.sar_erosion.url}
+            attribution="Google Earth Engine | Sentinel-1 SAR"
+            opacity={0.65}
+            zIndex={500}
           />
         )}
 

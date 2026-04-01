@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/earthengine": "^0.1.360",
     "@google/generative-ai": "^0.24.1",
     "framer-motion": "^11.0.3",
     "html2canvas": "^1.4.1",

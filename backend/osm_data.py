@@ -1,6 +1,6 @@
 """
-NodiWatch Backend — Real Data from OpenStreetMap
-Fetches real industrial facilities and waterways via Overpass API.
+NodiWatch Backend — Real Data from OpenStreetMap + Google Earth Engine
+Fetches real industrial facilities, waterways, and satellite tile URLs.
 Supports dynamic bounding box queries for any location in Bangladesh.
 """
 
@@ -9,8 +9,21 @@ import json
 import math
 import time
 import random
+import os
+from glob import glob
 from datetime import datetime, timedelta
 from typing import Optional
+
+try:
+    import ee
+    EE_AVAILABLE = True
+except ImportError:
+    EE_AVAILABLE = False
+
+# Load environment variables
+from dotenv import load_dotenv
+BASE_DIR = os.path.dirname(__file__)
+load_dotenv(dotenv_path=os.path.join(BASE_DIR, ".env"), override=False)
 
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
@@ -48,6 +61,260 @@ INDUSTRY_POLLUTION_PROFILE = {
     "paper": {"ndti_weight": 0.7, "cdom_weight": 0.7, "rb_weight": 0.3, "label": "Pulp & Organic"},
     "unknown": {"ndti_weight": 0.5, "cdom_weight": 0.5, "rb_weight": 0.5, "label": "Unclassified Industrial"},
 }
+
+# GEE authentication cache
+_gee_authenticated = False
+_gee_last_error: Optional[str] = None
+
+
+def get_gee_last_error() -> Optional[str]:
+    """Return the latest GEE auth/processing error for diagnostics."""
+    return _gee_last_error
+
+
+def authenticate_gee():
+    """Authenticate with Google Earth Engine using service account."""
+    global _gee_authenticated, _gee_last_error
+    if _gee_authenticated:
+        return True
+    if not EE_AVAILABLE:
+        _gee_last_error = "earthengine-api is not installed in backend environment"
+        print(f"❌ {_gee_last_error}")
+        return False
+    
+    try:
+        # Get credentials from environment first.
+        service_account_email = os.getenv('GEE_SERVICE_ACCOUNT_EMAIL')
+        private_key = os.getenv('GEE_PRIVATE_KEY')
+        project_id = os.getenv('GEE_PROJECT_ID', 'aquascaping-468411')
+
+        # Fallback: read service account JSON file from backend folder if env vars are missing.
+        if not service_account_email or not private_key:
+            json_path = os.getenv('GEE_SERVICE_ACCOUNT_JSON')
+            if not json_path:
+                candidates = sorted(glob(os.path.join(BASE_DIR, "*.json")))
+                json_path = candidates[0] if candidates else None
+
+            if json_path and os.path.exists(json_path):
+                try:
+                    with open(json_path, "r", encoding="utf-8") as f:
+                        key_data = json.load(f)
+                    service_account_email = key_data.get("client_email")
+                    private_key = key_data.get("private_key")
+                    project_id = key_data.get("project_id") or project_id
+                    print(f"✅ Loaded GEE credentials from JSON file: {os.path.basename(json_path)}")
+                except Exception as e:
+                    _gee_last_error = f"Failed to parse service account JSON: {e}"
+                    print(f"❌ {_gee_last_error}")
+                    return False
+
+        if not service_account_email or not private_key:
+            _gee_last_error = (
+                "GEE credentials not found. Set GEE_SERVICE_ACCOUNT_EMAIL + GEE_PRIVATE_KEY in backend/.env "
+                "or place a service-account JSON in backend/ and optionally set GEE_SERVICE_ACCOUNT_JSON."
+            )
+            print(f"❌ {_gee_last_error}")
+            return False
+
+        # .env usually stores escaped newlines; convert to real PEM lines.
+        if "\\n" in private_key:
+            private_key = private_key.replace("\\n", "\n")
+        
+        # Authenticate using service account
+        credentials = ee.ServiceAccountCredentials(service_account_email, key_data=private_key)
+        ee.Initialize(credentials, project=project_id)
+        _gee_authenticated = True
+        _gee_last_error = None
+        print(f"✅ GEE authenticated successfully with {service_account_email}")
+        return True
+    except Exception as e:
+        _gee_last_error = str(e)
+        print(f"❌ GEE authentication failed: {e}")
+        return False
+
+
+def get_pollution_tile_url():
+    """Generate tile URL for pollution indices (Red/Blue ratio, NDTI, CDOM)."""
+    global _gee_last_error
+    if not authenticate_gee():
+        return None
+    
+    try:
+        # Define Dhaka AOI to avoid rendering unrelated scene extents.
+        dhaka_aoi = ee.Geometry.Rectangle([
+            DHAKA_BBOX["west"],
+            DHAKA_BBOX["south"],
+            DHAKA_BBOX["east"],
+            DHAKA_BBOX["north"],
+        ])
+        dhaka_point = ee.Geometry.Point([90.4125, 23.8103])
+        
+        # Get Sentinel-2 imagery
+        s2 = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
+              .filterBounds(dhaka_point)
+              .filterDate('2023-11-01', '2024-03-31')
+              .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20)))
+        
+        image = s2.median().clip(dhaka_aoi)
+
+        # Lightweight, robust water mask first, then ratio only on masked pixels.
+        mndwi = image.normalizedDifference(["B3", "B11"])
+        water_mask = mndwi.gt(0.0)
+        water_only_image = image.updateMask(water_mask)
+
+        # Calculate Red/Blue ratio only over water pixels.
+        red_band = water_only_image.select("B4")
+        blue_band = water_only_image.select("B2")
+        red_blue_ratio = red_band.divide(blue_band.add(1e-6)).updateMask(water_mask)
+        
+        # Visualization parameters
+        vis_params = {
+            'min': 0.7,
+            'max': 1.4,
+            'palette': ['blue', 'purple', 'red'],
+            'format': 'png'
+        }
+        
+        # Get map ID and tile URL
+        map_id = red_blue_ratio.getMapId(vis_params)
+        tile_url = map_id['tile_fetcher'].url_format
+        
+        print(f"✅ Pollution tile URL generated: {tile_url[:50]}...")
+        return tile_url
+    except Exception as e:
+        _gee_last_error = str(e)
+        print(f"❌ Pollution tile error: {e}")
+        return None
+
+
+def get_water_segmentation_tile_url(year: int = 2026):
+    """Generate tile URL for water segmentation (MNDWI) for specified year."""
+    global _gee_last_error
+    if not authenticate_gee():
+        return None
+    
+    try:
+        dhaka_point = ee.Geometry.Point([90.4125, 23.8103])
+        
+        # Adjust date range based on year (dry season: Nov-Mar)
+        start_date = f'{year-1}-11-01'
+        end_date = f'{year}-03-31'
+        
+        s2 = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
+              .filterBounds(dhaka_point)
+              .filterDate(start_date, end_date)
+              .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20)))
+        
+        dhaka_aoi = ee.Geometry.Rectangle([90.30, 23.65, 90.55, 23.90])
+        image = s2.median().clip(dhaka_aoi)
+        
+        # Calculate MNDWI for water detection
+        green_band = image.select('B3')
+        swir_band = image.select('B11')
+        mndwi = green_band.subtract(swir_band).divide(green_band.add(swir_band))
+        
+        # Binary water mask
+        water_mask = mndwi.gt(0)
+        
+        # Keep non-water pixels transparent and color by year for comparison mode.
+        water_layer = water_mask.selfMask()
+        vis_params = {
+            'min': 0,
+            'max': 1,
+            'palette': ['#3b82f6' if year == 2016 else '#ef4444'],
+            'format': 'png',
+        }
+
+        map_id = water_layer.getMapId(vis_params)
+        tile_url = map_id['tile_fetcher'].url_format
+        
+        print(f"✅ Water segmentation tile URL ({year}) generated")
+        return tile_url
+    except Exception as e:
+        _gee_last_error = str(e)
+        print(f"❌ Water segmentation tile error: {e}")
+        return None
+
+
+def get_sar_erosion_tile_url():
+    """
+    Generate tile URL for SAR-based erosion detection using temporal comparison.
+    Compares pre-monsoon vs post-monsoon Sentinel-1 backscatter to detect erosion.
+    Based on Freihardt & Frey (2023) methodology.
+    """
+    global _gee_last_error
+    if not authenticate_gee():
+        return None
+    
+    try:
+        dhaka_point = ee.Geometry.Point([90.4125, 23.8103])
+        aoi = ee.Geometry.Rectangle([90.30, 23.65, 90.55, 23.90])
+        
+        # 1. Create water mask from optical data (MNDWI) to isolate rivers
+        s2 = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
+              .filterBounds(aoi)
+              .filterDate('2024-11-01', '2025-03-31')  # Dry season for clear water signal
+              .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20)))
+        
+        optical_image = s2.median()
+        mndwi = optical_image.normalizedDifference(['B3', 'B11'])
+        water_mask = mndwi.gt(0.0)
+        
+        # 2. Load pre-monsoon SAR (March-May 2025) - land dry, rivers at normal level
+        s1_pre = (ee.ImageCollection('COPERNICUS/S1_GRD')
+                  .filterBounds(aoi)
+                  .filterDate('2025-03-01', '2025-05-31')
+                  .filter(ee.Filter.eq('instrumentMode', 'IW'))
+                  .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VV'))
+                  .filter(ee.Filter.eq('orbitProperties_pass', 'ASCENDING'))
+                  .select('VV'))
+        
+        sar_pre = s1_pre.median()
+        
+        # 3. Load post-monsoon SAR (October-December 2024) - after floods recede, erosion visible
+        s1_post = (ee.ImageCollection('COPERNICUS/S1_GRD')
+                   .filterBounds(aoi)
+                   .filterDate('2024-10-01', '2024-12-31')
+                   .filter(ee.Filter.eq('instrumentMode', 'IW'))
+                   .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VV'))
+                   .filter(ee.Filter.eq('orbitProperties_pass', 'ASCENDING'))
+                   .select('VV'))
+        
+        sar_post = s1_post.median()
+        
+        # 4. Speckle filtering on both composites (focal median)
+        sar_pre_filtered = sar_pre.focal_median(radius=1, kernelType='circle', units='pixels')
+        sar_post_filtered = sar_post.focal_median(radius=1, kernelType='circle', units='pixels')
+        
+        # 5. Compute backscatter change (post - pre)
+        # Negative change = loss of coherence = erosion/surface roughness increase
+        sar_change = sar_post_filtered.subtract(sar_pre_filtered)
+        
+        # 6. Apply water mask to change detection
+        sar_change_water = sar_change.updateMask(water_mask)
+        
+        # 7. Threshold: only show significant changes (< -2 dB = clear erosion signal)
+        erosion_mask = sar_change_water.lt(-2)
+        erosion_index = sar_change_water.updateMask(erosion_mask)
+        
+        # Visualization parameters: green (stable) to red (eroding)
+        # Negative values (more erosion) show as red
+        vis_params = {
+            'min': -6,
+            'max': 0,
+            'palette': ['red', 'yellow', 'green'],  # Inverted: red = erosion
+            'format': 'png'
+        }
+        
+        map_id = erosion_index.getMapId(vis_params)
+        tile_url = map_id['tile_fetcher'].url_format
+        
+        print(f"✅ SAR erosion tile URL generated")
+        return tile_url
+    except Exception as e:
+        _gee_last_error = str(e)
+        print(f"❌ SAR erosion tile error: {e}")
+        return None
 
 
 def _make_cache_key(south: float, west: float, north: float, east: float) -> str:

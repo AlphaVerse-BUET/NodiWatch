@@ -16,6 +16,10 @@ from osm_data import (
     fetch_dynamic_data,
     run_bayesian_attribution,
     generate_pollution_hotspots,
+    get_pollution_tile_url,
+    get_water_segmentation_tile_url,
+    get_sar_erosion_tile_url,
+    get_gee_last_error,
     RIVERS,
     DHAKA_BBOX,
 )
@@ -61,6 +65,9 @@ def root():
             "/api/rivers": "Monitored river data (hardcoded Dhaka set)",
             "/api/stats": "Dashboard statistics",
             "/api/verify_satellite": "Real Sentinel-2 scene metadata via Planetary Computer",
+            "/api/gee-pollution": "Live Google Earth Engine pollution tile URL (Red/Blue ratio)",
+            "/api/gee-water": "Live Google Earth Engine water segmentation tile URL (MNDWI)",
+            "/api/gee-erosion": "Live Google Earth Engine SAR erosion tile URL (Sentinel-1)",
         },
     }
 
@@ -286,6 +293,84 @@ async def verify_satellite(
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Satellite lookup failed: {str(e)}")
+
+
+@app.get("/api/gee-pollution")
+def get_gee_pollution_tile():
+    """
+    Generate and return a live Google Earth Engine tile URL for pollution indices.
+    Computes Red/Blue ratio (textile dye indicator) from Sentinel-2.
+    """
+    try:
+        tile_url = get_pollution_tile_url()
+        if not tile_url:
+            reason = get_gee_last_error() or "Unknown GEE error"
+            raise HTTPException(status_code=503, detail=f"GEE pollution tile generation failed: {reason}")
+        return {
+            "tile_url": tile_url,
+            "layer_type": "pollution_indices",
+            "indices": ["red_blue_ratio"],
+            "description": "Red/Blue spectral ratio for textile dye detection. Higher values = more red (dye).",
+            "palette": "blue -> purple -> red",
+            "source": "Sentinel-2 (ESA Copernicus)",
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"GEE pollution error: {str(e)}")
+
+
+@app.get("/api/gee-water")
+def get_gee_water_tile(year: int = Query(2026, ge=2016, le=2026)):
+    """
+    Generate and return a live Google Earth Engine tile URL for water segmentation.
+    Computes MNDWI (Modified Normalized Difference Water Index) from Sentinel-2 for the specified year.
+    """
+    try:
+        tile_url = get_water_segmentation_tile_url(year)
+        if not tile_url:
+            reason = get_gee_last_error() or "Unknown GEE error"
+            raise HTTPException(status_code=503, detail=f"GEE water tile generation failed: {reason}")
+        return {
+            "tile_url": tile_url,
+            "layer_type": "water_segmentation",
+            "index": "mndwi",
+            "year": year,
+            "description": "MNDWI water mask (normalized difference water index). Transparent background; 2016=blue, 2026=red.",
+            "palette": "transparent background + year color",
+            "source": "Sentinel-2 (ESA Copernicus)",
+            "date_range": f"{year-1}-11-01 to {year}-03-31 (dry season)",
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"GEE water error: {str(e)}")
+
+
+@app.get("/api/gee-erosion")
+def get_gee_erosion_tile():
+    """
+    Generate and return a live Google Earth Engine tile URL for SAR-based erosion detection.
+    Uses Sentinel-1 VV polarization backscatter to detect riverbank destabilization.
+    """
+    try:
+        tile_url = get_sar_erosion_tile_url()
+        if not tile_url:
+            reason = get_gee_last_error() or "Unknown GEE error"
+            raise HTTPException(status_code=503, detail=f"GEE erosion tile generation failed: {reason}")
+        return {
+            "tile_url": tile_url,
+            "layer_type": "sar_erosion",
+            "sensor": "sentinel_1_sar_vv",
+            "description": "SAR backscatter erosion index. Green = stable, yellow = moderate, red = critical erosion.",
+            "palette": "green -> yellow -> red",
+            "source": "Sentinel-1 SAR (ESA Copernicus)",
+            "methodology": "VV polarization median composite with speckle filtering",
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"GEE erosion error: {str(e)}")
 
 
 if __name__ == "__main__":
