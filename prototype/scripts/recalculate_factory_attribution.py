@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Recalculate factory attribution probabilities using the same Bayesian model
-as the backend, but with sigmoid compression to avoid 95%+ crowding.
+as the prototype API routes, but with sigmoid compression to avoid 95%+ crowding.
 
 The compressed score reflects "risk of being a significant polluter source"
 on a 15-72% range — more honest than 9-95%.

@@ -51,7 +51,9 @@ const MapEventListener = dynamic(
         onBoundsChange(map.getBounds());
         const handler = () => onBoundsChange(map.getBounds());
         map.on("moveend", handler);
-        return () => { map.off("moveend", handler); };
+        return () => {
+          map.off("moveend", handler);
+        };
       }, [map]);
       return null;
     }
@@ -68,6 +70,30 @@ interface LiveWaterway {
   name: string;
   type: string;
   coordinates: [number, number][];
+}
+
+interface EncroachmentSegment {
+  id: string;
+  river: string;
+  riverBn: string;
+  location: string;
+  lat: number;
+  lng: number;
+  width_2016: number;
+  width_2026: number;
+  shrinkage_pct: number;
+  severity: string;
+  cause: string;
+  affected_population: number;
+  boundary_2016?: number[][];
+  boundary_2026?: number[][];
+}
+
+interface EncroachmentLayerResponse {
+  segments: EncroachmentSegment[];
+  metadata?: {
+    source?: string;
+  };
 }
 
 interface EncroachmentMapProps {
@@ -89,6 +115,21 @@ const getSeverityColor = (severity: string) => {
   }
 };
 
+const getSourceLabel = (source: string) => {
+  switch (source) {
+    case "prototype_dynamic":
+      return "Live model";
+    case "prototype_static_fallback":
+      return "Static baseline";
+    case "prototype_waterways+static_layers":
+      return "Mixed live/static";
+    case "static_app":
+      return "Static baseline";
+    default:
+      return source;
+  }
+};
+
 export default function EncroachmentMap({
   className = "",
   onSegmentSelect,
@@ -99,18 +140,47 @@ export default function EncroachmentMap({
   const [showComparison, setShowComparison] = useState(true);
   const [showRivers, setShowRivers] = useState(true);
   const [showSegments, setShowSegments] = useState(true);
-  const [selectedData, setSelectedData] = useState<any>(null);
+  const [selectedData, setSelectedData] = useState<EncroachmentSegment | null>(
+    null,
+  );
   const [basemap, setBasemap] = useState<"dark" | "satellite">("satellite");
-  const [liveWaterways, setLiveWaterways] = useState<LiveWaterway[] | null>(null);
+  const [liveWaterways, setLiveWaterways] = useState<LiveWaterway[] | null>(
+    null,
+  );
+  const [liveSegments, setLiveSegments] = useState<
+    EncroachmentSegment[] | null
+  >(null);
+  const [layerSource, setLayerSource] = useState<string>("static_app");
+  const [isLayerLoading, setIsLayerLoading] = useState(false);
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastKeyRef = useRef<string>("");
+  const activeYearRef = useRef<"2016" | "2026">("2026");
+  const showComparisonRef = useRef(true);
+
+  const staticSegments = encroachmentData.segments as EncroachmentSegment[];
+  const segmentsToRender = liveSegments ?? staticSegments;
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleBoundsChange = useCallback(async (bounds: any) => {
+  useEffect(() => {
+    activeYearRef.current = activeYear;
+  }, [activeYear]);
+
+  useEffect(() => {
+    showComparisonRef.current = showComparison;
+  }, [showComparison]);
+
+  useEffect(
+    () => () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    },
+    [],
+  );
+
+  const handleBoundsChange = useCallback((bounds: any) => {
     const S = bounds.getSouth().toFixed(3);
     const W = bounds.getWest().toFixed(3);
     const N = bounds.getNorth().toFixed(3);
@@ -120,14 +190,49 @@ export default function EncroachmentMap({
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(async () => {
       lastKeyRef.current = key;
+      setIsLayerLoading(true);
+
       try {
-        const res = await fetch(`/api/geo?south=${S}&west=${W}&north=${N}&east=${E}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data.waterways?.length) setLiveWaterways(data.waterways);
+        const [geoRes, encroachmentRes] = await Promise.all([
+          fetch(`/api/geo?south=${S}&west=${W}&north=${N}&east=${E}`),
+          fetch(
+            `/api/geo/encroachment?south=${S}&west=${W}&north=${N}&east=${E}&year=${activeYearRef.current}&compare=${showComparisonRef.current ? 1 : 0}`,
+          ),
+        ]);
+
+        if (geoRes.ok) {
+          const geoData = (await geoRes.json()) as {
+            waterways?: LiveWaterway[];
+          };
+          if (geoData.waterways?.length) {
+            setLiveWaterways(geoData.waterways);
+          } else {
+            setLiveWaterways(null);
+          }
+        }
+
+        if (encroachmentRes.ok) {
+          const encroachmentDataResponse =
+            (await encroachmentRes.json()) as EncroachmentLayerResponse;
+
+          if (Array.isArray(encroachmentDataResponse.segments)) {
+            setLiveSegments(encroachmentDataResponse.segments);
+          }
+
+          setLayerSource(
+            encroachmentDataResponse.metadata?.source || "static_app",
+          );
+        } else {
+          setLiveSegments(null);
+          setLayerSource("static_app");
         }
       } catch {
-        // Backend unavailable — keep static rivers
+        // Data route unavailable — keep static map layers.
+        setLiveWaterways(null);
+        setLiveSegments(null);
+        setLayerSource("static_app");
+      } finally {
+        setIsLayerLoading(false);
       }
     }, 600);
   }, []);
@@ -219,7 +324,9 @@ export default function EncroachmentMap({
 
         <div className="border-t border-white/10 pt-2 mt-1">
           <button
-            onClick={() => setBasemap(basemap === "dark" ? "satellite" : "dark")}
+            onClick={() =>
+              setBasemap(basemap === "dark" ? "satellite" : "dark")
+            }
             className={`flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm transition-colors ${
               basemap === "satellite"
                 ? "bg-blue-500/20 text-blue-400"
@@ -229,6 +336,12 @@ export default function EncroachmentMap({
             <Satellite size={14} />
             {basemap === "satellite" ? "Satellite" : "Dark Map"}
           </button>
+
+          <div className="mt-2 rounded bg-slate-800/40 px-2 py-1 text-[11px] text-gray-300">
+            {isLayerLoading
+              ? "Encroachment layer: refreshing"
+              : `Encroachment layer: ${getSourceLabel(layerSource)}`}
+          </div>
         </div>
       </div>
 
@@ -329,7 +442,7 @@ export default function EncroachmentMap({
       >
         {basemap === "satellite" ? (
           <TileLayer
-            attribution='&copy; Esri, Maxar, Earthstar Geographics'
+            attribution="&copy; Esri, Maxar, Earthstar Geographics"
             url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
           />
         ) : (
@@ -348,7 +461,9 @@ export default function EncroachmentMap({
             ? liveWaterways.map((w) => (
                 <Polyline
                   key={`w-${w.id}`}
-                  positions={w.coordinates.map((c) => [c[1], c[0]] as [number, number])}
+                  positions={w.coordinates.map(
+                    (c) => [c[1], c[0]] as [number, number],
+                  )}
                   pathOptions={{ color: "#118ab2", weight: 3, opacity: 0.7 }}
                 >
                   <Popup>
@@ -383,7 +498,7 @@ export default function EncroachmentMap({
 
         {/* Encroachment Segments */}
         {showSegments &&
-          encroachmentData.segments.map((segment: any) => (
+          segmentsToRender.map((segment) => (
             <div key={segment.id}>
               {/* 2016 Boundary - Blue */}
               {(showComparison || activeYear === "2016") &&

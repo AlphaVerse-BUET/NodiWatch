@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Fix pollution-hotspots.json:
-  1. Rename redBlueRatio → red_blue_ratio (match backend snake_case)
+    1. Rename redBlueRatio → red_blue_ratio (match legacy snake_case)
   2. Diversify labels using spectral values
   3. Diversify detection dates (Oct 2025 – Mar 2026)
 """

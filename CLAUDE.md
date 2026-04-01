@@ -18,15 +18,6 @@ npm run build        # Production build — run this to verify no TypeScript err
 npm run lint         # ESLint check
 ```
 
-### Backend (`/backend`)
-
-```bash
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000   # Start API server (http://localhost:8000)
-# Interactive API docs: http://localhost:8000/docs
-```
-
 ### Presentation PDF (`/presentation`)
 
 ```bash
@@ -46,20 +37,13 @@ Pages: `/` (dashboard), `/pollution`, `/encroachment`, `/erosion`, `/evidence`, 
 - **`components/AIChatbot.tsx`** — Floating Gemini chatbot; rendered in root layout. Page context descriptions live in the `PAGE_CONTEXT` map at the top of this file.
 - **`lib/gemini.ts`** — Central Gemini 2.5 Flash service: `analyzeEnvironmentalImage()`, `chatWithNodiWatch()`, `generateReportSummary()`.
 - **`data/`** — Static JSON/TS data files. These are pre-computed, methodology-backed values — not randomly generated placeholders.
+- **`app/api/geo/`** — Prototype-hosted geospatial API routes for dynamic OSM waterways/factories/hotspots and satellite verification, with static fallbacks.
 - **`app/validation/page.tsx`** — Shows confusion matrix, accuracy metrics (OA/Kappa/F1), known limitations table, and peer-reviewed references. Linked in Navbar.
-
-### Backend — FastAPI (`/backend/`)
-
-- **`main.py`** — 5 endpoints: `/api/factories`, `/api/pollution`, `/api/attribution`, `/api/rivers`, `/api/stats`.
-- **`osm_data.py`** — Fetches real industrial facilities from Overpass API and runs Bayesian spatial attribution (ranks factories by proximity + industry type match to a hotspot).
-- **`data/`** — Cached real data (`real_factories.json`, `real_pollution_hotspots.json`). Backend prefers cached files to avoid repeated Overpass API calls.
-- **Dependencies**: Only `fastapi`, `uvicorn[standard]`, `requests`, `geojson`, `python-dotenv`. No scipy/numpy/earthengine — backend is pure Python + HTTP.
-
-The backend is **optional**. The frontend operates fully standalone using `prototype/src/data/` JSON files.
 
 ### Google Earth Engine Scripts (`/gee_scripts/`)
 
 Run in the GEE Code Editor (not locally). Used for live demo during presentation:
+
 1. `01_water_segmentation.js` — MNDWI water mask + 2016 vs 2026 river width comparison
 2. `02_pollution_indices.js` — NDTI, CDOM, Red/Blue ratio spectral fingerprinting
 3. `03_sar_erosion.js` — Sentinel-1 SAR pre/post-monsoon bank change detection
@@ -67,32 +51,31 @@ Run in the GEE Code Editor (not locally). Used for live demo during presentation
 
 ## Deployment
 
-| Service | Platform | Config file |
-|---|---|---|
-| Frontend (Next.js) | Vercel | `prototype/vercel.json` |
-| Backend (FastAPI) | Render | `render.yaml` (root) |
+| Service            | Platform | Config file             |
+| ------------------ | -------- | ----------------------- |
+| Frontend (Next.js) | Vercel   | `prototype/vercel.json` |
 
 **Vercel**: Set env var `GEMINI_API_KEY` in project settings. Root directory = `prototype`.
-
-**Render**: Root directory = `backend`. Build: `pip install -r requirements.txt`. Start: `uvicorn main:app --host 0.0.0.0 --port $PORT`. Python 3.11+ recommended (avoid 3.14 — package wheel availability issues).
 
 ## Environment Variables
 
 `prototype/.env.local` (gitignored, never commit):
+
 ```
 GEMINI_API_KEY=your_gemini_key_here
 ```
+
 See `prototype/.env.example` for documentation.
 
 ## Data Accuracy — What's Real vs Estimated
 
-| Data | Source |
-|---|---|
-| Factory locations/names | Real OSM Overpass API data (45 facilities) |
-| Pollution spectral values (NDTI, CDOM, R/B ratio) | Calibrated from published Buriganga water quality literature at real industrial zone coordinates |
-| Encroachment boundaries | MNDWI temporal differencing methodology, real river coordinates (5 segments) |
-| Erosion corridors | SAR coherence methodology per Freihardt & Frey (2023), real Jamuna/Sirajganj coordinates (5 corridors) |
-| Validation metrics | Computed from confusion matrix (2000 stratified reference points) |
+| Data                                              | Source                                                                                                 |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Factory locations/names                           | Real OSM Overpass API data (45 facilities)                                                             |
+| Pollution spectral values (NDTI, CDOM, R/B ratio) | Calibrated from published Buriganga water quality literature at real industrial zone coordinates       |
+| Encroachment boundaries                           | MNDWI temporal differencing methodology, real river coordinates (5 segments)                           |
+| Erosion corridors                                 | SAR coherence methodology per Freihardt & Frey (2023), real Jamuna/Sirajganj coordinates (5 corridors) |
+| Validation metrics                                | Computed from confusion matrix (2000 stratified reference points)                                      |
 
 Live GEE satellite pulls are not performed at runtime — processing takes 2–5 min and requires authenticated GEE account. Pre-computed results are served instead.
 
@@ -114,5 +97,5 @@ Landsat 8/9 legitimately has thermal bands (TIRS) — this is not a hallucinatio
 - **Bayesian attribution is probabilistic**: Rankings are spatial heuristics (proximity + industry type), not confirmed source identification.
 - **Enforcement triage framing**: System prioritizes agency investigation targets, not standalone legal proof.
 - **10m resolution limit**: Cannot detect encroachment narrower than 10m. Agencies should use drones for sub-meter verification.
-- **No test suite**: Validate backend via FastAPI `/docs`, frontend via `npm run build` (TypeScript catches most errors).
+- **No test suite**: Validate frontend via `npm run build` (TypeScript catches most errors).
 - **lucide-react pinned to 0.454.0**: Versions above this may ship without `.d.ts` type files, breaking the TypeScript build.

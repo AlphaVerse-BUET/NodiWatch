@@ -52,7 +52,9 @@ const MapEventListener = dynamic(
         onBoundsChange(map.getBounds());
         const handler = () => onBoundsChange(map.getBounds());
         map.on("moveend", handler);
-        return () => { map.off("moveend", handler); };
+        return () => {
+          map.off("moveend", handler);
+        };
       }, [map]);
       return null;
     }
@@ -71,7 +73,7 @@ import riversData from "@/data/rivers.json";
  */
 function computeZonePolygon(
   coords: number[][],
-  bufferM: number
+  bufferM: number,
 ): [number, number][] {
   const n = coords.length;
   const inland: [number, number][] = [];
@@ -92,8 +94,12 @@ function computeZonePolygon(
       coords[i][1] + (py * bufferM) / 111_000,
     ]);
   }
-  const bankLine: [number, number][] = coords.map((c) => [c[1], c[0]] as [number, number]);
-  const inlandLine: [number, number][] = inland.map((c) => [c[1], c[0]] as [number, number]).reverse();
+  const bankLine: [number, number][] = coords.map(
+    (c) => [c[1], c[0]] as [number, number],
+  );
+  const inlandLine: [number, number][] = inland
+    .map((c) => [c[1], c[0]] as [number, number])
+    .reverse();
   return [...bankLine, ...inlandLine];
 }
 
@@ -134,7 +140,9 @@ export default function ErosionMap({
   const [showRivers, setShowRivers] = useState(true);
   const [selectedData, setSelectedData] = useState<any>(null);
   const [basemap, setBasemap] = useState<"dark" | "satellite">("satellite");
-  const [liveWaterways, setLiveWaterways] = useState<LiveWaterway[] | null>(null);
+  const [liveWaterways, setLiveWaterways] = useState<LiveWaterway[] | null>(
+    null,
+  );
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastKeyRef = useRef<string>("");
@@ -154,13 +162,15 @@ export default function ErosionMap({
     debounceRef.current = setTimeout(async () => {
       lastKeyRef.current = key;
       try {
-        const res = await fetch(`/api/geo?south=${S}&west=${W}&north=${N}&east=${E}`);
+        const res = await fetch(
+          `/api/geo?south=${S}&west=${W}&north=${N}&east=${E}`,
+        );
         if (res.ok) {
           const data = await res.json();
           if (data.waterways?.length) setLiveWaterways(data.waterways);
         }
       } catch {
-        // Backend unavailable — keep static rivers
+        // Live API unavailable - keep static rivers
       }
     }, 600);
   }, []);
@@ -227,7 +237,9 @@ export default function ErosionMap({
 
         <div className="border-t border-white/10 pt-2 mt-1">
           <button
-            onClick={() => setBasemap(basemap === "dark" ? "satellite" : "dark")}
+            onClick={() =>
+              setBasemap(basemap === "dark" ? "satellite" : "dark")
+            }
             className={`flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm transition-colors ${
               basemap === "satellite"
                 ? "bg-blue-500/20 text-blue-400"
@@ -295,13 +307,15 @@ export default function ErosionMap({
                 <div className="bg-slate-700/50 rounded p-2">
                   <div className="text-gray-400">Pre-Monsoon</div>
                   <div className="text-white font-semibold">
-                    {selectedData.analysis?.sar_coherence_pre_monsoon ?? selectedData.analysis?.sar_coherence ?? '—'}
+                    {selectedData.analysis?.sar_coherence_pre_monsoon ??
+                      selectedData.analysis?.sar_coherence ??
+                      "—"}
                   </div>
                 </div>
                 <div className="bg-slate-700/50 rounded p-2">
                   <div className="text-gray-400">Post-Monsoon</div>
                   <div className="text-red-400 font-semibold">
-                    {selectedData.analysis?.sar_coherence_post_monsoon ?? '—'}
+                    {selectedData.analysis?.sar_coherence_post_monsoon ?? "—"}
                   </div>
                 </div>
               </div>
@@ -359,7 +373,7 @@ export default function ErosionMap({
       >
         {basemap === "satellite" ? (
           <TileLayer
-            attribution='&copy; Esri, Maxar, Earthstar Geographics'
+            attribution="&copy; Esri, Maxar, Earthstar Geographics"
             url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
           />
         ) : (
@@ -373,55 +387,74 @@ export default function ErosionMap({
         <MapEventListener onBoundsChange={handleBoundsChange} />
 
         {/* Rivers — static always + live OSM layer when available */}
-        {showRivers && riversData.features.map((river: any) => (
-          <Polyline
-            key={river.properties.id}
-            positions={river.geometry.coordinates.map((c: number[]) => [c[1], c[0]])}
-            pathOptions={{
-              color: river.properties.status === "critical" ? "#ef476f"
-                : river.properties.status === "severe" ? "#ff8c00"
-                : "#118ab2",
-              weight: 3,
-              opacity: 0.6,
-            }}
-          >
-            <Popup>
-              <div className="text-center">
-                <strong>{river.properties.name}</strong>
+        {showRivers &&
+          riversData.features.map((river: any) => (
+            <Polyline
+              key={river.properties.id}
+              positions={river.geometry.coordinates.map((c: number[]) => [
+                c[1],
+                c[0],
+              ])}
+              pathOptions={{
+                color:
+                  river.properties.status === "critical"
+                    ? "#ef476f"
+                    : river.properties.status === "severe"
+                      ? "#ff8c00"
+                      : "#118ab2",
+                weight: 3,
+                opacity: 0.6,
+              }}
+            >
+              <Popup>
+                <div className="text-center">
+                  <strong>{river.properties.name}</strong>
+                  <br />
+                  <span className="text-xs">{river.properties.nameBn}</span>
+                </div>
+              </Popup>
+            </Polyline>
+          ))}
+        {showRivers &&
+          liveWaterways &&
+          liveWaterways.map((w) => (
+            <Polyline
+              key={`w-${w.id}`}
+              positions={w.coordinates.map(
+                (c) => [c[1], c[0]] as [number, number],
+              )}
+              pathOptions={{ color: "#118ab2", weight: 4, opacity: 0.75 }}
+            >
+              <Popup>
+                <strong>{w.name}</strong>
                 <br />
-                <span className="text-xs">{river.properties.nameBn}</span>
-              </div>
-            </Popup>
-          </Polyline>
-        ))}
-        {showRivers && liveWaterways && liveWaterways.map((w) => (
-          <Polyline
-            key={`w-${w.id}`}
-            positions={w.coordinates.map((c) => [c[1], c[0]] as [number, number])}
-            pathOptions={{ color: "#118ab2", weight: 4, opacity: 0.75 }}
-          >
-            <Popup>
-              <strong>{w.name}</strong>
-              <br />
-              <span className="text-xs capitalize">{w.type} · OSM live</span>
-            </Popup>
-          </Polyline>
-        ))}
+                <span className="text-xs capitalize">{w.type} · OSM live</span>
+              </Popup>
+            </Polyline>
+          ))}
 
         {/* Erosion Corridors — bank line + at-risk zone polygon */}
         {showCorridors &&
           erosionData.corridors.map((corridor: any) => {
             const color = getRiskColor(corridor.risk_level);
             const isSelected = selectedCorridor === corridor.id;
-            const bankPositions = corridor.coordinates.map((c: number[]) => [c[1], c[0]] as [number, number]);
-            const handleClick = () => { setSelectedData(corridor); onCorridorSelect?.(corridor); };
+            const bankPositions = corridor.coordinates.map(
+              (c: number[]) => [c[1], c[0]] as [number, number],
+            );
+            const handleClick = () => {
+              setSelectedData(corridor);
+              onCorridorSelect?.(corridor);
+            };
 
             return (
               <div key={corridor.id}>
                 {/* Warning zone polygon (outer, wider, lighter) */}
                 {showBufferZones && corridor.coordinates.length >= 2 && (
                   <Polygon
-                    positions={computeZonePolygon(corridor.coordinates, corridor.buffer_zone?.warning_m ?? 100)}
+                    positions={computeZonePolygon(
+                      corridor.coordinates,
+                      corridor.buffer_zone?.warning_m ?? 100,
+                    )}
                     pathOptions={{
                       color,
                       fillColor: color,
@@ -435,7 +468,10 @@ export default function ErosionMap({
                 {/* Critical zone polygon (inner, tighter, more opaque) */}
                 {showBufferZones && corridor.coordinates.length >= 2 && (
                   <Polygon
-                    positions={computeZonePolygon(corridor.coordinates, corridor.buffer_zone?.critical_m ?? 50)}
+                    positions={computeZonePolygon(
+                      corridor.coordinates,
+                      corridor.buffer_zone?.critical_m ?? 50,
+                    )}
                     pathOptions={{
                       color,
                       fillColor: color,
@@ -463,11 +499,44 @@ export default function ErosionMap({
                     <div className="min-w-[180px] text-sm">
                       <div className="font-bold mb-1">{corridor.name}</div>
                       <div className="text-xs text-gray-600 space-y-0.5">
-                        <p>River: <strong>{corridor.river}</strong></p>
-                        <p>Retreat: <strong className={corridor.risk_level === "high" ? "text-red-600" : "text-yellow-600"}>{corridor.retreat_rate_m_year} m/year</strong></p>
-                        <p>Population at risk: {corridor.population_at_risk.toLocaleString()}</p>
-                        <p>SAR coherence: {corridor.analysis?.sar_coherence_pre_monsoon} → <span className="text-red-600">{corridor.analysis?.sar_coherence_post_monsoon}</span></p>
-                        <p>Trend: <span className={corridor.trend === "accelerating" ? "text-red-600 font-semibold" : "text-green-600"}>{corridor.trend}</span></p>
+                        <p>
+                          River: <strong>{corridor.river}</strong>
+                        </p>
+                        <p>
+                          Retreat:{" "}
+                          <strong
+                            className={
+                              corridor.risk_level === "high"
+                                ? "text-red-600"
+                                : "text-yellow-600"
+                            }
+                          >
+                            {corridor.retreat_rate_m_year} m/year
+                          </strong>
+                        </p>
+                        <p>
+                          Population at risk:{" "}
+                          {corridor.population_at_risk.toLocaleString()}
+                        </p>
+                        <p>
+                          SAR coherence:{" "}
+                          {corridor.analysis?.sar_coherence_pre_monsoon} →{" "}
+                          <span className="text-red-600">
+                            {corridor.analysis?.sar_coherence_post_monsoon}
+                          </span>
+                        </p>
+                        <p>
+                          Trend:{" "}
+                          <span
+                            className={
+                              corridor.trend === "accelerating"
+                                ? "text-red-600 font-semibold"
+                                : "text-green-600"
+                            }
+                          >
+                            {corridor.trend}
+                          </span>
+                        </p>
                       </div>
                     </div>
                   </Popup>
@@ -475,14 +544,18 @@ export default function ErosionMap({
 
                 {/* Pulsing start marker for accelerating corridors */}
                 <CircleMarker
-                  center={[corridor.coordinates[0][1], corridor.coordinates[0][0]]}
+                  center={[
+                    corridor.coordinates[0][1],
+                    corridor.coordinates[0][0],
+                  ]}
                   radius={corridor.trend === "accelerating" ? 7 : 5}
                   pathOptions={{
                     color,
                     fillColor: color,
                     fillOpacity: 0.9,
                     weight: 2,
-                    className: corridor.trend === "accelerating" ? "pulse-marker" : "",
+                    className:
+                      corridor.trend === "accelerating" ? "pulse-marker" : "",
                   }}
                   eventHandlers={{ click: handleClick }}
                 />

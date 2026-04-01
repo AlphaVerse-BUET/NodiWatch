@@ -41,7 +41,7 @@ NodiWatch is an AI-powered satellite surveillance system that addresses two crit
 | Geospatial DB    | PostGIS                      | Historical comparison storage                            |
 | Industry Data    | OpenStreetMap API            | Factory/industry geolocation                             |
 | Frontend         | React / Next.js              | Interactive dashboard with dual heatmaps                 |
-| Backend          | Python (FastAPI/Flask)       | API endpoints, model inference                           |
+| API Layer        | Next.js Route Handlers       | API endpoints, model inference                           |
 
 ---
 

@@ -42,8 +42,8 @@ const team = [
   },
   {
     name: "Ekramul Haque Amin",
-    role: "Backend + Signal Processing Expert",
-    bio: "Architected Google Earth Engine workflows for satellite data processing. Developed SAR analysis tools for erosion monitoring. Built backend infrastructure and data pipelines for automated geospatial analysis.",
+    role: "Geospatial + Signal Processing Expert",
+    bio: "Architected Google Earth Engine workflows for satellite data processing. Developed SAR analysis tools for erosion monitoring. Built API route architecture and data pipelines for automated geospatial analysis.",
     avatar: "/team/amin.jpg",
     github: "https://github.com/ekramul-haque-amin",
     linkedin: "https://www.linkedin.com/in/ekramul-haque-amin22/",
@@ -177,8 +177,8 @@ export default function AboutPage() {
             <p className="text-gray-300">
               A future where every river in Bangladesh is continuously
               monitored, violations are detected through automated satellite
-              surveillance, and environmental
-              accountability is strengthened through satellite-based evidence.
+              surveillance, and environmental accountability is strengthened
+              through satellite-based evidence.
             </p>
           </div>
         </div>
@@ -195,8 +195,9 @@ export default function AboutPage() {
               </h3>
               <p className="text-sm text-gray-400">
                 Untreated industrial effluent from textile and tannery
-                industries turns rivers toxic. Published studies report dissolved
-                oxygen dropping below 0.5 mg/L — lethal for aquatic life.
+                industries turns rivers toxic. Published studies report
+                dissolved oxygen dropping below 0.5 mg/L — lethal for aquatic
+                life.
               </p>
             </div>
             <div className="p-4 bg-purple-500/10 rounded-lg">

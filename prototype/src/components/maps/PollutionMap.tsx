@@ -148,7 +148,16 @@ const getSeverityColor = (severity: number | string): string => {
 };
 
 const severityRadius = (s: string | number): number => {
-  const n = typeof s === "number" ? s : s === "critical" ? 88 : s === "high" ? 72 : s === "moderate" ? 52 : 30;
+  const n =
+    typeof s === "number"
+      ? s
+      : s === "critical"
+        ? 88
+        : s === "high"
+          ? 72
+          : s === "moderate"
+            ? 52
+            : 30;
   return Math.max(6, n / 5);
 };
 
@@ -169,7 +178,9 @@ export default function PollutionMap({
   const [liveHotspots, setLiveHotspots] = useState<LiveHotspot[]>([]);
   const [liveFactories, setLiveFactories] = useState<LiveFactory[]>([]);
   const [verifying, setVerifying] = useState<string | null>(null); // hotspot id being verified
-  const [satResult, setSatResult] = useState<Record<string, SatelliteVerification>>({}); // cache by hotspot id
+  const [satResult, setSatResult] = useState<
+    Record<string, SatelliteVerification>
+  >({}); // cache by hotspot id
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastKeyRef = useRef<string>("");
@@ -193,7 +204,7 @@ export default function PollutionMap({
       setLoading(true);
       try {
         const res = await fetch(
-          `/api/geo?south=${S}&west=${W}&north=${N}&east=${E}`
+          `/api/geo?south=${S}&west=${W}&north=${N}&east=${E}`,
         );
         if (res.ok) {
           const data = await res.json();
@@ -204,7 +215,7 @@ export default function PollutionMap({
           setLiveFactories(data.factories || []);
         }
       } catch {
-        // Backend unavailable — show static fallback
+        // Live API unavailable - show static fallback
       } finally {
         setLoading(false);
       }
@@ -216,7 +227,7 @@ export default function PollutionMap({
     setVerifying(hotspot.id);
     try {
       const res = await fetch(
-        `/api/geo/verify?lat=${hotspot.lat}&lng=${hotspot.lng}`
+        `/api/geo/verify?lat=${hotspot.lat}&lng=${hotspot.lng}`,
       );
       const data = await res.json();
       setSatResult((prev) => ({ ...prev, [hotspot.id]: data }));
@@ -252,12 +263,19 @@ export default function PollutionMap({
   }
 
   // hasLive = geo API has responded at least once for current viewport
-  const hasApiData = liveHotspots.length > 0 || liveWaterways.length > 0 || liveFactories.length > 0;
+  const hasApiData =
+    liveHotspots.length > 0 ||
+    liveWaterways.length > 0 ||
+    liveFactories.length > 0;
   const hasLive = hasApiData; // used for "●live" badge display
   // Hotspots: use API response (which includes bbox-filtered static hotspots); fallback to all static on initial load
-  const displayHotspots = liveHotspots.length > 0 ? liveHotspots : (pollutionData.hotspots as any[]);
-  // Factories: use live backend data when available; fallback to static
-  const displayFactories = liveFactories.length > 0 ? liveFactories : (factoriesData.factories as any[]);
+  const displayHotspots =
+    liveHotspots.length > 0 ? liveHotspots : (pollutionData.hotspots as any[]);
+  // Factories: use live API data when available; fallback to static
+  const displayFactories =
+    liveFactories.length > 0
+      ? liveFactories
+      : (factoriesData.factories as any[]);
 
   return (
     <div className={`relative ${className}`}>
@@ -266,13 +284,17 @@ export default function PollutionMap({
         <div className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
           <Layers size={16} />
           <span>Layers</span>
-          {loading && <Loader size={12} className="animate-spin text-teal-400 ml-auto" />}
+          {loading && (
+            <Loader size={12} className="animate-spin text-teal-400 ml-auto" />
+          )}
         </div>
 
         <button
           onClick={() => setShowHeatmap(!showHeatmap)}
           className={`flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm transition-colors ${
-            showHeatmap ? "bg-red-500/20 text-red-400" : "bg-slate-700/50 text-gray-400"
+            showHeatmap
+              ? "bg-red-500/20 text-red-400"
+              : "bg-slate-700/50 text-gray-400"
           }`}
         >
           {showHeatmap ? <Eye size={14} /> : <EyeOff size={14} />}
@@ -282,38 +304,57 @@ export default function PollutionMap({
         <button
           onClick={() => setShowHotspots(!showHotspots)}
           className={`flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm transition-colors ${
-            showHotspots ? "bg-orange-500/20 text-orange-400" : "bg-slate-700/50 text-gray-400"
+            showHotspots
+              ? "bg-orange-500/20 text-orange-400"
+              : "bg-slate-700/50 text-gray-400"
           }`}
         >
           {showHotspots ? <Eye size={14} /> : <EyeOff size={14} />}
-          Hotspots {hasLive && <span className="ml-auto text-xs text-green-400">●live</span>}
+          Hotspots{" "}
+          {hasLive && (
+            <span className="ml-auto text-xs text-green-400">●live</span>
+          )}
         </button>
 
         <button
           onClick={() => setShowFactories(!showFactories)}
           className={`flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm transition-colors ${
-            showFactories ? "bg-purple-500/20 text-purple-400" : "bg-slate-700/50 text-gray-400"
+            showFactories
+              ? "bg-purple-500/20 text-purple-400"
+              : "bg-slate-700/50 text-gray-400"
           }`}
         >
           {showFactories ? <Eye size={14} /> : <EyeOff size={14} />}
-          Factories {hasLive && <span className="ml-auto text-xs text-green-400">●live</span>}
+          Factories{" "}
+          {hasLive && (
+            <span className="ml-auto text-xs text-green-400">●live</span>
+          )}
         </button>
 
         <button
           onClick={() => setShowRivers(!showRivers)}
           className={`flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm transition-colors ${
-            showRivers ? "bg-blue-500/20 text-blue-400" : "bg-slate-700/50 text-gray-400"
+            showRivers
+              ? "bg-blue-500/20 text-blue-400"
+              : "bg-slate-700/50 text-gray-400"
           }`}
         >
           {showRivers ? <Eye size={14} /> : <EyeOff size={14} />}
-          Rivers {hasLive && <span className="ml-auto text-xs text-green-400">●live</span>}
+          Rivers{" "}
+          {hasLive && (
+            <span className="ml-auto text-xs text-green-400">●live</span>
+          )}
         </button>
 
         <div className="border-t border-white/10 pt-2 mt-1">
           <button
-            onClick={() => setBasemap(basemap === "dark" ? "satellite" : "dark")}
+            onClick={() =>
+              setBasemap(basemap === "dark" ? "satellite" : "dark")
+            }
             className={`flex items-center gap-2 w-full px-2 py-1.5 rounded text-sm transition-colors ${
-              basemap === "satellite" ? "bg-blue-500/20 text-blue-400" : "bg-slate-700/50 text-gray-400"
+              basemap === "satellite"
+                ? "bg-blue-500/20 text-blue-400"
+                : "bg-slate-700/50 text-gray-400"
             }`}
           >
             <Satellite size={14} />
@@ -343,24 +384,37 @@ export default function PollutionMap({
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-400">Type:</span>
-              <span className={`badge-${
-                (selectedFactory.type || selectedFactory.industry_type) === "textile" ? "purple"
-                : (selectedFactory.type || selectedFactory.industry_type) === "tannery" ? "red"
-                : "yellow"
-              }`}>
-                {selectedFactory.type || selectedFactory.industry_type || "industrial"}
+              <span
+                className={`badge-${
+                  (selectedFactory.type || selectedFactory.industry_type) ===
+                  "textile"
+                    ? "purple"
+                    : (selectedFactory.type ||
+                          selectedFactory.industry_type) === "tannery"
+                      ? "red"
+                      : "yellow"
+                }`}
+              >
+                {selectedFactory.type ||
+                  selectedFactory.industry_type ||
+                  "industrial"}
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Distance to river:</span>
               <span className="text-white">
-                {selectedFactory.distance_m || selectedFactory.distance_to_river_m || 0}m
+                {selectedFactory.distance_m ||
+                  selectedFactory.distance_to_river_m ||
+                  0}
+                m
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">River:</span>
               <span className="text-white text-xs">
-                {selectedFactory.river_name || selectedFactory.nearest_river || "—"}
+                {selectedFactory.river_name ||
+                  selectedFactory.nearest_river ||
+                  "—"}
               </span>
             </div>
             <div className="flex justify-between">
@@ -409,49 +463,58 @@ export default function PollutionMap({
           ))}
 
         {/* Rivers — static (always) + Overpass live layer when available */}
-        {showRivers && riversData.features.map((river: any) => (
-          <Polyline
-            key={river.properties.id}
-            positions={river.geometry.coordinates.map((c: number[]) => [c[1], c[0]])}
-            pathOptions={{
-              color:
-                river.properties.status === "critical" ? "#ef476f"
-                : river.properties.status === "severe" ? "#ff8c00"
-                : "#118ab2",
-              weight: 3,
-              opacity: 0.65,
-            }}
-          >
-            <Popup>
-              <div className="text-center">
-                <strong>{river.properties.name}</strong>
-              </div>
-            </Popup>
-          </Polyline>
-        ))}
+        {showRivers &&
+          riversData.features.map((river: any) => (
+            <Polyline
+              key={river.properties.id}
+              positions={river.geometry.coordinates.map((c: number[]) => [
+                c[1],
+                c[0],
+              ])}
+              pathOptions={{
+                color:
+                  river.properties.status === "critical"
+                    ? "#ef476f"
+                    : river.properties.status === "severe"
+                      ? "#ff8c00"
+                      : "#118ab2",
+                weight: 3,
+                opacity: 0.65,
+              }}
+            >
+              <Popup>
+                <div className="text-center">
+                  <strong>{river.properties.name}</strong>
+                </div>
+              </Popup>
+            </Polyline>
+          ))}
 
         {/* Overpass live waterways (additional rivers from current viewport) */}
         {showRivers &&
           liveWaterways.map((w) => (
-                <Polyline
-                  key={`w-${w.id}`}
-                  positions={w.coordinates.map((c) => [c[1], c[0]] as [number, number])}
-                  pathOptions={{
-                    color: w.type === "river" ? "#118ab2" : "#4ecdc4",
-                    weight: w.type === "river" ? 4 : 2,
-                    opacity: 0.75,
-                  }}
-                >
-                  <Popup>
-                    <div className="text-center">
-                      <strong>{w.name}</strong>
-                      <br />
-                      <span className="text-xs capitalize">{w.type} · OSM live</span>
-                    </div>
-                  </Popup>
-                </Polyline>
-              ))}
-
+            <Polyline
+              key={`w-${w.id}`}
+              positions={w.coordinates.map(
+                (c) => [c[1], c[0]] as [number, number],
+              )}
+              pathOptions={{
+                color: w.type === "river" ? "#118ab2" : "#4ecdc4",
+                weight: w.type === "river" ? 4 : 2,
+                opacity: 0.75,
+              }}
+            >
+              <Popup>
+                <div className="text-center">
+                  <strong>{w.name}</strong>
+                  <br />
+                  <span className="text-xs capitalize">
+                    {w.type} · OSM live
+                  </span>
+                </div>
+              </Popup>
+            </Polyline>
+          ))}
 
         {/* Pollution Hotspots */}
         {showHotspots &&
@@ -468,25 +531,48 @@ export default function PollutionMap({
                   fillColor: getSeverityColor(hotspot.severity),
                   fillOpacity: 0.6,
                   weight: 2,
-                  className: selectedHotspot === hotspot.id ? "pulse-marker" : "",
+                  className:
+                    selectedHotspot === hotspot.id ? "pulse-marker" : "",
                 }}
                 eventHandlers={{ click: () => onHotspotSelect?.(hotspot) }}
               >
                 <Popup maxWidth={280}>
                   <div className="min-w-[200px]">
                     <div className="flex items-center gap-1 mb-1">
-                      <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
+                      <AlertCircle
+                        size={14}
+                        className="text-red-500 flex-shrink-0"
+                      />
                       <strong className="text-sm">{hotspot.label}</strong>
                     </div>
                     <div className="text-xs text-gray-600 space-y-0.5 mb-2">
                       <p>River: {hotspot.river || hotspot.river_id || "—"}</p>
-                      <p>Severity: <strong>{typeof hotspot.severity === "string" ? hotspot.severity.toUpperCase() : `${hotspot.severity}/100`}</strong></p>
-                      <p>Nearby facilities: {hotspot.nearby_factories ?? "—"}</p>
+                      <p>
+                        Severity:{" "}
+                        <strong>
+                          {typeof hotspot.severity === "string"
+                            ? hotspot.severity.toUpperCase()
+                            : `${hotspot.severity}/100`}
+                        </strong>
+                      </p>
+                      <p>
+                        Nearby facilities: {hotspot.nearby_factories ?? "—"}
+                      </p>
                     </div>
                     <div className="text-xs bg-gray-100 p-2 rounded mb-2">
                       <p className="font-semibold mb-0.5">Spectral Indices:</p>
-                      <p>NDTI: {hotspot.spectral?.ndti ?? hotspot.spectral?.ndti ?? "—"}</p>
-                      <p>Red/Blue: {hotspot.spectral?.red_blue_ratio ?? (hotspot.spectral as any)?.redBlueRatio ?? "—"}</p>
+                      <p>
+                        NDTI:{" "}
+                        {hotspot.spectral?.ndti ??
+                          hotspot.spectral?.ndti ??
+                          "—"}
+                      </p>
+                      <p>
+                        Red/Blue:{" "}
+                        {hotspot.spectral?.red_blue_ratio ??
+                          (hotspot.spectral as any)?.redBlueRatio ??
+                          "—"}
+                      </p>
                       <p>CDOM: {hotspot.spectral?.cdom ?? "—"}</p>
                     </div>
 
@@ -517,8 +603,12 @@ export default function PollutionMap({
                           Real Sentinel-2 Scene
                         </div>
                         <p className="text-blue-700">Date: {sat.scene_date}</p>
-                        <p className="text-blue-700">Cloud cover: {sat.cloud_cover}%</p>
-                        <p className="text-blue-700">Platform: {sat.platform}</p>
+                        <p className="text-blue-700">
+                          Cloud cover: {sat.cloud_cover}%
+                        </p>
+                        <p className="text-blue-700">
+                          Platform: {sat.platform}
+                        </p>
                         {sat.preview_url && (
                           <img
                             src={sat.preview_url}
@@ -531,7 +621,9 @@ export default function PollutionMap({
                       </div>
                     )}
                     {sat?.scene_date?.includes("Unavail") && (
-                      <p className="text-xs text-red-500 mt-1">Satellite verification unavailable</p>
+                      <p className="text-xs text-red-500 mt-1">
+                        Satellite verification unavailable
+                      </p>
                     )}
                   </div>
                 </Popup>
@@ -548,7 +640,9 @@ export default function PollutionMap({
               radius={7}
               pathOptions={{
                 color: getFactoryIcon(factory.type || factory.industry_type),
-                fillColor: getFactoryIcon(factory.type || factory.industry_type),
+                fillColor: getFactoryIcon(
+                  factory.type || factory.industry_type,
+                ),
                 fillOpacity: 0.8,
                 weight: 2,
               }}
@@ -560,8 +654,10 @@ export default function PollutionMap({
                   <br />
                   <span className="text-xs">
                     {factory.type || factory.industry_type}
-                    {factory.distance_to_river_m != null && ` · ${factory.distance_to_river_m}m from river`}
-                    {factory.attribution != null && ` · ${factory.attribution}% attribution`}
+                    {factory.distance_to_river_m != null &&
+                      ` · ${factory.distance_to_river_m}m from river`}
+                    {factory.attribution != null &&
+                      ` · ${factory.attribution}% attribution`}
                   </span>
                 </div>
               </Popup>

@@ -2,7 +2,14 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
-import { Eye, Layers, Droplets, Factory, Satellite, Loader } from "lucide-react";
+import {
+  Eye,
+  Layers,
+  Droplets,
+  Factory,
+  Satellite,
+  Loader,
+} from "lucide-react";
 
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
@@ -67,7 +74,7 @@ interface LiveData {
     id: string;
     lat: number;
     lng: number;
-    severity: string;
+    severity: string | number;
     label: string;
     river: string;
     type: string;
@@ -92,6 +99,17 @@ interface DashboardMapProps {
 const severityToNum = (s: string | number): number => {
   if (typeof s === "number") return s;
   return s === "critical" ? 88 : s === "high" ? 72 : s === "moderate" ? 52 : 30;
+};
+
+const severityLabel = (s: string | number): string => {
+  if (typeof s === "number") {
+    if (s >= 85) return "CRITICAL";
+    if (s >= 70) return "HIGH";
+    if (s >= 50) return "MODERATE";
+    return "LOW";
+  }
+
+  return s.toUpperCase();
 };
 
 export default function DashboardMap({ className = "" }: DashboardMapProps) {
@@ -125,7 +143,7 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
       setLoading(true);
       try {
         const res = await fetch(
-          `/api/geo?south=${S}&west=${W}&north=${N}&east=${E}`
+          `/api/geo?south=${S}&west=${W}&north=${N}&east=${E}`,
         );
         if (res.ok) {
           const data = await res.json();
@@ -134,7 +152,7 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
           }
         }
       } catch {
-        // Backend unavailable — keep showing static data
+        // Live API unavailable - keep showing static data
       } finally {
         setLoading(false);
       }
@@ -165,9 +183,12 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
-      case "high": return "#ef476f";
-      case "medium": return "#ffd166";
-      default: return "#06d6a0";
+      case "high":
+        return "#ef476f";
+      case "medium":
+        return "#ffd166";
+      default:
+        return "#06d6a0";
     }
   };
 
@@ -187,7 +208,8 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
   };
 
   // Use live data when available, else static fallback
-  const hasLiveData = liveData && (liveData.waterways.length > 0 || liveData.hotspots.length > 0);
+  const hasLiveData =
+    liveData && (liveData.waterways.length > 0 || liveData.hotspots.length > 0);
 
   return (
     <div className={`relative rounded-xl overflow-hidden ${className}`}>
@@ -262,7 +284,9 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
           ? liveData!.waterways.map((w) => (
               <Polyline
                 key={`w-${w.id}`}
-                positions={w.coordinates.map((c) => [c[1], c[0]] as [number, number])}
+                positions={w.coordinates.map(
+                  (c) => [c[1], c[0]] as [number, number],
+                )}
                 pathOptions={{
                   color: getWaterwayColor(w.type),
                   weight: w.type === "river" ? 3 : 2,
@@ -272,14 +296,19 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
                 <Popup>
                   <strong>{w.name}</strong>
                   <br />
-                  <span className="text-xs capitalize">{w.type} · OSM data</span>
+                  <span className="text-xs capitalize">
+                    {w.type} · OSM data
+                  </span>
                 </Popup>
               </Polyline>
             ))
           : riversData.features.map((river: any) => (
               <Polyline
                 key={river.properties.id}
-                positions={river.geometry.coordinates.map((c: number[]) => [c[1], c[0]])}
+                positions={river.geometry.coordinates.map((c: number[]) => [
+                  c[1],
+                  c[0],
+                ])}
                 pathOptions={{
                   color:
                     river.properties.status === "critical"
@@ -294,7 +323,9 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
                 <Popup>
                   <strong>{river.properties.name}</strong>
                   <br />
-                  <span className="text-xs">Status: {river.properties.status}</span>
+                  <span className="text-xs">
+                    Status: {river.properties.status}
+                  </span>
                 </Popup>
               </Polyline>
             ))}
@@ -319,11 +350,12 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
                       <strong>{spot.label}</strong>
                       <br />
                       <span className="text-xs">
-                        {spot.river} · {spot.severity.toUpperCase()}
+                        {spot.river} · {severityLabel(spot.severity)}
                       </span>
                       <br />
                       <span className="text-xs text-gray-500">
-                        NDTI: {spot.spectral.ndti} · {spot.nearby_factories} facilities
+                        NDTI: {spot.spectral.ndti} · {spot.nearby_factories}{" "}
+                        facilities
                       </span>
                     </div>
                   </Popup>
@@ -345,7 +377,9 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
                     <div className="text-center">
                       <strong>{spot.label}</strong>
                       <br />
-                      <span className="text-xs">Severity: {spot.severity}/100</span>
+                      <span className="text-xs">
+                        Severity: {spot.severity}/100
+                      </span>
                     </div>
                   </Popup>
                 </CircleMarker>
@@ -411,7 +445,10 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
           erosionData.corridors.slice(0, 3).map((corridor: any) => (
             <Polyline
               key={corridor.id}
-              positions={corridor.coordinates.map((c: number[]) => [c[1], c[0]])}
+              positions={corridor.coordinates.map((c: number[]) => [
+                c[1],
+                c[0],
+              ])}
               pathOptions={{
                 color: getRiskColor(corridor.risk_level),
                 weight: 4,
@@ -423,7 +460,8 @@ export default function DashboardMap({ className = "" }: DashboardMapProps) {
                   <strong>{corridor.name}</strong>
                   <br />
                   <span className="text-xs">
-                    Risk: {corridor.risk_level} · {corridor.retreat_rate_m_year}m/yr
+                    Risk: {corridor.risk_level} · {corridor.retreat_rate_m_year}
+                    m/yr
                   </span>
                 </div>
               </Popup>

@@ -67,7 +67,7 @@ prototype/
 - **Styling**: Tailwind CSS + shadcn/ui components
 - **Maps**: React-Leaflet + Leaflet.heat
 - **Icons**: Lucide React
-- **NO backend required** — all data is static JSON (demo mode)
+- **NO separate service required** — all data is static JSON (demo mode)
 
 ### Pages & Features
 
