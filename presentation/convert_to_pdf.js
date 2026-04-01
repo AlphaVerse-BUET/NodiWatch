@@ -1,8 +1,8 @@
 // NodiWatch Presentation to PDF Converter
 // Uses DeckTape (generic mode) for high-quality PDF with:
-//   ✓ Selectable text   ✓ Clickable links   ✓ Embedded fonts
-//   ✓ Full CSS grid/flex support (avoids Chromium print bug)
-//   ✓ Navigation UI hidden in PDF output
+//   - Selectable text   - Clickable links   - Embedded fonts
+//   - Full CSS grid/flex support (avoids Chromium print bug)
+//   - Navigation UI hidden in PDF output
 //
 // Usage: node convert_to_pdf.js
 
@@ -16,13 +16,13 @@ const SRC    = path.resolve(__dirname, 'index.html');
 const TMP    = path.resolve(__dirname, '_pdf_tmp.html');
 const OUTPUT = path.resolve(__dirname, 'NodiWatch_Presentation.pdf');
 
-// Build a temporary HTML file that's identical to index.html but with
+// Build a temporary HTML file that is identical to index.html but with
 // the navigation bar hidden via an injected <style> tag.
 // This keeps the original index.html completely unchanged.
 const original = fs.readFileSync(SRC, 'utf8');
 const patched  = original.replace(
     '</head>',
-    `<style>/* PDF export — hide nav UI */
+    `<style>/* PDF export - hide nav UI */
     .nav { display: none !important; }
     </style>
 </head>`
@@ -38,18 +38,20 @@ console.log(`  Size:   ${WIDTH}x${HEIGHT}\n`);
 try {
     execSync(
         `npx -y decktape generic --size ${WIDTH}x${HEIGHT} "${tmpUrl}" "${OUTPUT}"`,
-        { stdio: 'inherit', timeout: 120000 }
+        { stdio: 'inherit', timeout: 600000 }
     );
 
     const fileSize = (fs.statSync(OUTPUT).size / (1024 * 1024)).toFixed(1);
-    console.log(`\n✅ PDF generated: ${path.basename(OUTPUT)} (${fileSize} MB)`);
-    console.log('   ✓ Selectable text');
-    console.log('   ✓ Clickable links');
-    console.log('   ✓ All content rendered');
-    console.log('   ✓ Navigation bar hidden');
+    console.log(`\n[OK] PDF generated: ${path.basename(OUTPUT)} (${fileSize} MB)`);
+    console.log('   [OK] Selectable text');
+    console.log('   [OK] Clickable links');
+    console.log('   [OK] All content rendered');
+    console.log('   [OK] Navigation bar hidden');
 } catch (err) {
-    console.error('❌ PDF generation failed:', err.message);
+    console.error('[ERROR] PDF generation failed:', err.message);
 } finally {
     // Always clean up the temporary file
-    fs.unlinkSync(TMP);
+    if (fs.existsSync(TMP)) {
+        fs.unlinkSync(TMP);
+    }
 }
