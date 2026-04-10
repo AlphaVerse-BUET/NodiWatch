@@ -142,7 +142,7 @@ export default function AboutPage() {
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               An AI-powered satellite surveillance system for protecting
-              Bangladesh's <span className="text-red-400">1,400+ rivers</span>{" "}
+              Bangladesh&apos;s <span className="text-red-400">1,400+ rivers</span>{" "}
               from pollution, encroachment, and erosion.
             </p>
           </div>
@@ -163,7 +163,7 @@ export default function AboutPage() {
               To leverage cutting-edge satellite technology and artificial
               intelligence to create an automated, transparent, and actionable
               monitoring system that empowers authorities to protect
-              Bangladesh's vital river ecosystems.
+              Bangladesh&apos;s vital river ecosystems.
             </p>
           </div>
 
@@ -186,7 +186,7 @@ export default function AboutPage() {
         {/* Problem & Solution */}
         <div className="glass-card p-8 mb-16">
           <h2 className="text-2xl font-bold text-white mb-6">
-            The Problem We're Solving
+            The Problem We&apos;re Solving
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="p-4 bg-red-500/10 rounded-lg">

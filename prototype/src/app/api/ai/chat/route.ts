@@ -1,5 +1,5 @@
 /**
- * NodiWatch AI Chat API
+ * DhakaWatch AI Chat API
  * ======================
  * POST /api/ai/chat
  *
@@ -8,7 +8,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { chatWithNodiWatch } from "@/lib/gemini";
+import { chatWithDhakaWatch } from "@/lib/gemini";
 
 interface ChatMessage {
   role: "user" | "model";
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     const limitedHistory = history.slice(-10);
 
     // Get AI response with optional page context
-    const response = await chatWithNodiWatch(
+    const response = await chatWithDhakaWatch(
       message,
       limitedHistory,
       pageContext,

@@ -8,3 +8,7 @@ out
 .env.local
 venv
 temp
+.npm-cache/
+prototype/.node-xmlhttprequest-*
+prototype/aquascaping-*.json
+backend/aquascaping-*.json

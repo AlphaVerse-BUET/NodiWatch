@@ -175,13 +175,13 @@ export default function ValidationPage() {
               <span className="text-green-400">Validation</span>
             </h1>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Transparent methodology and validation results for NodiWatch's
+              Transparent methodology and validation results for NodiWatch&apos;s
               satellite-based classification models. We believe in honest
               reporting of both capabilities and limitations.
             </p>
             <div className="mt-4 inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-blue-500/10 border border-blue-500/30">
               <span className="text-blue-400 font-bold text-lg">Kappa 0.903</span>
-              <span className="text-gray-400 text-sm">— exceeds the 0.80 "Excellent Agreement" threshold defined by Landis & Koch (1977), the standard reference for remote sensing accuracy assessment. Published MNDWI studies on South Asian tropical rivers report Kappa 0.82–0.94.</span>
+              <span className="text-gray-400 text-sm">- exceeds the 0.80 &quot;Excellent Agreement&quot; threshold defined by Landis &amp; Koch (1977), the standard reference for remote sensing accuracy assessment. Published MNDWI studies on South Asian tropical rivers report Kappa 0.82-0.94.</span>
             </div>
           </div>
         </div>
@@ -419,8 +419,8 @@ export default function ValidationPage() {
                   </h4>
                   <p className="text-sm text-gray-400">
                     Confusion matrix computed by comparing MNDWI classification
-                    against reference labels. OA, Kappa, F1, User's and
-                    Producer's accuracy calculated per standard remote sensing
+                    against reference labels. OA, Kappa, F1, User&apos;s and
+                    Producer&apos;s accuracy calculated per standard remote sensing
                     methodology.
                   </p>
                 </div>

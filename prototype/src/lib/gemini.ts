@@ -1,5 +1,5 @@
 /**
- * NodiWatch Gemini AI Service
+ * DhakaWatch Gemini AI Service
  * ============================
  * Handles all interactions with Google Gemini API for:
  * - Environmental image analysis (pollution, erosion, encroachment detection)
@@ -36,31 +36,31 @@ const safetySettings = [
   },
 ];
 
-// System context for NodiWatch environmental monitoring
-const NODIWATCH_SYSTEM_CONTEXT = `You are NodiWatch AI, an expert environmental monitoring assistant specialized in Bangladesh's river ecosystem crisis. You serve the people of Bangladesh with Islamic values, recognizing that protecting Allah's creation (Amana) is part of our faith.
+// System context for DhakaWatch urban monitoring
+const DHAKAWATCH_SYSTEM_CONTEXT = `You are DhakaWatch AI, an expert urban monitoring assistant specialized in Dhaka's digital twin, flood risk, canal health, heat stress, drainage encroachment, and citizen reporting.
 
 You help analyze:
 
-1. **নদী দূষণ (River Pollution)**: Industrial effluent detection, spectral analysis (NDTI, CDOM indices), pollution source attribution, factory compliance tracking
+1. **খাল ও লেক স্বাস্থ্য (Canal & Lake Health)**: Waste buildup detection, turbidity change, organic load indicators, upstream attribution, maintenance prioritization
 
-2. **নদী দখল (River Encroachment)**: Illegal land filling detection, riverbank boundary changes, 2016-2026 comparisons, area loss calculations
+2. **ড্রেনেজ দখল (Drainage Encroachment)**: Illegal land filling detection, drainage narrowing, before/after comparison, water conveyance loss calculations
 
-3. **নদী ভাঙন (Riverbank Erosion)**: SAR-based erosion tracking, retreat rate calculation, risk zone identification, population displacement estimates
+3. **জলাবদ্ধতা ঝুঁকি (Waterlogging Risk)**: DEM-based sink detection, drainage bottleneck mapping, road submergence forecasting, route impact estimates
 
 Key Statistics:
-- Major urban and industrial rivers classified severely polluted; DoE declared Turag, Balu, and Shitalakshya ecologically critical (2009)
-- NRCC documented >37,000 illegal structures on 48 rivers (official survey)
-- ~8,700 hectares/yr lost to erosion nationally (Freihardt & Frey, 2023 — Sentinel-1 SAR study)
-- ~200,000 people affected annually by river erosion (Freihardt & Frey, 2023)
+- Dhaka's low-lying wards, canals, and flood-prone roads require fast triage after heavy rainfall
+- Urban heat islands are concentrated in dense built-up wards and sparse canopy zones
+- Citizen reports can be Bangla or English and should be summarized into action items for planners
 
 Technical Stack:
 - Sentinel-2 (10m optical, 5-day revisit), Sentinel-1 SAR (12-day, cloud-penetrating), Landsat 8/9 (30m archive)
 - Google Earth Engine for satellite processing
-- MNDWI index for water segmentation (OA 95.3%, Kappa 0.903)
-- Spectral indices (NDTI, CDOM, Red/Blue ratio) for pollution type classification
-- Bayesian spatial attribution for factory probability ranking
+- MNDWI for canal and water boundary detection
+- NDVI and land cover context for cooling/greening analysis
+- DEM-based flood vulnerability for waterlogging prediction
+- Bangla-first citizen report summarization and geo-tagged triage
 
-Respond with Islamic values and environmental stewardship (Khalifa concept). When greeting, use "Assalamu-'Alaikum". When analyzing images, identify pollution indicators (color, turbidity, effluent plumes), encroachment evidence (structures, land filling), or erosion signs (bank retreat, sediment patterns). End responses with "JazakAllah khair" (May Allah reward you with good) when appropriate.`;
+Respond with clear civic language. When greeting, use "Assalamu-'Alaikum". When analyzing images, identify canal pollution indicators, drainage obstruction evidence, waterlogging risk, illegal construction, or heat stress cues. Keep outputs actionable and concise.`;
 
 /**
  * Analyze an environmental image using Gemini Vision
@@ -199,9 +199,9 @@ Provide a JSON response with:
 }
 
 /**
- * Chat with NodiWatch AI assistant
+ * Chat with DhakaWatch AI assistant
  */
-export async function chatWithNodiWatch(
+export async function chatWithDhakaWatch(
   message: string,
   conversationHistory: Array<{ role: "user" | "model"; content: string }> = [],
   pageContext?: string,
@@ -209,7 +209,7 @@ export async function chatWithNodiWatch(
   const model = genAI.getGenerativeModel({
     model: "gemini-2.5-flash",
     safetySettings,
-    systemInstruction: NODIWATCH_SYSTEM_CONTEXT,
+    systemInstruction: DHAKAWATCH_SYSTEM_CONTEXT,
   });
 
   try {
@@ -291,12 +291,12 @@ Use formal language appropriate for regulatory submission.`;
  * Suggested questions for the chatbot
  */
 export const suggestedQuestions = [
-  "What rivers are most polluted in Bangladesh?",
-  "How does NodiWatch detect industrial pollution?",
-  "What is the NDTI spectral index?",
-  "How much land is lost to erosion annually?",
-  "What Sentinel satellites do you use?",
-  "How can I report pollution in my area?",
-  "What's the difference between encroachment and erosion?",
-  "How accurate is satellite pollution detection?",
+  "Which Dhaka wards are most at risk of waterlogging?",
+  "How does DhakaWatch detect canal encroachment?",
+  "What does the Tokyo comparison show?",
+  "How are citizen photos classified?",
+  "How should planners use the daily report?",
+  "What satellite layers power the city pulse?",
+  "How do I submit a Bangla report?",
+  "What areas should be prioritized after heavy rain?",
 ];

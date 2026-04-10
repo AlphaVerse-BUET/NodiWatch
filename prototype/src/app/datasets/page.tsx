@@ -204,13 +204,13 @@ export default function DatasetsPage() {
                   </p>
                   <div className="bg-slate-800/50 rounded-lg p-4 font-mono text-sm">
                     <div className="text-gray-400 mb-2">
-                      // Load NodiWatch pollution data
+                      {"// Load NodiWatch pollution data"}
                     </div>
                     <div className="text-teal">
                       var pollution = ee.FeatureCollection(
                     </div>
                     <div className="text-yellow-400 pl-4">
-                      'users/nodiwatch/pollution_hotspots_2024'
+                      {"'users/nodiwatch/pollution_hotspots_2024'"}
                     </div>
                     <div className="text-teal">);</div>
                   </div>

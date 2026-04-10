@@ -1,5 +1,5 @@
 /**
- * NodiWatch Report Generation API
+ * DhakaWatch Report Generation API
  * =================================
  * POST /api/ai/report
  *

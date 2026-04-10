@@ -18,17 +18,17 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "NodiWatch — AI-Powered River Surveillance",
+  title: "DhakaWatch — Urban Digital Twin for Dhaka",
   description:
-    "AI-Powered Satellite Surveillance System for Bangladesh Rivers — Detecting Pollution, Encroachment, and Erosion from Space",
+    "Satellite-powered urban intelligence for Dhaka — monitoring heat, waterlogging, canal health, and citizen reports from space",
   keywords: [
-    "NodiWatch",
+    "DhakaWatch",
     "Bangladesh",
-    "River",
+    "Dhaka",
     "Satellite",
-    "Pollution",
+    "Waterlogging",
     "Encroachment",
-    "Erosion",
+    "Canal",
     "AI",
     "GEE",
   ],

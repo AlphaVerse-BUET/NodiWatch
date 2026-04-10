@@ -1,0 +1,11 @@
+{
+  "name": "dhakawatch-monorepo",
+  "private": true,
+  "workspaces": ["prototype"],
+  "scripts": {
+    "dev": "npm --prefix prototype run dev",
+    "build": "npm --prefix prototype run build",
+    "start": "npm --prefix prototype run start",
+    "lint": "npm --prefix prototype run lint"
+  }
+}

@@ -1,5 +1,5 @@
 /**
- * NodiWatch AI Image Analysis API
+ * DhakaWatch AI Image Analysis API
  * ================================
  * POST /api/ai/analyze
  *

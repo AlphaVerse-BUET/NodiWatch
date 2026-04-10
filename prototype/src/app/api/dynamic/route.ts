@@ -16,20 +16,25 @@ export async function GET(request: NextRequest) {
   const parsed = parseRequiredBBox(searchParams);
 
   if ("error" in parsed) {
-    return NextResponse.json({ error: parsed.error }, { status: 400 });
+    return NextResponse.json({ detail: parsed.error }, { status: 400 });
   }
 
   const bbox = clampBangladeshBBox(parsed.bbox);
   if (bbox.north <= bbox.south || bbox.east <= bbox.west) {
-    return NextResponse.json({ error: "Invalid bounding box" }, { status: 400 });
+    return NextResponse.json({ detail: "Invalid bounding box" }, { status: 400 });
   }
 
-  const dynamicData = await fetchDynamicData(
+  const result = await fetchDynamicData(
     bbox.south,
     bbox.west,
     bbox.north,
     bbox.east,
   );
 
-  return NextResponse.json(await buildGeoCompatPayload(bbox, dynamicData));
+  const resilient = await buildGeoCompatPayload(bbox, result);
+  return NextResponse.json({
+    waterways: resilient.waterways,
+    factories: resilient.factories,
+    hotspots: resilient.hotspots,
+  });
 }

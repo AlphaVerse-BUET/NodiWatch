@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * NodiWatch AI Chatbot
+ * DhakaWatch AI Chatbot
  * =====================
  * Floating chatbot widget that appears on all pages.
  * Powered by Gemini AI with specialized environmental knowledge.
@@ -35,44 +35,44 @@ interface Message {
 // Per-page context descriptions fed to the AI
 const PAGE_CONTEXT: Record<string, { name: string; description: string }> = {
   "/": {
-    name: "Dashboard",
+    name: "Live City Pulse",
     description:
-      "The main NodiWatch dashboard. Shows aggregate stats: 1,400+ rivers monitored, 47 active pollution hotspots, factories tracked, violations detected, population at risk. Features a live Leaflet map with pollution/encroachment/erosion overlays, a satellite comparison section with before/after imagery for pollution, encroachment, and erosion (2016-2026), and an AI technology overview.",
+      "The main DhakaWatch dashboard. Shows AQI, urban heat, waterlogging risk, canal health, and citizen reporting. Features a live city map with heat, blue-green, and flood layers plus a Tokyo comparison widget and AI workflow overview.",
   },
   "/pollution": {
-    name: "Pollution Monitor",
+    name: "Canal Health",
     description:
-      "The river pollution monitoring page. Shows NDTI spectral index analysis, factory attribution with Bayesian models, live Buriganga/Dhaka river pollution map, and before/after comparison slider. Tracks high organic load clusters (tannery), dye signature clusters (textile), and chemical discharge by spectral fingerprinting. Users can see pollution hotspot locations, severity, and factory IDs.",
+      "The canal and lake health page. Shows spectral fingerprints for solid waste buildup, turbidity, and water quality stress in Dhaka's canals and lakes. Users can inspect hotspots, upstream activity, and triage recommendations.",
   },
   "/encroachment": {
-    name: "Encroachment Monitor",
+    name: "Drainage Encroachment",
     description:
-      "The river encroachment monitoring page. Uses MNDWI (Modified Normalized Difference Water Index) to detect illegal land filling and boundary violations. Shows 10-year comparison (2016-2026), area lost in kmÂ², and satellite evidence for Turag river and other encroached rivers.",
+      "The drainage encroachment monitoring page. Uses change detection to identify illegal buildings, land filling, and canal narrowing that reduce drainage capacity and raise flood risk.",
   },
   "/erosion": {
-    name: "Erosion Monitor",
+    name: "Waterlogging Risk",
     description:
-      "The riverbank erosion monitoring page. Uses Sentinel-1 SAR (Synthetic Aperture Radar) coherence analysis for cloud-penetrating monitoring. Shows retreat rates in m/yr, erosion corridors on Jamuna/Padma rivers, early warning alerts for communities, and displacement estimates.",
+      "The waterlogging risk page. Uses elevation-based flood modeling and drainage sink mapping to predict where roads and wards will submerge after short rain bursts.",
   },
   "/evidence": {
-    name: "Evidence Submission",
+    name: "Citizen Reports",
     description:
-      "The citizen ground-truth reporting platform. Users can drag-drop or upload multiple photos of environmental violations (pollution/encroachment/erosion). GPS location is auto-captured. Gemini Vision AI analyzes each image to classify threat type, severity (low/medium/high/critical), and generates a formal enforcement report for DoE/NRCC. Recent community submissions are visible in a gallery.",
+      "The citizen ground-truth reporting platform. Users can upload geo-tagged photos of waste, broken drains, or encroachment. Gemini Vision AI analyzes each image and routes it into the daily mayor brief.",
   },
   "/analysis": {
-    name: "Trend Analysis",
+    name: "City Analysis",
     description:
-      "Historical trend analysis page showing 10-year data (2016-2026) for Bangladesh river health. Includes charts for pollution severity trends, encroachment area growth over time, erosion retreat rate progression, and year-by-year comparison across all monitored rivers.",
+      "Historical trend analysis page showing Dhaka heat, AQI, canal health, waterlogging, and citizen complaints over time.",
   },
   "/datasets": {
     name: "Datasets",
     description:
-      "The data sources page listing all satellite and ground datasets used by NodiWatch: Sentinel-2 (10m optical, multispectral), Sentinel-1 SAR (C-band radar, erosion), Landsat 8/9 (30m, long-term archive), Google Earth Engine (cloud processing), Bangladesh government river databases.",
+      "The data sources page listing all satellite and ground datasets used by DhakaWatch: Sentinel-2, Sentinel-1, DEM, OpenStreetMap, and city operations data.",
   },
   "/about": {
-    name: "About NodiWatch",
+    name: "About DhakaWatch",
     description:
-      "About page for NodiWatch - Eco-Tech Hackathon 2026 project by Team AlphaVerse. Team: Ahmmad Nur Swapnil (AI/ML Lead - Spectral Index & Random Forest), Tamim Hasan Saad (Full-Stack Dev - Next.js/PostGIS), Ekramul Haque Amin (Backend + SAR signal processing), Habiba Rafique (AI/ML + database), Sonia Khatun (Full-Stack Dev, UI). Shows system architecture diagram, tech stack, and mission.",
+      "About page for DhakaWatch - the Impact Dhaka 2026 city digital twin by Team AlphaVerse. Shows the architecture, workflow, and demo story.",
   },
 };
 
@@ -85,7 +85,7 @@ export default function AIChatbot() {
       id: "1",
       role: "assistant",
       content:
-        "Assalamu-'Alaikum! ðŸ‘‹ I'm NodiWatch AI, your environmental monitoring assistant. I can help you understand river pollution, encroachment, and erosion in Bangladesh. What would you like to know? May Allah guide us in protecting His creation.",
+        "Assalamu-'Alaikum! I'm DhakaWatch AI, your urban digital twin assistant for Dhaka. I can help with canal health, drainage encroachment, waterlogging risk, and citizen reports. How can I help today?",
       timestamp: new Date(),
     },
   ]);
@@ -108,9 +108,9 @@ export default function AIChatbot() {
   }, [isOpen]);
 
   const currentPage = PAGE_CONTEXT[pathname] || {
-    name: "NodiWatch",
+    name: "DhakaWatch",
     description:
-      "A NodiWatch page for Bangladesh river environmental monitoring.",
+      "A DhakaWatch page for urban monitoring and digital twin intelligence.",
   };
 
   const buildPageContext = () =>
@@ -223,10 +223,10 @@ export default function AIChatbot() {
                 <Bot className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="font-semibold text-white">NodiWatch AI</h3>
+                <h3 className="font-semibold text-white">DhakaWatch AI</h3>
                 <p className="text-xs text-white/70 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
-                  {currentPage.name} Â· Page-aware
+                  {currentPage.name} · Page-aware
                 </p>
               </div>
             </div>
@@ -261,7 +261,7 @@ export default function AIChatbot() {
               <span className="text-teal-400 font-medium">
                 {currentPage.name}
               </span>{" "}
-              â€” Ask anything about this page or navigate to another
+              — Ask anything about this page or navigate to another
             </span>
           </div>
 
@@ -368,7 +368,7 @@ export default function AIChatbot() {
               </button>
             </div>
             <p className="text-[10px] text-slate-500 mt-2 text-center">
-              Powered by Gemini AI Â· Context-aware Â· NodiWatch v2.0
+              Powered by Gemini AI · Context-aware · DhakaWatch v1.0
             </p>
           </div>
         </div>

@@ -22,11 +22,11 @@ import {
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/pollution", label: "Pollution", icon: Factory },
-  { href: "/encroachment", label: "Encroachment", icon: LandPlot },
-  { href: "/erosion", label: "Erosion", icon: Mountain },
+  { href: "/pollution", label: "Canals", icon: Factory },
+  { href: "/encroachment", label: "Drainage", icon: LandPlot },
+  { href: "/erosion", label: "Flood Risk", icon: Mountain },
   { href: "/analysis", label: "Analysis", icon: BarChart3 },
-  { href: "/evidence", label: "Evidence", icon: Camera },
+  { href: "/evidence", label: "Reports", icon: Camera },
   { href: "/validation", label: "Validation", icon: Shield },
   { href: "/datasets", label: "Datasets", icon: Database },
   { href: "/about", label: "About", icon: Info },
@@ -48,11 +48,11 @@ export default function Navbar() {
             </div>
             <div>
               <h1 className="text-lg font-bold">
-                <span className="gradient-text">Nodi</span>
+                <span className="gradient-text">Dhaka</span>
                 <span className="text-white">Watch</span>
               </h1>
               <p className="text-[10px] text-slate-400 -mt-0.5 hidden sm:block">
-                AI River Surveillance
+                Urban Digital Twin
               </p>
             </div>
           </Link>
@@ -89,7 +89,7 @@ export default function Navbar() {
             </div>
             <div className="flex items-center gap-1.5">
               <div className="w-2 h-2 bg-teal rounded-full pulse-glow" />
-              <span className="text-xs text-slate-400">5-day refresh</span>
+              <span className="text-xs text-slate-400">Near-real-time city pulse</span>
             </div>
           </div>
 
