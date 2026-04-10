@@ -6,6 +6,18 @@ import fs from "fs/promises";
 import path from "path";
 
 type TileResult = { url: string; description: string; palette?: string };
+type WardSignal = { wardId: string; wardName: string; rawValue: number };
+type UrbanLayerResult = {
+  tiles: Record<string, TileResult>;
+  summary: {
+    layer: "uhi" | "flood" | "air" | "green";
+    period: string;
+    datasets: string[];
+    confidence: string;
+    notes: string;
+  };
+  wardSignals: WardSignal[];
+};
 
 type RunnerSuccess<T> = {
   ok: true;
@@ -155,4 +167,20 @@ export async function createErosionTile(): Promise<{
 export async function getSarErosionTileUrl() {
   const tile = await createErosionTile();
   return tile?.sar_erosion.url ?? null;
+}
+
+export async function createUhiIntelligence(): Promise<UrbanLayerResult | null> {
+  return runGeeTask<UrbanLayerResult>("uhi");
+}
+
+export async function createWaterloggingIntelligence(): Promise<UrbanLayerResult | null> {
+  return runGeeTask<UrbanLayerResult>("waterlogging");
+}
+
+export async function createAirQualityIntelligence(): Promise<UrbanLayerResult | null> {
+  return runGeeTask<UrbanLayerResult>("air-quality");
+}
+
+export async function createGreenCanopyIntelligence(): Promise<UrbanLayerResult | null> {
+  return runGeeTask<UrbanLayerResult>("green-canopy");
 }

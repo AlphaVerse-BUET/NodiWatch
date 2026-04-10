@@ -35,6 +35,18 @@ export async function GET() {
         "Frontend compatibility route returning 2016/2026 water masks",
       "/api/gee/erosion":
         "Frontend compatibility route returning SAR erosion tiles",
+      "/api/gee/uhi":
+        "Urban Heat Island intelligence tiles + summary + ward signals",
+      "/api/gee/waterlogging":
+        "Waterlogging intelligence tiles + summary + ward signals",
+      "/api/gee/air-quality":
+        "Air quality burden tiles + summary + ward signals",
+      "/api/gee/green-canopy":
+        "Green canopy index tiles + summary + ward signals",
+      "/api/analytics/ward-scores":
+        "Ward-normalized risk scores for uhi|flood|air|green",
+      "/api/analytics/road-flood-risk":
+        "Road passability risk list derived from flood ward scores",
     },
   });
 }

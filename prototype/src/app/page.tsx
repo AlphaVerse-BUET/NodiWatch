@@ -9,6 +9,10 @@ import {
   Sparkles,
   TriangleAlert,
   Workflow,
+  ThermometerSun,
+  CloudRain,
+  Wind,
+  Trees,
 } from "lucide-react";
 import DashboardMap from "@/components/maps/DashboardMap";
 import StatsCard from "@/components/StatsCard";
@@ -114,6 +118,63 @@ export default function HomePage() {
             {dhakaPulseCards.map((card) => (
               <StatsCard key={card.title} {...card} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-4 lg:py-8">
+        <div className="container mx-auto px-4">
+          <div className="glass-card p-5">
+            <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
+              <h2 className="text-xl font-semibold text-white">
+                Urban Intelligence Modules
+              </h2>
+              <span className="text-xs text-slate-400">
+                Additive modules powered by Earth Engine
+              </span>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <Link
+                href="/uhi-monitoring"
+                className="rounded-xl border border-white/10 bg-slate-900/40 p-4 hover:bg-slate-900/60 transition-colors"
+              >
+                <ThermometerSun className="w-5 h-5 text-orange-300 mb-2" />
+                <div className="text-white font-medium">UHI Heat Risk</div>
+                <div className="text-xs text-slate-400 mt-1">
+                  Landsat LST + ward intervention queue
+                </div>
+              </Link>
+              <Link
+                href="/waterlogging-watch"
+                className="rounded-xl border border-white/10 bg-slate-900/40 p-4 hover:bg-slate-900/60 transition-colors"
+              >
+                <CloudRain className="w-5 h-5 text-cyan-300 mb-2" />
+                <div className="text-white font-medium">Waterlogging Watch</div>
+                <div className="text-xs text-slate-400 mt-1">
+                  DEM sinks + Sentinel-1 monsoon accumulation
+                </div>
+              </Link>
+              <Link
+                href="/air-quality-watch"
+                className="rounded-xl border border-white/10 bg-slate-900/40 p-4 hover:bg-slate-900/60 transition-colors"
+              >
+                <Wind className="w-5 h-5 text-sky-300 mb-2" />
+                <div className="text-white font-medium">Air Burden Map</div>
+                <div className="text-xs text-slate-400 mt-1">
+                  NO2, SO2, CO strategic ward scoring
+                </div>
+              </Link>
+              <Link
+                href="/green-canopy-index"
+                className="rounded-xl border border-white/10 bg-slate-900/40 p-4 hover:bg-slate-900/60 transition-colors"
+              >
+                <Trees className="w-5 h-5 text-green-300 mb-2" />
+                <div className="text-white font-medium">Green Canopy Index</div>
+                <div className="text-xs text-slate-400 mt-1">
+                  Five-year NDVI change and ward green score
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

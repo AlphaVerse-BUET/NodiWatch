@@ -24,6 +24,25 @@ export interface ErosionTile {
   };
 }
 
+export interface WardSignal {
+  wardId: string;
+  wardName: string;
+  rawValue: number;
+}
+
+export interface UrbanLayerPayload {
+  tiles: Record<string, { url: string; description: string; palette?: string }>;
+  summary: {
+    layer: "uhi" | "flood" | "air" | "green";
+    period: string;
+    datasets: string[];
+    confidence: string;
+    notes: string;
+  };
+  scoresRef: { endpoint: string };
+  wardSignals: WardSignal[];
+}
+
 /**
  * Fetch pollution spectral index tiles from GEE
  * Returns null if GEE is unavailable; map falls back to static data
@@ -111,4 +130,42 @@ export async function getErosionTile(): Promise<ErosionTile | null> {
     console.warn("Failed to fetch erosion tile:", error);
     return null;
   }
+}
+
+async function fetchUrbanLayer(
+  endpoint: "/api/gee/uhi" | "/api/gee/waterlogging" | "/api/gee/air-quality" | "/api/gee/green-canopy",
+): Promise<UrbanLayerPayload | null> {
+  try {
+    const response = await fetch(endpoint, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      console.warn(`Urban layer endpoint failed (${endpoint}):`, response.status);
+      return null;
+    }
+
+    return (await response.json()) as UrbanLayerPayload;
+  } catch (error) {
+    console.warn(`Failed to fetch urban layer (${endpoint}):`, error);
+    return null;
+  }
+}
+
+export async function getUhiLayer() {
+  return fetchUrbanLayer("/api/gee/uhi");
+}
+
+export async function getWaterloggingLayer() {
+  return fetchUrbanLayer("/api/gee/waterlogging");
+}
+
+export async function getAirQualityLayer() {
+  return fetchUrbanLayer("/api/gee/air-quality");
+}
+
+export async function getGreenCanopyLayer() {
+  return fetchUrbanLayer("/api/gee/green-canopy");
 }

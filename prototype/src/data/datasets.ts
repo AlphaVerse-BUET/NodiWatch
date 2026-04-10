@@ -102,35 +102,55 @@ export const datasets: Dataset[] = [
   },
   {
     id: "landsat8",
-    name: "Landsat 8/9 OLI",
+    name: "Landsat 8/9 Collection 2 L2",
     provider: "USGS/NASA",
     resolution: "30m (Optical), 100m (Thermal)",
     temporalCoverage: "2013-Present (L8), 2021-Present (L9)",
-    bands: ["B2-B7 (Optical)", "B10 (Thermal)", "B11 (Thermal)"],
+    bands: ["SR_B2-SR_B7 (Surface Reflectance)", "ST_B10 (Thermal)"],
     applications: [
-      "Historical baseline",
-      "Thermal anomaly detection",
-      "Long-term trend analysis",
+      "Urban heat island monitoring",
+      "Land surface temperature (LST)",
+      "Thermal anomaly detection in dense neighborhoods",
     ],
     geeCollection: "LANDSAT/LC08/C02/T1_L2",
     description:
-      "Extended historical record with thermal bands for detecting industrial thermal discharge. 16-day revisit time.",
+      "Thermal-enabled archive for UHI and long-term thermal trend analysis. Pair with LC09 collection for denser temporal coverage.",
   },
   {
     id: "dem",
-    name: "FABDEM / SRTM",
-    provider: "University of Bristol / NASA",
+    name: "ALOS AW3D30 DEM",
+    provider: "JAXA",
     resolution: "30m",
-    temporalCoverage: "Static (2000, 2020)",
-    bands: ["Elevation"],
+    temporalCoverage: "Static terrain model",
+    bands: ["DSM"],
     applications: [
-      "Flood risk modeling",
-      "Slope analysis",
-      "Drainage basin delineation",
+      "Urban sink identification",
+      "Flood susceptibility screening",
+      "Drainage and low-slope analysis",
     ],
-    geeCollection: "USGS/SRTMGL1_003",
+    geeCollection: "JAXA/ALOS/AW3D30/V4_1",
     description:
-      "Digital Elevation Models for terrain analysis. FABDEM removes forest/building bias for more accurate flood modeling.",
+      "High-quality 30m digital surface model used to identify low-lying zones likely to hold monsoon runoff.",
+  },
+  {
+    id: "sentinel5p",
+    name: "Sentinel-5P Atmospheric Chemistry",
+    provider: "ESA Copernicus",
+    resolution: "Coarse (strategic urban scale)",
+    temporalCoverage: "2018-Present",
+    bands: [
+      "NO2_column_number_density",
+      "SO2_column_number_density",
+      "CO_column_number_density",
+    ],
+    applications: [
+      "Ward-level pollution burden screening",
+      "NO2/SO2/CO trend monitoring",
+      "Urban mobility policy evidence",
+    ],
+    geeCollection: "COPERNICUS/S5P/OFFL/L3_NO2 (+ SO2/CO collections)",
+    description:
+      "Atmospheric composition data for strategic urban burden mapping. Suitable for policy targeting, not street-level diagnostics.",
   },
 ];
 
@@ -174,6 +194,22 @@ export const spectralIndices: SpectralIndex[] = [
     description:
       "High values indicate presence of red dyes typical of textile effluent",
     application: "Textile dye discharge detection",
+  },
+  {
+    name: "NDVI",
+    formula: "(NIR - Red) / (NIR + Red)",
+    threshold: 0.45,
+    description:
+      "Normalized Difference Vegetation Index for tree canopy condition and green-space quality",
+    application: "Ward-level green score and canopy trend monitoring",
+  },
+  {
+    name: "LST",
+    formula: "ST_B10 * 0.00341802 + 149.0 - 273.15",
+    threshold: 35.0,
+    description:
+      "Land Surface Temperature derived from Landsat Collection 2 thermal scaling",
+    application: "Urban heat island hotspot mapping",
   },
 ];
 

@@ -18,6 +18,7 @@ import {
   Camera,
   Sparkles,
   Shield,
+  ThermometerSun,
 } from "lucide-react";
 
 const navItems = [
@@ -25,6 +26,7 @@ const navItems = [
   { href: "/pollution", label: "Canals", icon: Factory },
   { href: "/encroachment", label: "Drainage", icon: LandPlot },
   { href: "/erosion", label: "Flood Risk", icon: Mountain },
+  { href: "/uhi-monitoring", label: "UHI", icon: ThermometerSun },
   { href: "/analysis", label: "Analysis", icon: BarChart3 },
   { href: "/evidence", label: "Reports", icon: Camera },
   { href: "/validation", label: "Validation", icon: Shield },

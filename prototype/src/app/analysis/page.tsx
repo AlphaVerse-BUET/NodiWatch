@@ -1,8 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import dynamic from "next/dynamic";
-import { TrendingUp, BarChart3, PieChart, Filter } from "lucide-react";
+import {
+  TrendingUp,
+  Filter,
+  ThermometerSun,
+  CloudRain,
+  Wind,
+  Trees,
+} from "lucide-react";
 
 const TrendChart = dynamic(() => import("@/components/charts/TrendChart"), {
   ssr: false,
@@ -110,6 +118,42 @@ export default function AnalysisPage() {
                 </button>
               );
             })}
+          </div>
+        </div>
+
+        <div className="glass-card p-4 mb-6">
+          <div className="text-sm text-slate-300 mb-3">
+            New urban intelligence modules
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <Link
+              href="/uhi-monitoring"
+              className="rounded-xl border border-white/10 bg-slate-900/40 p-3 hover:bg-slate-900/60 transition-colors"
+            >
+              <ThermometerSun size={16} className="text-orange-300 mb-1" />
+              <div className="text-sm text-white font-medium">UHI Heat Risk</div>
+            </Link>
+            <Link
+              href="/waterlogging-watch"
+              className="rounded-xl border border-white/10 bg-slate-900/40 p-3 hover:bg-slate-900/60 transition-colors"
+            >
+              <CloudRain size={16} className="text-cyan-300 mb-1" />
+              <div className="text-sm text-white font-medium">Waterlogging</div>
+            </Link>
+            <Link
+              href="/air-quality-watch"
+              className="rounded-xl border border-white/10 bg-slate-900/40 p-3 hover:bg-slate-900/60 transition-colors"
+            >
+              <Wind size={16} className="text-sky-300 mb-1" />
+              <div className="text-sm text-white font-medium">Air Burden</div>
+            </Link>
+            <Link
+              href="/green-canopy-index"
+              className="rounded-xl border border-white/10 bg-slate-900/40 p-3 hover:bg-slate-900/60 transition-colors"
+            >
+              <Trees size={16} className="text-green-300 mb-1" />
+              <div className="text-sm text-white font-medium">Green Index</div>
+            </Link>
           </div>
         </div>
 
